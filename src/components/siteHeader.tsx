@@ -1,8 +1,8 @@
+"use client"
 import Link from "next/link";
 import Image from "next/image";
 import { Search, User, ShoppingCart } from "lucide-react";
 import logo from "@/assets/logo.svg";
-
 const navigation = [
   { name: "SCENTED CANDLES", href: "/scented-candles" },
   { name: "PILLAR CANDLES", href: "/pillar-candles" },
@@ -11,10 +11,11 @@ const navigation = [
   { name: "CONTACT", href: "/contact" },
 ];
 
+
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#4B0082]">
-      <div className="flex h-16 items-center justify-between px-11">
+    <header className="sticky top-0 z-50 w-full">
+      <div className="flex h-16 items-center justify-between px-11  bg-[#500769]">
         <button 
           type="button"
           className="text-white h-10 w-10" 
@@ -53,7 +54,7 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <nav className="border-t border-white/20">
+      <nav className="border-t border-white/20 bg-[#500769]">
         <ul className="container flex items-center justify-center space-x-8 py-4">
           {navigation.map((item) => (
             <li key={item.name}>

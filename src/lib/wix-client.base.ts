@@ -12,7 +12,8 @@ import { redirects } from "@wix/redirects";
 import { reviews } from "@wix/reviews";
 import { createClient, OAuthStrategy } from "@wix/sdk";
 import { products, collections } from "@wix/stores";
-export function getWixClient() {
+
+export async function getWixClient() {
   return createClient({
     modules: {
       products,

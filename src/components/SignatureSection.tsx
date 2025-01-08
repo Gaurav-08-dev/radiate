@@ -53,7 +53,7 @@ const SignatureSection = () => {
               <Button
                 variant="default"
                 size="lg"
-                className="bg-[#4B0082] text-white hover:bg-[#4B0082]/90"
+                className="bg-[#500769] text-white hover:bg-[#500769]/90"
               >
                 <ShoppingBag /> ADD TO MY BAG
               </Button>

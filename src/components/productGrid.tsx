@@ -66,7 +66,7 @@ const products: Product[] = [
   }
 ]
 
-export function ProductGrid() {
+export function ProductGrid(props) {
   return (
     <div className="px-44 py-12">
       <h1 className="text-4xl font-serif text-center py-8">Customer Favorites</h1>
@@ -109,7 +109,7 @@ export function ProductGrid() {
                     <Button 
                       variant="default" 
                       size="lg" 
-                      className="mt-auto bg-purple-800 hover:bg-purple-700"
+                      className="mt-auto bg-[#500769] hover:bg-purple-700"
                     >
                       ADD TO MY BAG
                     </Button>

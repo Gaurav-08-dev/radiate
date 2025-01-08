@@ -16,7 +16,7 @@ export function HeroSection() {
           <div>
             <Button 
               size="lg" 
-              className="bg-[#4B0082] hover:bg-[#4B0082]/90 text-white px-8 py-6 text-lg"
+              className="bg-[#500769] hover:bg-[#500769]/90 text-white px-8 py-6 text-lg"
             >
               Find your scent
             </Button>

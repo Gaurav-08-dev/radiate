@@ -3,7 +3,7 @@ import { Instagram, FacebookIcon as Facebook, YoutubeIcon as Youtube, MailIcon a
 
 export function SiteFooter() {
   return (
-    <footer className="bg-[#4B0082] text-white py-12 px-16">
+    <footer className="bg-[#500769] text-white py-12 px-16">
       <div className="container grid grid-cols-1 md:grid-cols-3 gap-12">
         {/* Contact Us Section */}
         <div className="space-y-4 border-r border-white/20 pr-16">
