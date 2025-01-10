@@ -4,7 +4,7 @@ import SignatureSection from "@/components/SignatureSection";
 import { ShopByScent } from "@/components/ShopByScent";
 import { AboutSection } from "@/components/AboutSection";
 import { Suspense } from "react";
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Home() {
   return (
@@ -13,43 +13,38 @@ export default function Home() {
         <HeroSection />
         <Suspense fallback={<StorySkeletonSection />}>
           <ProductGrid />
+          <SignatureSection />
         </Suspense>
-        <SignatureSection />
         <ShopByScent />
         <AboutSection />
-       
       </main>
     </>
   );
 }
 
-
 function StorySkeletonSection() {
   return (
     <div className="relative w-full py-16 md:py-24">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col items-center max-w-3xl mx-auto text-center">
-          {/* Diamond Icon Skeleton */}
-          <Skeleton className="w-12 h-12 mb-6" />
+        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+          
+          <Skeleton className="mb-6 h-12 w-12 animate-pulse bg-gray-200" />
 
-          {/* Heading Skeleton */}
-          <Skeleton className="h-10 w-[300px] md:w-[500px] mb-6" />
-
-          {/* Description Skeleton - Multiple lines */}
-          <div className="w-full space-y-2 mb-12">
+          <Skeleton className="mb-6 h-10 w-[300px] animate-pulse bg-gray-200 md:w-[500px]" />
+          
+          <div className="mb-12 w-full space-y-2">
             <Skeleton className="h-4 w-full" />
             <Skeleton className="h-4 w-full" />
             <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-[80%] mx-auto" />
+            <Skeleton className="mx-auto h-4 w-[80%] animate-pulse bg-gray-200" />
           </div>
-
-          {/* Images Skeleton Container */}
-          <div className="flex flex-col md:flex-row gap-8 w-full">
-            <Skeleton className="w-full md:w-1/2 aspect-square rounded-lg" />
-            <Skeleton className="w-full md:w-1/2 aspect-square rounded-lg" />
+          
+          <div className="flex w-full flex-col gap-8 md:flex-row">
+            <Skeleton className="aspect-square w-full animate-pulse rounded-lg bg-gray-200 md:w-1/2" />
+            <Skeleton className="aspect-square w-full animate-pulse rounded-lg bg-gray-200 md:w-1/2" />
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

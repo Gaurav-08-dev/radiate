@@ -1,5 +1,5 @@
 "use client"
-
+import { scents } from "@/constants/scents"
 import Image from "next/image"
 import {
   Carousel,
@@ -9,32 +9,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { Card, CardContent } from "@/components/ui/card"
-import scent from "@/assets/scent.jpg"
 import { Button } from "@/components/ui/button"
-
-interface FragranceSlide {
-  title: string
-  image: string
-  alt: string
-}
-
-const fragrances: FragranceSlide[] = [
-  {
-    title: "Sweet & Floral",
-    image: scent.src,
-    alt: "Pink candle surrounded by fresh flowers and citrus"
-  },
-  {
-    title: "Gourmand",
-    image: scent.src,
-    alt: "White candle with hazelnuts and chocolate"
-  },
-  {
-    title: "Woody & Musky",
-    image: scent.src,
-    alt: "Beige candle in wooden setting"
-  }
-]
 
 export function ShopByScent() {
   return (
@@ -42,14 +17,14 @@ export function ShopByScent() {
         <h1 className="text-4xl font-serif text-center py-8">Shop By Scent</h1>
       <Carousel className="w-full max-w-5xl mx-auto">
         <CarouselContent>
-          {fragrances.map((fragrance, index) => (
+          {scents.map((scent, index) => (
             <CarouselItem key={index} className="sm:basis-1/2 md:basis-1/3 lg:basis-1/3">
               <div className="p-1">
                 <Card className="border-0 bg-transparent">
                   <CardContent className="relative aspect-square p-0">
                     <Image
-                      src={fragrance.image}
-                      alt={fragrance.alt}
+                      src={scent.img}
+                      alt={scent.name}
                       fill
                       className="object-cover rounded-lg"
                       priority={index === 0}
@@ -59,7 +34,7 @@ export function ShopByScent() {
                         variant="secondary" 
                         className="text-xl md:text-2xl font-medium whitespace-nowrap"
                       >
-                        {fragrance.title}
+                        {scent.name}
                       </Button>
                     </div>
                   </CardContent>
@@ -74,8 +49,9 @@ export function ShopByScent() {
       
       {/* Custom Dots Navigation */}
       <div className="flex justify-center gap-2 mt-6">
-        {fragrances.map((_, index) => (
+        {scents.map((_, index) => (
           <button
+            type="button"
             key={index}
             className="w-2 h-2 rounded-full bg-white opacity-50 hover:opacity-100 transition-opacity"
             aria-label={`Go to slide ${index + 1}`}

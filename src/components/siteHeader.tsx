@@ -1,8 +1,9 @@
-"use client"
+
 import Link from "next/link";
 import Image from "next/image";
 import { Search, User, ShoppingCart } from "lucide-react";
 import logo from "@/assets/logo.svg";
+import { getCart } from "@/wix-api/cart";
 const navigation = [
   { name: "SCENTED CANDLES", href: "/scented-candles" },
   { name: "PILLAR CANDLES", href: "/pillar-candles" },
@@ -12,7 +13,11 @@ const navigation = [
 ];
 
 
-export function SiteHeader() {
+
+export async function SiteHeader() {
+  const cart = await getCart();
+  const totalQuantity = cart?.lineItems?.reduce((acc: number, item: { quantity: number }) => acc + (item.quantity || 0), 0) || 0;
+
   return (
     <header className="sticky top-0 z-50 w-full">
       <div className="flex h-16 items-center justify-between px-11  bg-[#500769]">
@@ -46,15 +51,19 @@ export function SiteHeader() {
         </button>
         <button 
           type="button"
-          className="text-white h-10 w-10" 
+          className="text-white h-20 w-10 relative" 
           aria-label="Shopping Cart"
+         
         >
           <ShoppingCart />
+          {totalQuantity > 0 && <span className="absolute top-4 right-1 bg-[#FF9C46] text-[#500769] text-xs font-semibold rounded-full px-2 py-1">
+            {totalQuantity}
+          </span>}
         </button>
         </div>
       </div>
 
-      <nav className="border-t border-white/20 bg-[#500769]">
+      <nav className=" bg-[#500769]/90 backdrop-blur-md">
         <ul className="container flex items-center justify-center space-x-8 py-4">
           {navigation.map((item) => (
             <li key={item.name}>

@@ -1,55 +1,79 @@
-import React from "react";
-import Image from "next/image";
-import signatureCandle from "@/assets/signature-candle.jpg";
+import React from "react";;
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
+import { getWixClient } from "@/lib/wix-client.base";
+import WixImage from "./WixImage";
+import { replaceRupeesSymbol } from "@/lib/utils";
 
-const SignatureSection = () => {
-  const product = {
-    name: "Symphony: Life's Rythms",
-    price: 999,
-    weight: "200 gm/ 7.05oz",
-    image: signatureCandle,
-  };
+const SignatureSection = async () => {
+  const wixClient = await getWixClient();
+  const { collection } =
+    await wixClient.collections.getCollectionBySlug("signature-candle");
+  if (!collection) {
+    return null;
+  }
+
+  const signatureCandle = await wixClient.products
+    .queryProducts()
+    .hasSome("collectionIds", [collection._id])
+    .descending("lastUpdated")
+    .find();
+
+  if (!signatureCandle.items.length) return null;
+
+  const product = signatureCandle.items[0];
+  const mainImage = product.media?.mainMedia?.image;
+  const priceData = product?.priceData;
+  const productOptions = product?.productOptions;
   return (
-    <div className="pb-12">
+    <div className="pb-12 ">
       <div className="container mx-auto flex flex-col items-center gap-8 px-4">
         <h1 className="py-8 text-center font-serif text-4xl">
           Discover Our Signature Candle
         </h1>
-        <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2">
-          {/* Product Image */}
-          <div className="relative aspect-square h-[500px] w-full overflow-hidden rounded-lg">
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              className="object-cover"
-              priority
+        <div className="flex items-center justify-center md:flex-row">
+          <div className="h-full w-1/2 overflow-hidden rounded-lg">
+            <WixImage
+              mediaIdentifier={mainImage?.url}
+              alt={mainImage?.altText}
+              width={600}
+              height={600}
+              className="object-fill transition-transform duration-300 hover:scale-105"
             />
           </div>
 
-          {/* Product Info */}
           <div className="flex flex-col gap-6 pl-12">
             <h1 className="font-serif text-4xl">{product.name}</h1>
-            {/* Product Description */}
-            <div className="prose prose-invert max-w-none">
-              <p className="text-zinc-600">
-                In life&apos;s rush, Symphony invites you to slow down and savor
-                the moments that matter—shared laughter with loved ones, the
-                quiet joy of self-care, & peace. Inspired by the eternal dance
-                of the sun & moon, this candle embodies harmony with a blend of
-                sweet, earthy, soothing notes that uplift & ground you.
-              </p>
-            </div>
+
+            <div
+              className="text-zinc-800"
+              dangerouslySetInnerHTML={{
+                __html:
+                  product.additionalInfoSections?.find(
+                    (section) => section.title === "Special description",
+                  )?.description || "",
+              }}
+            />
+
             <div className="space-y-4">
               <div className="space-y-2">
-                <p className="text-zinc-400">{product.weight}</p>
-                <p className="text-2xl font-bold">Rs {product.price}</p>
+                {productOptions?.map((variant) => (
+                  <div key={variant.name}>
+                    <span className="flex gap-1 text-sm font-bold">
+                      {variant.name} -
+                      <span className="font-normal text-gray-500">
+                        {variant.choices?.map((item) => item.value)}
+                      </span>
+                    </span>
+                  </div>
+                ))}
+                <p className="text-xl font-bold">
+                  {replaceRupeesSymbol(priceData?.formatted?.price || "")}
+                </p>
               </div>
             </div>
 
-            <div className="flex flex-col gap-4 w-[300px]">
+            <div className="flex w-[300px] flex-col gap-4">
               <Button
                 variant="default"
                 size="lg"

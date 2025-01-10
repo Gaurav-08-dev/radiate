@@ -1,37 +1,42 @@
 /* eslint-disable @next/next/no-img-element */
+"use client";
 import React from "react";
 import { products } from "@wix/stores";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { media as wixMedia } from "@wix/sdk";
+import WixImage from "./WixImage";
+// import Badge from "./ui/badge";
+import { replaceRupeesSymbol } from "@/lib/utils";
+import { ShoppingBag } from "lucide-react";
 
 interface ProductGridUnitProps {
   product: products.Product;
+  width?: number;
+  height?: number;
 }
 
-const ProductGridUnit = ({ product }: ProductGridUnitProps) => {
+const ProductGridUnit = ({ product, width=700, height=700 }: ProductGridUnitProps) => {
   const mainImage = product.media?.mainMedia?.image;
-  const resizedImageUrl = mainImage?.url
-    ? wixMedia.getScaledToFillImageUrl(mainImage.url, 700, 700, {})
-    : null;
-  const productOptions = product.productOptions;
-  const priceData = product.priceData;
+
+  const productOptions = product?.productOptions;
+  const priceData = product?.priceData;
 
   return (
-    <div className="mx-auto flex h-[500px] w-72 flex-col rounded-lg border-[0.5px] border-purple-200 p-4">
+    <div className="flex h-[500px] w-72 flex-col rounded-lg border-[0.5px] border-purple-200 p-4">
+        <Link href={`/products/${product.slug}`} >
       <div className="relative mb-4 aspect-square h-[250px] overflow-hidden rounded-lg">
-        <img
-          src={resizedImageUrl || ""}
-          alt={product.slug}
+        <WixImage
+          mediaIdentifier={mainImage?.url}
+          alt={mainImage?.altText}
+          width={width}
+          height={height}
           className="object-cover transition-transform duration-300 hover:scale-105"
         />
       </div>
-
-      <div className="flex flex-grow flex-col justify-items-end">
-        <Link href={`/products/${product.slug}`} className="">
-          {product.name}
         </Link>
+
+      <div className="flex flex-grow flex-col justify-items-end gap-2">
+          {product.name}
         <div
           className="my-2 text-sm text-gray-600"
           dangerouslySetInnerHTML={{ __html: product.description || "" }}
@@ -49,12 +54,12 @@ const ProductGridUnit = ({ product }: ProductGridUnitProps) => {
           ))}
         </div>
 
-        <div className="mb-4 flex items-baseline gap-2">
-          <span className="text-xl">
-            {priceData?.formatted?.price
-              ?.replace("₹", "Rs ")
-              .replace(".00", "")}
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="text-sm">
+            {replaceRupeesSymbol(priceData?.formatted?.price || "")}
           </span>
+
+          {/* {product.ribbon && <Badge className="text-xs">{product.ribbon}</Badge>} */}
         </div>
 
         <Button
@@ -62,7 +67,7 @@ const ProductGridUnit = ({ product }: ProductGridUnitProps) => {
           size="lg"
           className="mt-auto bg-[#500769] hover:bg-purple-700"
         >
-          ADD TO MY BAG
+          <ShoppingBag />ADD TO MY BAG
         </Button>
       </div>
     </div>

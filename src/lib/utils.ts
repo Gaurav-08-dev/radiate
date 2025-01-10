@@ -8,3 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 export async function delay(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+export function replaceRupeesSymbol(text: string) {
+  return text.replace("₹", "Rs ").replace(".00", "");
+}
