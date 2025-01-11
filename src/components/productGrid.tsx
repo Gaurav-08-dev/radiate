@@ -51,8 +51,8 @@ const collection = await getCollectionBySlug("customer-favourites");
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="left-2" />
-          <CarouselNext className="right-2" />
+          <CarouselPrevious className="" />
+          <CarouselNext className="" />
         </Carousel>
       </div>
     </div>

@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import React from "react";
 import { products } from "@wix/stores";
@@ -33,12 +32,12 @@ const ProductGridUnit = ({ product, width=700, height=700 }: ProductGridUnitProp
           className="object-cover transition-transform duration-300 hover:scale-105"
         />
       </div>
+          {product.name}
         </Link>
 
-      <div className="flex flex-grow flex-col justify-items-end gap-2">
-          {product.name}
+      <div className="flex flex-grow flex-col justify-items-end gap-2 mt-2">
         <div
-          className="my-2 text-sm text-gray-600"
+          className="my-2 text-sm text-gray-600 prose dark:prose-invert"
           dangerouslySetInnerHTML={{ __html: product.description || "" }}
         />
         <div className="flex gap-2">

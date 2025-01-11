@@ -63,13 +63,13 @@ export async function SiteHeader() {
         </div>
       </div>
 
-      <nav className=" bg-[#500769]/90 backdrop-blur-md">
+      <nav className=" bg-gray-100/50 backdrop-blur-md">
         <ul className="container flex items-center justify-center space-x-8 py-4">
           {navigation.map((item) => (
             <li key={item.name}>
               <Link
                 href={item.href}
-                className="text-sm text-white hover:text-white/80"
+                className="text-sm hover:text-gray-500/80"
               >
                 {item.name}
               </Link>

@@ -3,7 +3,6 @@ import { useState } from "react";
 import WixImage from "@/components/WixImage";
 import { products } from "@wix/stores";
 // import { Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectValue,
@@ -12,36 +11,39 @@ import {
   SelectContent,
 } from "@/components/ui/select";
 import ProductDescription from "@/components/ProductDescription";
+import { AddToCartButton } from "@/components/AddToCartButton";
 
-const descriptionDetails = [
-  {
-    title: "Product details & ingredients",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-  },
-  {
-    title: "Directions of use",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-  },
-  {
-    title: "Ideal For",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-  },
-];
 interface ProductDetailProps {
   product: products.Product;
 }
 export default function ProductDetails({ product }: ProductDetailProps) {
+
+  const [quantity, setQuantity] = useState(1);
   const [currentImage, setCurrentImage] = useState(
     product.media?.mainMedia?.image,
   );
+
   const imagesList = product.media?.items;
   const priceData = product.priceData;
+  const productAdditionalDetails = product.additionalInfoSections;
+  
+  const productIngredients = productAdditionalDetails?.find(
+    (detail) => detail.title === "Product details & ingredients",
+  );
+  const productDirections = productAdditionalDetails?.find(
+    (detail) => detail.title === "Directions of use",
+  );
+  const productIdealFor = productAdditionalDetails?.find(
+    (detail) => detail.title === "Ideal for",
+  );
   const handleImageClick = (image: products.MediaItem) => {
     setCurrentImage(image.image);
   };
+
+  const isInStock = product?.stock?.quantity && product?.stock?.quantity > 0;
+  //   const availableQuantity = product.stock?.quantity;
+  //   const availableQuantityExceeded = !!availableQuantity && quantity > availableQuantity;
+  //   const inStock = checkInStock(product, selectedOptions); 3:57:57
 
   return (
     <div className="container mx-auto px-40 py-24">
@@ -79,7 +81,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
         </div>
 
         <div className="w-[60%] space-y-6">
-          <h1 className="text-5xl font-semibold">{product.name}</h1>
+          <h1 className="text-4xl font-semibold">{product.name}</h1>
 
           {/* <div className="flex items-center gap-2">
             {[...Array(5)].map((_, i) => (
@@ -94,7 +96,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
           </div> */}
 
           <div
-            className="text-2xl text-gray-700"
+            className="text-2xl text-gray-600"
             dangerouslySetInnerHTML={{
               __html: product.description || "",
             }}
@@ -128,11 +130,11 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                   {priceData?.formatted?.discountedPrice ||
                     priceData?.formatted?.price}
                 </span>
-                {priceData?.formatted?.discountedPrice &&
-                  priceData?.price &&
-                  priceData?.discountedPrice && (
-                    <span className="text-[#1D9C50]">{`You save ₹${priceData.price - priceData.discountedPrice}`}</span>
-                  )}
+                {product?.discount?.value ? (
+                  <span className="text-[#1D9C50]">{`You save ₹${product?.discount?.value}`}</span>
+                ) : (
+                  ""
+                )}
               </div>
               {/* </div> */}
             </div>
@@ -140,72 +142,51 @@ export default function ProductDetails({ product }: ProductDetailProps) {
             <div
               className={`mt-10 flex h-[50px] w-[400px] overflow-hidden rounded-sm`}
             >
-              <Select value={"1"} onValueChange={() => {}}>
-                <SelectTrigger className="h-full w-1/6 rounded-sm rounded-r-none border-r-0 border-[#500769] bg-white">
-                  <SelectValue defaultValue={1} />
-                </SelectTrigger>
-                <SelectContent>
-                  {[1, 2, 3, 4, 5].map((num) => (
-                    <SelectItem key={num} value={num.toString()}>
-                      {num}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              {isInStock && (
+                <Select
+                  value={quantity.toString()}
+                  onValueChange={(value) => setQuantity(Number(value))}
+                >
+                  <SelectTrigger className="h-full w-1/6 rounded-sm rounded-r-none border-r-0 border-[#500769] bg-white">
+                    <SelectValue defaultValue={1} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {[1, 2, 3, 4, 5].map((num) => (
+                      <SelectItem key={num} value={num.toString()}>
+                        {num}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
 
-              <Button
-                // onClick={() => onAdd?.(Number(quantity))}
-                className="h-full flex-1 rounded-l-none rounded-r-sm bg-[#500769] text-xl text-white hover:bg-[#500769]/90"
-              >
-                ADD TO MY BAG
-              </Button>
+              <AddToCartButton
+                className={`h-full flex-1 rounded-l-none rounded-r-sm ${isInStock ? "bg-[#500769]" : "bg-gray-300"} text-xl text-white hover:bg-[#500769]/90`}
+                product={product}
+                quantity={quantity}
+                buttonText={isInStock ? "Add to My Bag" : "Out of stock"}
+              />
             </div>
           </div>
-          <div className="space-y-4 pt-6">
-            {descriptionDetails.map((detail) => (
-              <ProductDescription
-                key={detail.title}
-                title={detail.title}
-                description={detail.description}
-              />
-            ))}
+          <div className="space-y-4 border-t pt-6">
+            <ProductDescription
+              key={productIngredients?.title}
+              title={productIngredients?.title || ""}
+              description={productIngredients?.description || ""}
+            />
+            <ProductDescription
+              key={productDirections?.title}
+              title={productDirections?.title || ""}
+              description={productDirections?.description || ""}
+            />
+            <ProductDescription
+              key={productIdealFor?.title}
+              title={productIdealFor?.title || ""}
+              description={productIdealFor?.description || ""}
+            />
           </div>
         </div>
       </div>
     </div>
   );
 }
-
-// function ProductSkeleton() {
-//     return (
-//         <div className="container mx-auto px-40 py-24">
-//           <div className="flex flex-col gap-12 md:flex-row">
-//             <div className="w-[40%] space-y-4">
-//               <div className="relative aspect-square max-h-fit max-w-fit overflow-hidden rounded-lg">
-//                 <div className="h-[500px] w-[500px] animate-pulse rounded-lg bg-gray-200" />
-//               </div>
-//               <div className="flex gap-2">
-//                 {[...Array(4)].map((_, i) => (
-//                   <div key={i} className="h-28 w-28 animate-pulse rounded-lg bg-gray-200" />
-//                 ))}
-//               </div>
-//             </div>
-
-//             <div className="w-[60%] space-y-6">
-//               <div className="h-12 w-3/4 animate-pulse rounded bg-gray-200" />
-
-//               <div className="flex items-center gap-2">
-//                 {[...Array(5)].map((_, i) => (
-//                   <div key={i} className="h-4 w-4 animate-pulse rounded-full bg-gray-200" />
-//                 ))}
-//                 <div className="h-4 w-20 animate-pulse rounded bg-gray-200" />
-//               </div>
-
-//               <div className="h-8 w-1/4 animate-pulse rounded bg-gray-200" />
-//               <div className="h-10 w-1/3 animate-pulse rounded bg-gray-200" />
-//               <div className="h-12 w-full animate-pulse rounded bg-gray-200" />
-//             </div>
-//           </div>
-//         </div>
-//     )
-// }

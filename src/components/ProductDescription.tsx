@@ -10,8 +10,10 @@ type ProductDescriptionProps = {
 export default function ProductDescription({ title, description }: ProductDescriptionProps) {
   const [open, setOpen] = useState(false);
 
+  if(!description) return null;
+
   return (
-    <div className="border-t py-4">
+    <div className="border-b py-4">
       <div
         className="flex cursor-pointer items-center justify-between"
         onClick={() => setOpen((prev) => !prev)}
@@ -37,9 +39,7 @@ export default function ProductDescription({ title, description }: ProductDescri
         </div>
       </div>
       {open && (
-        <div className="mt-4 text-gray-500">
-          <p>{description}</p>
-        </div>
+        <div className="mt-4 text-gray-500" dangerouslySetInnerHTML={{ __html: description }} />
       )}
     </div>
   );

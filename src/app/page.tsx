@@ -1,9 +1,9 @@
+import { Suspense } from "react";
 import { HeroSection } from "@/components/heroSection";
 import { ProductGrid } from "@/components/productGrid";
 import SignatureSection from "@/components/SignatureSection";
 import { ShopByScent } from "@/components/ShopByScent";
 import { AboutSection } from "@/components/AboutSection";
-import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Home() {
@@ -33,9 +33,9 @@ function StorySkeletonSection() {
           <Skeleton className="mb-6 h-10 w-[300px] animate-pulse bg-gray-200 md:w-[500px]" />
           
           <div className="mb-12 w-full space-y-2">
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-full bg-gray-200" />
+            <Skeleton className="h-4 w-full bg-gray-200" />
+            <Skeleton className="h-4 w-full bg-gray-200" />
             <Skeleton className="mx-auto h-4 w-[80%] animate-pulse bg-gray-200" />
           </div>
           
