@@ -39,7 +39,6 @@ export default function ProductDetails({ product }: ProductDetailProps) {
     setCurrentImage(image.image);
   };
 
-  console.log(product);
   const isInStock = product?.stock?.quantity && product?.stock?.quantity > 0;
   //   const availableQuantity = product.stock?.quantity;
   //   const availableQuantityExceeded = !!availableQuantity && quantity > availableQuantity;

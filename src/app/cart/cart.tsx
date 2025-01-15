@@ -14,7 +14,6 @@ interface CartProps {
 }
 export default function Cart({ initialCart }: CartProps) {
 
-
   const cart = useCart(initialCart);
   const lineItems = cart?.data?.lineItems;
   const mayLike = useGetMayLike();
