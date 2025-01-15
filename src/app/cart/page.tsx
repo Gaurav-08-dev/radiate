@@ -1,9 +1,15 @@
-import React from 'react'
+import Cart from "./cart";
+import { getCart } from "@/wix-api/cart";
+import { getWixServerClient } from "@/lib/wix-client.server";
+import { Suspense } from "react";
+import Loading from "../loading";
 
-const page = () => {
+export default async function CartPage() {
+  const cart = await getCart(getWixServerClient());
+
   return (
-    <div>page</div>
-  )
+    <Suspense fallback={<Loading />}>
+      <Cart initialCart={cart} />
+    </Suspense>
+  );
 }
-
-export default page

@@ -1,9 +1,10 @@
 import { getProductBySlug, queryProducts } from "@/wix-api/products";
 import { getCollectionBySlug } from "@/wix-api/collections";
 import ProductDetails from "./ProductDetail";
-import ProductGridUnit from "@/components/ProductGridUnit";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getWixServerClient } from "@/lib/wix-client.server";
+import YouMayLikeSection from "@/components/YouMayLikeSection";
 interface PageProps {
   params: {
     slug: string;
@@ -13,7 +14,7 @@ interface PageProps {
 export async function generateMetadata({
   params: { slug },
 }: PageProps): Promise<Metadata> {
-  const product = await getProductBySlug(slug);
+  const product = await getProductBySlug(getWixServerClient(), slug);
   if (!product?._id) notFound();
 
   const mainImage = product.media?.mainMedia?.image;
@@ -31,17 +32,17 @@ export async function generateMetadata({
 }
 
 
-export default async function Page({ params }: PageProps) {
-  const product = await getProductBySlug(params.slug);
+export default async function Page({ params:{slug} }: PageProps) {
+  const product = await getProductBySlug(getWixServerClient(), slug);
   if (!product?._id) {
     return notFound();
   }
 
-  const collection = await getCollectionBySlug("scented-candle");
+  const collection = await getCollectionBySlug(getWixServerClient(), "scented-candle");
   if (!collection) {
     return null;
   }
-  const scentedCandles = await queryProducts({
+  const scentedCandles = await queryProducts(getWixServerClient(), {
     collectionIds: collection._id ? collection._id : undefined,
   });
 
@@ -50,21 +51,8 @@ export default async function Page({ params }: PageProps) {
   return (
     <main>
       <ProductDetails product={product} />
-      <div className="px-44 py-12">
-        <h1 className="py-8 text-center text-4xl font-semibold">
-          You may also like
-        </h1>
-        <div className="flex flex-wrap justify-center gap-8">
-          {scentedCandles.items.slice(0, 3).map((product) => (
-            <ProductGridUnit
-              key={product.numericId}
-              product={product}
-              width={800}
-              height={800}
-            />
-          ))}
-        </div>
-      </div>
+      <YouMayLikeSection product={scentedCandles.items} />
+      
       {/* <pre>{JSON.stringify(product, null, 2)}</pre> */}
     </main>
   );

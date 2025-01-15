@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { WIX_STORE_APP_ID } from "@/lib/constants";
 import { findVariant } from "@/lib/utils";
-import { getWixClient } from "@/lib/wix-client.base";
+import { WixClient } from "@/lib/wix-client.base";
 import { products } from "@wix/stores";
 
-export async function getCart() {
-  const wixClient = await getWixClient();
+export async function getCart(wixClient: WixClient) {
   try {
-    const cart = await wixClient.currentCart.getCurrentCart();
-    return cart;
+    return await (await wixClient).currentCart.getCurrentCart();
+    
   } catch (error) {
     if((error as any).details.applicationError.code === "OWNED_CART_NOT_FOUND") {
       return null;
@@ -19,16 +18,16 @@ export async function getCart() {
   }
 }
 
-interface AddToCartValues {
+export interface AddToCartValues {
   product: products.Product;
   selectedOptions: Record<string, string>;
   quantity: number;
 }
-export async function addToCart({product, selectedOptions, quantity}: AddToCartValues) {
-  const wixClient =  await getWixClient();
-  const selectedVariant = findVariant(product, selectedOptions);
-
-    await wixClient.currentCart.addToCurrentCart({
+export async function addToCart(
+  wixClient: WixClient,
+  {product, selectedOptions, quantity}: AddToCartValues) {
+    const selectedVariant = findVariant(product, selectedOptions);
+    return  (await wixClient).currentCart.addToCurrentCart({
       lineItems: [
         {
           catalogReference:{

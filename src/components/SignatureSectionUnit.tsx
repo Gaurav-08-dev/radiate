@@ -1,11 +1,10 @@
 "use client";
 import React from "react";
-import { Button } from "@/components/ui/button";
-import {  ShoppingBag } from "lucide-react";
 import WixImage from "./WixImage";
 import { replaceRupeesSymbol } from "@/lib/utils";
 import { products } from "@wix/stores";
 import Link from "next/link";
+import { AddToCartButton } from "./AddToCartButton";
 interface SignatureSectionUnitProps {
   product: products.Product;
 }
@@ -65,13 +64,11 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
             </div>
 
             <div className="flex w-[300px] flex-col gap-4">
-              <Button
-                variant="default"
-                size="lg"
+              <AddToCartButton
+                product={product}
+                quantity={1}
                 className="bg-[#500769] text-white hover:bg-[#500769]/90"
-              >
-                <ShoppingBag /> ADD TO MY BAG
-              </Button>
+              />
             </div>
           </div>
         </div>

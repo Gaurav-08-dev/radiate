@@ -1,9 +1,9 @@
 import React from "react";
-import { getWixClient } from "@/lib/wix-client.base";
 import SignatureSectionUnit from "./SignatureSectionUnit";
+import { getWixServerClient } from "@/lib/wix-client.server";
 
 const SignatureSection = async () => {
-  const wixClient = await getWixClient();
+  const wixClient = await getWixServerClient();
   const { collection } =
     await wixClient.collections.getCollectionBySlug("signature-candle");
   if (!collection) {

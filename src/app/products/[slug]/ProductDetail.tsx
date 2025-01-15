@@ -17,7 +17,6 @@ interface ProductDetailProps {
   product: products.Product;
 }
 export default function ProductDetails({ product }: ProductDetailProps) {
-
   const [quantity, setQuantity] = useState(1);
   const [currentImage, setCurrentImage] = useState(
     product.media?.mainMedia?.image,
@@ -26,7 +25,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
   const imagesList = product.media?.items;
   const priceData = product.priceData;
   const productAdditionalDetails = product.additionalInfoSections;
-  
+
   const productIngredients = productAdditionalDetails?.find(
     (detail) => detail.title === "Product details & ingredients",
   );
@@ -165,6 +164,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                 product={product}
                 quantity={quantity}
                 buttonText={isInStock ? "Add to My Bag" : "Out of stock"}
+                disabled={!isInStock}
               />
             </div>
           </div>

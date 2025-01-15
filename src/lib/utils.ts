@@ -28,6 +28,7 @@ export function findVariant(
   product: products.Product,
   selectedOptions: Record<string, string>,
 ) {
+  
   if (!product.manageVariants) return null;
 
   return (

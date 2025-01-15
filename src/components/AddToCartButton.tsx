@@ -1,8 +1,9 @@
 import { ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { addToCart } from "@/wix-api/cart";
 import { products } from "@wix/stores";
-import { Button } from "@/components/ui/button";
+import { ShoppingCartIcon } from "lucide-react";
+import LoadingButton from "./LoadingButton";
+import { useAddItemToCart } from "@/hooks/cart";
 
 interface AddToCartButtonProps extends ButtonProps {
   product: products.Product;
@@ -16,16 +17,20 @@ export function AddToCartButton({
   selectedOptions = {},
   quantity,
   className,
-  buttonText = 'Add to My Bag',
+  buttonText = 'Add to my bag',
   ...props
 }: AddToCartButtonProps) {
+
+  const { mutate, isPending } = useAddItemToCart();
   return (
-    <Button
-      onClick={() => addToCart({ product, selectedOptions, quantity })}
-      className={cn("w-full", className)}
+    <LoadingButton
+      isLoading={isPending}
+      onClick={() => mutate({ product, selectedOptions, quantity })}
+      className={cn("w-full flex items-center justify-center gap-2", className)}
       {...props}
     >
+      <ShoppingCartIcon className="size-5" />
       {buttonText}
-    </Button>
+    </LoadingButton>
   );
 }

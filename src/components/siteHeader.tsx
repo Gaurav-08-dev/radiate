@@ -1,9 +1,10 @@
-
 import Link from "next/link";
 import Image from "next/image";
-import { Search, User, ShoppingCart } from "lucide-react";
+import { Search, User } from "lucide-react";
 import logo from "@/assets/logo.svg";
+import { ShoppingCartButton } from "@/components/ShoppingCartButton";
 import { getCart } from "@/wix-api/cart";
+import { wixBrowserClient } from "@/lib/wix-client.browser";
 const navigation = [
   { name: "SCENTED CANDLES", href: "/scented-candles" },
   { name: "PILLAR CANDLES", href: "/pillar-candles" },
@@ -12,18 +13,15 @@ const navigation = [
   { name: "CONTACT", href: "/contact" },
 ];
 
-
-
 export async function SiteHeader() {
-  const cart = await getCart();
-  const totalQuantity = cart?.lineItems?.reduce((acc: number, item: { quantity: number }) => acc + (item.quantity || 0), 0) || 0;
+  const cart = await getCart(wixBrowserClient);
 
   return (
     <header className="sticky top-0 z-50 w-full">
-      <div className="flex h-16 items-center justify-between px-11  bg-[#500769]">
-        <button 
+      <div className="flex h-16 items-center justify-between bg-[#500769] px-11">
+        <button
           type="button"
-          className="text-white h-10 w-10" 
+          className="h-10 w-10 text-white"
           aria-label="Search"
         >
           <Search />
@@ -42,35 +40,22 @@ export async function SiteHeader() {
         </Link>
 
         <div className="flex items-center space-x-4">
-        <button 
-          type="button"
-          className="text-white h-10 w-10" 
-          aria-label="User"
-        >
-          <User />
-        </button>
-        <button 
-          type="button"
-          className="text-white h-20 w-10 relative" 
-          aria-label="Shopping Cart"
-         
-        >
-          <ShoppingCart />
-          {totalQuantity > 0 && <span className="absolute top-4 right-1 bg-[#FF9C46] text-[#500769] text-xs font-semibold rounded-full px-2 py-1">
-            {totalQuantity}
-          </span>}
-        </button>
+          <button
+            type="button"
+            className="h-10 w-10 text-white"
+            aria-label="User"
+          >
+            <User />
+          </button>
+          <ShoppingCartButton initialData={cart} />
         </div>
       </div>
 
-      <nav className=" bg-gray-100/50 backdrop-blur-md">
+      <nav className="bg-gray-100/50 backdrop-blur-md">
         <ul className="container flex items-center justify-center space-x-8 py-4">
           {navigation.map((item) => (
             <li key={item.name}>
-              <Link
-                href={item.href}
-                className="text-sm hover:text-gray-500/80"
-              >
+              <Link href={item.href} className="text-sm hover:text-gray-500/80">
                 {item.name}
               </Link>
             </li>

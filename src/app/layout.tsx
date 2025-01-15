@@ -3,6 +3,8 @@ import {  Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/siteHeader";
 import { SiteFooter } from "@/components/siteFooter";
+import ReactQueryProvider from "./ReactQueryProvider";
+import { Toaster } from "@/components/ui/toaster";
 const playfairDisplayt = Playfair_Display({
   subsets: ["latin"],
 });
@@ -12,7 +14,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: {template: "%s | Radiate",
+  title: {template: `%s`,
     absolute:"Radiate"
   },
   description: "Fragrance that speaks to your soul",
@@ -28,6 +30,8 @@ export default function RootLayout({
       <body
         className={`${playfairDisplayt.className} ${montserrat.className} antialiased`}
       >
+        <ReactQueryProvider>
+
         <div className="flex flex-col min-h-screen">
           <SiteHeader />
           <div className="flex-grow">
@@ -35,6 +39,8 @@ export default function RootLayout({
           </div>
           <SiteFooter />
         </div>
+        </ReactQueryProvider>
+        <Toaster />
       </body>
     </html>
   );
