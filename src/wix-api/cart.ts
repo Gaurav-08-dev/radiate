@@ -7,12 +7,12 @@ import { products } from "@wix/stores";
 export async function getCart(wixClient: WixClient) {
   try {
     return await (await wixClient).currentCart.getCurrentCart();
-    
   } catch (error) {
-    if((error as any).details.applicationError.code === "OWNED_CART_NOT_FOUND") {
+    if (
+      (error as any).details.applicationError.code === "OWNED_CART_NOT_FOUND"
+    ) {
       return null;
-    }
-    else {
+    } else {
       throw error;
     }
   }
@@ -25,23 +25,45 @@ export interface AddToCartValues {
 }
 export async function addToCart(
   wixClient: WixClient,
-  {product, selectedOptions, quantity}: AddToCartValues) {
-    const selectedVariant = findVariant(product, selectedOptions);
-    return  (await wixClient).currentCart.addToCurrentCart({
-      lineItems: [
-        {
-          catalogReference:{
-            appId:WIX_STORE_APP_ID,
-            catalogItemId: product._id,
-            options: selectedVariant ? {
-              variantId: selectedVariant._id,
-            }:{
-              options: selectedOptions,
-            }
-          },
-          quantity,
-        }
-      ],
-    });
+  { product, selectedOptions, quantity }: AddToCartValues,
+) {
+  const selectedVariant = findVariant(product, selectedOptions);
+  return (await wixClient).currentCart.addToCurrentCart({
+    lineItems: [
+      {
+        catalogReference: {
+          appId: WIX_STORE_APP_ID,
+          catalogItemId: product._id,
+          options: selectedVariant
+            ? {
+                variantId: selectedVariant._id,
+              }
+            : {
+                options: selectedOptions,
+              },
+        },
+        quantity,
+      },
+    ],
+  });
 }
 
+export interface UpdateCartItemQuantityValues {
+  productId: string;
+  newQuantity: number;
+}
+export async function updateCartItemQuantity(
+  wixClient: WixClient,
+  { productId, newQuantity }: UpdateCartItemQuantityValues,
+) {
+  return (await wixClient).currentCart.updateCurrentCartLineItemQuantity([
+    {
+      _id: productId,
+      quantity: newQuantity,
+    },
+  ]);
+}
+
+export async function removeCartItem(wixClient: WixClient, productId: string) {
+  return (await wixClient).currentCart.removeLineItemsFromCurrentCart([productId]);
+}

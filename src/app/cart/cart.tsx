@@ -1,67 +1,109 @@
 "use client";
-import { useCart } from "@/hooks/cart";
+import { useCart, useRemoveCartItem, useUpdateCartItemQuantity } from "@/hooks/cart";
 import { currentCart } from "@wix/ecom";
 import WixImage from "@/components/WixImage";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import YouMayLikeSection from "@/components/YouMayLikeSection";
+import { useGetMayLike } from "@/hooks/use-get-mayLike";
+import Loading from "./loading";
+import { Progress } from "@/components/ui/progress";
 
 interface CartProps {
   initialCart: currentCart.Cart | null;
 }
 export default function Cart({ initialCart }: CartProps) {
+
+
   const cart = useCart(initialCart);
   const lineItems = cart?.data?.lineItems;
+  const mayLike = useGetMayLike();
 
-  
+  const isLoading = cart.isFetching || mayLike.isFetching;
+
+  const isPending = cart.isPending || mayLike.isPending;
+
+  if (isPending) return <Loading />;
+
   return (
-      <main>
+    <main>
       <div className="mx-auto max-w-6xl p-6">
-        <h1 className="mb-6 text-3xl font-bold text-center">My Shopping Bag</h1>
-        
-        {(!cart.isPending && !cart?.data?.lineItems?.length) && <NoItemsInCart />}
+        {cart?.data?.lineItems?.length ? (
+          <h1 className="mb-6 text-center text-3xl font-bold">
+            My Shopping Bag
+          </h1>
+        ) : null}
 
-        {cart?.data?.lineItems?.length && <div className="flex gap-8">
-          <div className="flex-grow">
-            {lineItems?.map((item) => (
-              <ShoppingCartItem item={item} key={item._id} />
-            ))}
-          </div>
 
-          {/* Order Summary Section */}
-          <div className="w-80">
-            <div className="rounded bg-gray-50 p-4">
-              <div className="mb-4 rounded bg-green-100 p-2 text-green-600">
-                Your order is eligible for free delivery
+        {cart?.data?.lineItems?.length ? (
+          <div className="flex gap-8">
+            <div className="flex-grow">
+              {lineItems?.map((item) => (
+                <ShoppingCartItem item={item} key={item._id} />
+              ))}
+            </div>
+
+            <div className="w-80">
+              <div className="rounded bg-gray-50 p-4">
+                <Progress
+                  //@ts-expect-error Server component type mismatch with client component
+                  value={((cart?.data?.subtotal?.amount / 999) * 100) > 100 ? 100 : ((cart?.data?.subtotal?.amount / 999) * 100)}
+                  className="h-4"
+                  max={100}
+                />
+                <div className="mb-4 ml-2 text-xs">
+                  {/* @ts-expect-error Server component type mismatch with client component */}
+                  {cart?.data?.subtotal?.amount >= 999 ? (
+                    <p>
+                      Your order is eligible for{" "}
+                      <span className="font-semibold text-[#26A459]">
+                        free delivery
+                      </span>
+                    </p>
+                  ) : <p className="text-gray-500 text-m">Free delivery for orders over ₹999</p>}
+                </div>
+
+                <div className="mb-4 flex justify-between">
+                  <span className="pl-1">
+                    Total ({cart?.data?.lineItems?.length} items):
+                  </span>
+
+                  <span className="font-semibold">
+                    {/* @ts-expect-error Server component type mismatch with client component */}
+                    {cart?.data?.subtotal?.formattedAmount}
+                  </span>
+                </div>
+
+                <Button
+                  disabled={!cart?.data?.lineItems?.length || isLoading}
+                  className="w-full rounded bg-purple-700 py-3 text-white"
+                >
+                  Proceed to buy
+                </Button>
               </div>
-
-              <div className="mb-4 flex justify-between">
-                <span>Total (2 items):</span>
-                <span className="font-semibold">₹1198</span>
-              </div>
-
-              <button
-                type="button"
-                className="w-full rounded bg-purple-700 py-3 text-white"
-              >
-                Proceed to buy
-              </button>
             </div>
           </div>
-        </div>}
+        ) : <NoItemsInCart />}
       </div>
-      <YouMayLikeSection />
+      <YouMayLikeSection product={mayLike?.data || []} />
     </main>
   );
 }
 
 function ShoppingCartItem({ item }: { item: currentCart.LineItem }) {
+  const removeCartItemMutation = useRemoveCartItem();
+  const updateCartItemQuantityMutation = useUpdateCartItemQuantity();
+
+  const productId = item._id;
+  if (!productId) return null;
+
   const slug = item.url?.split("/").pop();
   const quantityLimitReached =
     !!item.quantity &&
     !!item.availability?.quantityAvailable &&
     item.quantity >= item.availability?.quantityAvailable;
 
+  
   return (
     <div className="mb-6 border-b pb-6">
       <div className="flex gap-4">
@@ -81,7 +123,6 @@ function ShoppingCartItem({ item }: { item: currentCart.LineItem }) {
           <div className="flex justify-between">
             <h3 className="font-semibold">{item.productName?.original}</h3>
             <div className="text-right">
-              {/* <div className="text-red-500">-7%</div> */}
               <div className="font-semibold">{item.price?.formattedAmount}</div>
               <div className="text-xs text-gray-500 line-through">
                 {item.fullPrice?.formattedAmount}
@@ -95,7 +136,12 @@ function ShoppingCartItem({ item }: { item: currentCart.LineItem }) {
                 disabled={item.quantity === 1}
                 type="button"
                 className="px-3 py-1"
-                // onClick={() => setQuantity(quantity - 1)}
+                onClick={() =>
+                  updateCartItemQuantityMutation.mutate({
+                    productId,
+                    newQuantity: !item?.quantity ? 0 : item.quantity - 1,
+                  })
+                }
               >
                 -
               </button>
@@ -109,7 +155,12 @@ function ShoppingCartItem({ item }: { item: currentCart.LineItem }) {
               <button
                 type="button"
                 className="px-3 py-1"
-                // onClick={() => setQuantity(quantity + 1)}
+                onClick={() =>
+                  updateCartItemQuantityMutation.mutate({
+                    productId,
+                    newQuantity: !item?.quantity ? 0 : item.quantity + 1,
+                  })
+                }
                 disabled={quantityLimitReached}
               >
                 +
@@ -117,11 +168,11 @@ function ShoppingCartItem({ item }: { item: currentCart.LineItem }) {
             </div>
 
             <div className="flex gap-4 text-sm text-gray-600">
-              <button type="button">Delete</button>
-              <span>|</span>
-              <button type="button">Save for later</button>
-              <span>|</span>
-              <button type="button">Share</button>
+              <button className="text-red-500 font-semibold" type="button" onClick={() => removeCartItemMutation.mutate(productId)}>Delete</button>
+              {/* <span className="text-gray-500">|</span>
+              <button className="text-gray-500 font-semibold" type="button">Save for later</button>
+              <span className="text-gray-500">|</span>
+              <button className="text-gray-500 font-semibold" type="button">Share</button> */}
             </div>
           </div>
         </div>
@@ -131,10 +182,14 @@ function ShoppingCartItem({ item }: { item: currentCart.LineItem }) {
 }
 
 function NoItemsInCart() {
-  return <div className="text-center mt-16">
-    <p className="text-lg text-gray-500">Your Shopping Bag is empty</p>
-    <Link href="/">
-        <Button className="mt-4 bg-[#500769] hover:bg-[#500769]/80 text-white">Continue Shopping</Button>
-    </Link>
-    </div>;
+  return (
+    <div className="mt-16 text-center">
+      <p className="text-lg text-gray-500">Your Shopping Bag is empty</p>
+      <Link href="/">
+        <Button className="mt-4 bg-[#500769] text-white hover:bg-[#500769]/80">
+          Continue Shopping
+        </Button>
+      </Link>
+    </div>
+  );
 }

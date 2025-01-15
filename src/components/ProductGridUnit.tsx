@@ -40,7 +40,7 @@ const ProductGridUnit = ({
 
       <div className="mt-2 flex flex-grow flex-col justify-items-end gap-2">
         <div
-          className="prose dark:prose-invert my-2 text-sm text-gray-600"
+          className="prose my-2 text-sm text-gray-600 dark:prose-invert"
           dangerouslySetInnerHTML={{ __html: product.description || "" }}
         />
         <div className="flex gap-2">
@@ -78,6 +78,10 @@ const ProductGridUnit = ({
           className="mt-auto bg-[#500769] hover:bg-purple-700"
           product={product}
           quantity={1}
+          disabled={!product?.stock?.inStock}
+          buttonText={
+            product?.stock?.inStock ? "Add to my bag" : "Out of stock"
+          }
         />
       </div>
     </div>

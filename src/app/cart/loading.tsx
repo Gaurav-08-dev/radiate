@@ -2,10 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
   return (
-    <main>
       <div className="mx-auto max-w-6xl p-6">
-        <h1 className="mb-6 text-3xl font-bold">My Shopping Bag</h1>
-        
         <div className="flex gap-8">
           {/* Cart Items Section */}
           <div className="flex-grow">
@@ -42,6 +39,5 @@ export default function Loading() {
           </div>
         </div>
       </div>
-    </main>
   );
 }

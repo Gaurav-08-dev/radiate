@@ -39,6 +39,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
     setCurrentImage(image.image);
   };
 
+  console.log(product);
   const isInStock = product?.stock?.quantity && product?.stock?.quantity > 0;
   //   const availableQuantity = product.stock?.quantity;
   //   const availableQuantityExceeded = !!availableQuantity && quantity > availableQuantity;
@@ -141,7 +142,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
             <div
               className={`mt-10 flex h-[50px] w-[400px] overflow-hidden rounded-sm`}
             >
-              {isInStock && (
+              {isInStock ? (
                 <Select
                   value={quantity.toString()}
                   onValueChange={(value) => setQuantity(Number(value))}
@@ -157,10 +158,10 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                     ))}
                   </SelectContent>
                 </Select>
-              )}
+              ) : null}
 
               <AddToCartButton
-                className={`h-full flex-1 rounded-l-none rounded-r-sm ${isInStock ? "bg-[#500769]" : "bg-gray-300"} text-xl text-white hover:bg-[#500769]/90`}
+                className={`h-full flex-1 rounded-l-none rounded-r-sm bg-[#500769] text-xl text-white hover:bg-[#500769]/90`}
                 product={product}
                 quantity={quantity}
                 buttonText={isInStock ? "Add to My Bag" : "Out of stock"}
