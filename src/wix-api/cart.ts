@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { WIX_STORE_APP_ID } from "@/lib/constants";
 import { findVariant } from "@/lib/utils";
 import { WixClient } from "@/lib/wix-client.base";
@@ -6,7 +5,7 @@ import { products } from "@wix/stores";
 
 export async function getCart(wixClient: WixClient) {
   try {
-    return await (await wixClient).currentCart.getCurrentCart();
+    return await wixClient.currentCart.getCurrentCart();
   } catch (error) {
     if (
       (error as any).details.applicationError.code === "OWNED_CART_NOT_FOUND"
@@ -23,12 +22,14 @@ export interface AddToCartValues {
   selectedOptions: Record<string, string>;
   quantity: number;
 }
+
 export async function addToCart(
   wixClient: WixClient,
   { product, selectedOptions, quantity }: AddToCartValues,
 ) {
   const selectedVariant = findVariant(product, selectedOptions);
-  return (await wixClient).currentCart.addToCurrentCart({
+
+  return wixClient.currentCart.addToCurrentCart({
     lineItems: [
       {
         catalogReference: {
@@ -38,9 +39,7 @@ export async function addToCart(
             ? {
                 variantId: selectedVariant._id,
               }
-            : {
-                options: selectedOptions,
-              },
+            : { options: selectedOptions },
         },
         quantity,
       },
@@ -52,11 +51,12 @@ export interface UpdateCartItemQuantityValues {
   productId: string;
   newQuantity: number;
 }
+
 export async function updateCartItemQuantity(
   wixClient: WixClient,
   { productId, newQuantity }: UpdateCartItemQuantityValues,
 ) {
-  return (await wixClient).currentCart.updateCurrentCartLineItemQuantity([
+  return wixClient.currentCart.updateCurrentCartLineItemQuantity([
     {
       _id: productId,
       quantity: newQuantity,
@@ -65,5 +65,19 @@ export async function updateCartItemQuantity(
 }
 
 export async function removeCartItem(wixClient: WixClient, productId: string) {
-  return (await wixClient).currentCart.removeLineItemsFromCurrentCart([productId]);
+  return wixClient.currentCart.removeLineItemsFromCurrentCart([productId]);
+}
+
+export async function clearCart(wixClient: WixClient) {
+  try {
+    return await wixClient.currentCart.deleteCurrentCart();
+  } catch (error) {
+    if (
+      (error as any).details.applicationError.code === "OWNED_CART_NOT_FOUND"
+    ) {
+      return;
+    } else {
+      throw error;
+    }
+  }
 }

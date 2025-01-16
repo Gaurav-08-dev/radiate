@@ -11,22 +11,22 @@ import { members } from "@wix/members";
 import { redirects } from "@wix/redirects";
 import { reviews } from "@wix/reviews";
 import { createClient, OAuthStrategy, Tokens } from "@wix/sdk";
-import { products, collections } from "@wix/stores";
+import { collections, products } from "@wix/stores";
 
-export async function getWixClient(tokens: Tokens | undefined) {
+export function getWixClient(tokens: Tokens | undefined) {
   return createClient({
     modules: {
       products,
       collections,
-      backInStockNotifications,
-      checkout,
       currentCart,
+      checkout,
+      redirects,
       orders,
       recommendations,
-      files,
-      members,
-      redirects,
+      backInStockNotifications,
       reviews,
+      members,
+      files,
     },
     auth: OAuthStrategy({
       clientId: env.NEXT_PUBLIC_WIX_CLIENT_ID,

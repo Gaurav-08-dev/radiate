@@ -1,10 +1,13 @@
+
 import Link from "next/link";
 import Image from "next/image";
 import { Search, User } from "lucide-react";
 import logo from "@/assets/logo.svg";
 import { ShoppingCartButton } from "@/components/ShoppingCartButton";
 import { getCart } from "@/wix-api/cart";
-import { wixBrowserClient } from "@/lib/wix-client.browser";
+import { getWixServerClient } from "@/lib/wix-client.server";
+import UserButton from "./UserButton";
+import { getLoggedInMember } from "@/wix-api/members";
 const navigation = [
   { name: "SCENTED CANDLES", href: "/scented-candles" },
   { name: "PILLAR CANDLES", href: "/pillar-candles" },
@@ -14,7 +17,13 @@ const navigation = [
 ];
 
 export async function SiteHeader() {
-  const cart = await getCart(wixBrowserClient);
+
+  const wixClient = getWixServerClient()
+  const [cart, loggedInMember] = await Promise.all([
+    getCart(wixClient),
+    getLoggedInMember(wixClient)
+  ]);
+  
 
   return (
     <header className="sticky top-0 z-50 w-full">
@@ -40,13 +49,11 @@ export async function SiteHeader() {
         </Link>
 
         <div className="flex items-center space-x-4">
-          <button
-            type="button"
-            className="h-10 w-10 text-white"
-            aria-label="User"
-          >
-            <User />
-          </button>
+          
+          <UserButton
+          className=" text-white outline-none"
+          loggedInMember={loggedInMember}
+          />
           <ShoppingCartButton initialData={cart} />
         </div>
       </div>

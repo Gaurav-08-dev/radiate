@@ -5,7 +5,8 @@ import { Suspense } from "react";
 import Loading from "../loading";
 
 export default async function CartPage() {
-  const cart = await getCart(getWixServerClient());
+  const wixClient = getWixServerClient()
+  const cart = getCart(wixClient);
 
   return (
     <Suspense fallback={<Loading />}>
