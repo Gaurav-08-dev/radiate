@@ -12,15 +12,16 @@ import { queryProducts } from "@/wix-api/products";
 import { getWixServerClient } from "@/lib/wix-client.server";
 
 export async function ProductGrid() {
-  const wixServerClient = await getWixServerClient();
-  // @ts-expect-error
-  
-  const collection = await getCollectionBySlug(wixServerClient, "customer-favourites");
+  const wixServerClient = getWixServerClient();
+
+  const collection = await getCollectionBySlug(
+    wixServerClient,
+    "customer-favourites",
+  );
   if (!collection) {
     return null;
   }
 
-  // @ts-expect-error
   const featuredProducts = await queryProducts(wixServerClient, {
     collectionIds: collection._id ? collection._id : undefined,
   });
@@ -28,8 +29,8 @@ export async function ProductGrid() {
   if (!featuredProducts.items.length) return null;
 
   return (
-    <div className="px-44 py-12">
-      <h1 className="py-8 text-center font-serif text-4xl">
+    <div className="px-40 py-12">
+      <h1 className="py-8 text-center font-serif text-5xl">
         Customer Favorites
       </h1>
 
@@ -46,12 +47,12 @@ export async function ProductGrid() {
       </nav>
 
       <div className="px-6">
-        <Carousel className="mx-auto max-w-fit ">
+        <Carousel className="mx-auto max-w-fit">
           <CarouselContent className="-ml-1">
             {featuredProducts?.items?.map((product) => (
               <CarouselItem
                 key={product.numericId}
-                className="pl-1 sm:basis-1/2 md:basis-1/2 lg:basis-1/3"
+                className="pl-1 sm:basis-1/2 md:basis-1/2 lg:basis-1/4"
               >
                 <ProductGridUnit product={product} width={700} height={700} />
               </CarouselItem>

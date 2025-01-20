@@ -1,5 +1,9 @@
 "use client";
-import { useCart, useRemoveCartItem, useUpdateCartItemQuantity } from "@/hooks/cart";
+import {
+  useCart,
+  useRemoveCartItem,
+  useUpdateCartItemQuantity,
+} from "@/hooks/cart";
 import { currentCart } from "@wix/ecom";
 import WixImage from "@/components/WixImage";
 import Link from "next/link";
@@ -13,7 +17,6 @@ interface CartProps {
   initialCart: currentCart.Cart | null;
 }
 export default function Cart({ initialCart }: CartProps) {
-
   const cart = useCart(initialCart);
   const lineItems = cart?.data?.lineItems;
   const mayLike = useGetMayLike();
@@ -22,6 +25,11 @@ export default function Cart({ initialCart }: CartProps) {
 
   const isPending = cart.isPending || mayLike.isPending;
 
+  const totalQuantity =
+    cart?.data?.lineItems?.reduce(
+      (acc, item) => acc + (item.quantity || 0),
+      0,
+    ) || 0;
   if (isPending) return <Loading />;
 
   return (
@@ -32,7 +40,6 @@ export default function Cart({ initialCart }: CartProps) {
             My Shopping Bag
           </h1>
         ) : null}
-
 
         {cart?.data?.lineItems?.length ? (
           <div className="flex gap-8">
@@ -45,8 +52,13 @@ export default function Cart({ initialCart }: CartProps) {
             <div className="w-80">
               <div className="rounded bg-gray-50 p-4">
                 <Progress
-                  //@ts-expect-error Server component type mismatch with client component
-                  value={((cart?.data?.subtotal?.amount / 999) * 100) > 100 ? 100 : ((cart?.data?.subtotal?.amount / 999) * 100)}
+                  value={
+                    /* @ts-expect-error Server component type mismatch with client component */
+                    (cart?.data?.subtotal?.amount / 999) * 100 > 100
+                      ? 100
+                      /* @ts-expect-error Server component type mismatch with client component */
+                      : (cart?.data?.subtotal?.amount / 999) * 100
+                  }
                   className="h-4"
                   max={100}
                 />
@@ -59,12 +71,16 @@ export default function Cart({ initialCart }: CartProps) {
                         free delivery
                       </span>
                     </p>
-                  ) : <p className="text-gray-500 text-m">Free delivery for orders over ₹999</p>}
+                  ) : (
+                    <p className="text-m text-gray-500">
+                      Free delivery for orders over ₹999
+                    </p>
+                  )}
                 </div>
 
                 <div className="mb-4 flex justify-between">
                   <span className="pl-1">
-                    Total ({cart?.data?.lineItems?.length} items):
+                    {`Total (${totalQuantity} ${totalQuantity > 1 ? "items" : "item"}):`}
                   </span>
 
                   <span className="font-semibold">
@@ -82,7 +98,9 @@ export default function Cart({ initialCart }: CartProps) {
               </div>
             </div>
           </div>
-        ) : <NoItemsInCart />}
+        ) : (
+          <NoItemsInCart />
+        )}
       </div>
       <YouMayLikeSection product={mayLike?.data || []} />
     </main>
@@ -102,7 +120,6 @@ function ShoppingCartItem({ item }: { item: currentCart.LineItem }) {
     !!item.availability?.quantityAvailable &&
     item.quantity >= item.availability?.quantityAvailable;
 
-  
   return (
     <div className="mb-6 border-b pb-6">
       <div className="flex gap-4">
@@ -167,7 +184,13 @@ function ShoppingCartItem({ item }: { item: currentCart.LineItem }) {
             </div>
 
             <div className="flex gap-4 text-sm text-gray-600">
-              <button className="text-red-500 font-semibold" type="button" onClick={() => removeCartItemMutation.mutate(productId)}>Delete</button>
+              <button
+                className="font-semibold text-red-500"
+                type="button"
+                onClick={() => removeCartItemMutation.mutate(productId)}
+              >
+                Delete
+              </button>
               {/* <span className="text-gray-500">|</span>
               <button className="text-gray-500 font-semibold" type="button">Save for later</button>
               <span className="text-gray-500">|</span>

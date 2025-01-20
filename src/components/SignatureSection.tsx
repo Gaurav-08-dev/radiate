@@ -3,7 +3,7 @@ import SignatureSectionUnit from "./SignatureSectionUnit";
 import { getWixServerClient } from "@/lib/wix-client.server";
 
 const SignatureSection = async () => {
-  const wixClient = await getWixServerClient();
+  const wixClient =  getWixServerClient();
   const { collection } =
     await wixClient.collections.getCollectionBySlug("signature-candle");
   if (!collection) {

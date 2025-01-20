@@ -11,7 +11,7 @@ export default function NotFound() {
           Oops! Page Not Found
         </h2>
         <p className="text-gray-600 max-w-md mx-auto">
-          The page you&apos;re looking for seems to have melted away. Let&apos;s get you back home.
+          The page you&apos;re looking for seems to have melted away Let&apos;s get you back home
         </p>
         <Link href="/" >
           <Button 

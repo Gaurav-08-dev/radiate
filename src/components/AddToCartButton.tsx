@@ -29,7 +29,7 @@ export function AddToCartButton({
       className={cn("w-full flex items-center justify-center gap-2", className)}
       {...props}
     >
-      <ShoppingCartIcon className="size-5" />
+      <ShoppingCartIcon className=""/>
       {buttonText}
     </LoadingButton>
   );

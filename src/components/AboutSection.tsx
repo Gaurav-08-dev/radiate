@@ -7,18 +7,17 @@ export function AboutSection() {
     <div className=" w-full py-16 md:py-24">
       
         <div className="relative mx-auto flex w-full items-center justify-center text-center overflow-clip">            
-          <div className="absolute aspect-square w-[400px] h-[300px] rotate-[10deg] top-[-2px] left-[-20px]">
+          <div className="lg:block md:hidden absolute aspect-square w-[400px] h-[300px] rotate-[10deg] top-10 left-[-35px]">
             <Image
               src={leftCandle}
               alt="Candle making process - pouring wax into containers"
               fill
               className="rounded-lg object-cover"
-
             />
           </div>
 
           <div className="flex flex-col items-center w-[50%]">
-            <div className="mb-6 h-16 w-16">
+            <div className="mb-6 h-20 w-20">
               <Image src={logo} alt="Diamond" className="h-full w-full" />
             </div>
 
@@ -38,7 +37,7 @@ export function AboutSection() {
             </p>
           </div>
 
-          <div className="absolute aspect-square w-[400px] h-[300px] rotate-[-10deg] top-[-7px] right-[-20px]">
+          <div className="lg:block md:hidden absolute aspect-square w-[400px] h-[300px] rotate-[-10deg] top-10 right-[-35px]">
             <Image
               src={rightCandle}
               alt="Candle packaging process"

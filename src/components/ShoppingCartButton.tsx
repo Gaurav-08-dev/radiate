@@ -21,7 +21,7 @@ export function ShoppingCartButton({ initialData }: ShoppingCartButtonProps) {
         className="relative h-20 w-10 text-white"
         aria-label="Shopping Cart"
       >
-        <Link href="/cart" className="">
+        <Link href="/cart">
           <ShoppingCart className="size-6" />
           {totalQuantity > 0 && (
             <span className="absolute right-1 top-4 rounded-full bg-[#FF9C46] px-2 py-1 text-xs font-semibold text-[#500769]">

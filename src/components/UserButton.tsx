@@ -36,10 +36,12 @@ export default function UserButton({
           <>
             <DropdownMenuLabel className="font-normal">
               Logged in as{" "}
-              <span className="text-[#500769] font-semibold">{loggedInMember.contact?.firstName || loggedInMember.loginEmail}</span>
+              <span className="font-semibold text-[#500769]">
+                {loggedInMember.contact?.firstName || loggedInMember.loginEmail}
+              </span>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <Link href="/profile" className="pl-2 flex gap-2 items-center">
+            <Link href="/profile" className="flex items-center gap-2 pl-2">
               <UserIcon className="size-4" />
               Profile
             </Link>
