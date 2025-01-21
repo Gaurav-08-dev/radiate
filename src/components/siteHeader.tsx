@@ -12,11 +12,12 @@ const navigation = [
   { name: "SCENTED CANDLES", href: "/scented-candles" },
   { name: "PILLAR CANDLES", href: "/pillar-candles" },
   { name: "GIFTING COMBOS", href: "/gifting-combos" },
-  { name: "ABOUT US", href: "/about" },
+  { name: "ABOUT US", href: "#about" },
   { name: "CONTACT", href: "/contact" },
 ];
 
 export async function SiteHeader() {
+  
   const wixClient = getWixServerClient();
   const [cart, loggedInMember] = await Promise.all([
     getCart(wixClient),

@@ -8,14 +8,15 @@ import { AddToCartButton } from "./AddToCartButton";
 interface SignatureSectionUnitProps {
   product: products.Product;
 }
+
 const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
   const mainImage = product.media?.mainMedia?.image;
   const priceData = product?.priceData;
   const productOptions = product?.productOptions;
-  
+
   return (
-    <div className="flex items-center gap-12 justify-between bg-[#F8D7E3]">
-      <div className="h-full w-1/2 overflow-hidden">
+    <div className="flex items-center justify-between gap-12 bg-[#F8D7E3]">
+      <div className="h-full min-h-[400px] w-1/2 overflow-hidden">
         <WixImage
           mediaIdentifier={mainImage?.url}
           alt={mainImage?.altText}
@@ -24,14 +25,16 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
           className="object-fill transition-transform duration-300 hover:scale-105"
         />
       </div>
-      <div className="w-1/2 mx-auto flex flex-col items-center gap-8 px-4">
+      <div className="mx-auto flex w-1/2 flex-col items-center gap-8 px-4">
         {/* <h1 className="py-8 text-center font-serif text-5xl font-medium tracking-tight">
           Discover Our Signature Candle
         </h1> */}
-        <div className="flex items-center justify-center md:flex-row ">
+        <div className="flex items-center justify-center md:flex-row">
           <div className="flex flex-col gap-6">
             <Link href={`/products/${product.slug}`}>
-              <h1 className="font-serif text-5xl font-medium">{product.name}</h1>
+              <h1 className="font-serif text-5xl font-medium">
+                {product.name}
+              </h1>
             </Link>
 
             <div

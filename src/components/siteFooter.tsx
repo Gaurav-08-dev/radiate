@@ -1,12 +1,12 @@
 import Link from "next/link"
-import { Instagram, FacebookIcon as Facebook, YoutubeIcon as Youtube, MailIcon as Mail, PhoneIcon as Phone } from 'lucide-react'
+import { Instagram, FacebookIcon as Facebook, MailIcon as Mail, PhoneIcon as Phone } from 'lucide-react'
 
 export function SiteFooter() {
   return (
     <footer className="bg-[#500769] text-white py-12 px-16">
       <div className="container grid grid-cols-1 md:grid-cols-3 gap-12">
         {/* Contact Us Section */}
-        <div className="space-y-4 border-r border-white/20 pr-16">
+        <div className="space-y-4  pr-16">
           <h2 className="text-2xl font-playfair mb-6">Contact us</h2>
           <div className="space-y-3">
             <a 
@@ -27,7 +27,7 @@ export function SiteFooter() {
         </div>
 
         {/* Connect with Us Section */}
-        <div className="space-y-4 border-r border-white/20 pr-16">
+        <div className="space-y-4  pr-16">
           <h2 className="text-2xl font-playfair mb-6">Connect with us</h2>
           <div className="space-y-3">
             <a 
@@ -47,15 +47,6 @@ export function SiteFooter() {
             >
               <Facebook className="h-5 w-5" />
               Facebook
-            </a>
-            <a 
-              href="https://youtube.com" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="flex items-center gap-2 hover:opacity-80"
-            >
-              <Youtube className="h-5 w-5" />
-              Youtube
             </a>
           </div>
         </div>

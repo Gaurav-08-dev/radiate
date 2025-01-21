@@ -49,11 +49,9 @@ export default async function Page({ params:{slug} }: PageProps) {
   if (!scentedCandles.items.length) return null;
 
   return (
-    <main>
+    <>
       <ProductDetails product={product} />
       <YouMayLikeSection product={scentedCandles.items} />
-      
-      {/* <pre>{JSON.stringify(product, null, 2)}</pre> */}
-    </main>
+    </>
   );
 }
