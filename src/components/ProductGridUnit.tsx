@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { products } from "@wix/stores";
 import Link from "next/link";
 import WixImage from "./WixImage";
@@ -7,6 +7,7 @@ import WixImage from "./WixImage";
 
 import { AddToCartButton } from "./AddToCartButton";
 import ProductOptions from "./ProductOptions";
+import { findVariant } from "@/lib/utils";
 
 interface ProductGridUnitProps {
   product: products.Product;
@@ -21,12 +22,21 @@ const ProductGridUnit = ({
 }: ProductGridUnitProps) => {
   const mainImage = product.media?.mainMedia?.image;
   const discount = product.discount;
-  // const productOptions = product?.productOptions;
   const priceData = product?.priceData;
+  const [selectedOptions, setSelectedOptions] = useState<
+    Record<string, string>
+  >(
+    product.productOptions
+      ?.map((option) => ({
+        [option.name || ""]: option.choices?.[0]?.description || "",
+      }))
+      ?.reduce((acc, option) => ({ ...acc, ...option }), {}) || {},
+  );
 
+  const selectedVariant = findVariant(product, selectedOptions);
   
   return (
-    <div className="flex h-[500px] w-72 flex-col rounded-lg p-4 overflow-hidden">
+    <div className="flex h-[500px] w-72 flex-col overflow-hidden rounded-lg p-4">
       <Link href={`/products/${product.slug}`}>
         <div className="relative mb-4 aspect-square h-[250px] overflow-hidden rounded-lg">
           <WixImage
@@ -37,7 +47,7 @@ const ProductGridUnit = ({
             className="object-cover transition-transform duration-300 hover:scale-105"
           />
         </div>
-        <div className="h-6 text-ellipsis overflow-hidden line-clamp-1 font-semibold">
+        <div className="line-clamp-1 h-6 overflow-hidden text-ellipsis font-semibold">
           {product.name}
         </div>
       </Link>
@@ -45,11 +55,15 @@ const ProductGridUnit = ({
       <div className="mt-2 flex flex-grow flex-col justify-between gap-2">
         <div>
           <div
-            className={`prose my-2 text-sm text-gray-600 dark:prose-invert text-ellipsis ${!product.productOptions?.length ? 'line-clamp-2' : 'line-clamp-1'}`}
+            className={`prose my-2 text-ellipsis text-sm text-gray-600 dark:prose-invert ${!product.productOptions?.length ? "line-clamp-2" : "line-clamp-1"}`}
             dangerouslySetInnerHTML={{ __html: product.description || "" }}
           />
-          <div className="flex gap-2 min-h-[39px]">
-            <ProductOptions product={product} />
+          <div className="flex min-h-[39px] gap-2">
+            <ProductOptions
+              product={product}
+              selectedOptions={selectedOptions}
+              setSelectedOptions={setSelectedOptions}
+            />
           </div>
         </div>
 
