@@ -10,6 +10,7 @@ import {
 import { getCollectionBySlug } from "@/wix-api/collections";
 import { queryProducts } from "@/wix-api/products";
 import { getWixServerClient } from "@/lib/wix-client.server";
+import Link from "next/link";
 
 export async function ProductGrid() {
   const wixServerClient = getWixServerClient();
@@ -35,15 +36,15 @@ export async function ProductGrid() {
       </h1>
 
       <nav className="flex justify-center gap-8 p-6 text-xl font-medium tracking-wider">
-        <a href="#" className="hover:text-purple-600">
+        <Link href="/products" className="hover:text-purple-600">
           VIEW ALL
-        </a>
-        <a href="#" className="hover:text-purple-600">
+        </Link>
+        <Link href="/scented-candles" className="hover:text-purple-600">
           SCENTED CANDLES
-        </a>
-        <a href="#" className="hover:text-purple-600">
+        </Link>
+        <Link href="/pillar-candles" className="hover:text-purple-600">
           PILLAR CANDLES
-        </a>
+        </Link>
       </nav>
 
       <div className="px-6">

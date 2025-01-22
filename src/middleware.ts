@@ -14,13 +14,14 @@ export async function middleware(request: NextRequest) {
   let sessionTokens = sessionCookie
     ? (JSON.parse(sessionCookie.value) as Tokens)
     : await wixClient.auth.generateVisitorTokens();
-console.log(sessionTokens)
+
   if (sessionTokens?.accessToken?.expiresAt < Math.floor(Date.now() / 1000)) {
     try {
       sessionTokens = await wixClient.auth.renewToken(
         sessionTokens.refreshToken,
       );
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) { 
       sessionTokens = await wixClient.auth.generateVisitorTokens();
     }
   }

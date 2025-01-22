@@ -80,7 +80,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
         </div>
 
         <div className="w-[60%] space-y-6">
-          <h1 className="text-4xl font-semibold">{product.name}</h1>
+          <h1 className="text-3xl font-semibold">{product.name}</h1>
 
           {/* <div className="flex items-center gap-2">
             {[...Array(5)].map((_, i) => (
@@ -95,7 +95,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
           </div> */}
 
           <div
-            className="text-2xl text-gray-600"
+            className="text-xl text-gray-600"
             dangerouslySetInnerHTML={{
               __html: product.description || "",
             }}

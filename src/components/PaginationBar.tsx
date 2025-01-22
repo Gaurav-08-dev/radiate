@@ -37,6 +37,8 @@ const PaginationBar = ({ totalPages, currentPage }: PaginationBarProps) => {
               currentPage === 1 && "pointer-events-none text-muted-foreground",
             )}
           />
+        </PaginationItem>
+        
           {Array.from({ length: totalPages }).map((_, i) => {
             const page = i + 1;
             const isEdgePage = page === 1 || page === totalPages; // first or last page
@@ -54,7 +56,7 @@ const PaginationBar = ({ totalPages, currentPage }: PaginationBarProps) => {
             }
 
             return (
-              <PaginationItem key={page} className="hidden md:block">
+              <PaginationItem key={page} className={cn(page === currentPage &&  "pointer-events-none block" , "hidden md:block")}>
                 <PaginationLink
                   isActive={page === currentPage}
                   href={getLink(page)}
@@ -64,6 +66,7 @@ const PaginationBar = ({ totalPages, currentPage }: PaginationBarProps) => {
               </PaginationItem>
             );
           })}
+          <PaginationItem>
           <PaginationNext
             href={getLink(currentPage + 1)}
             className={cn(

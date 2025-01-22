@@ -7,14 +7,9 @@ import { getCart } from "@/wix-api/cart";
 import { getWixServerClient } from "@/lib/wix-client.server";
 import UserButton from "./UserButton";
 import { getLoggedInMember } from "@/wix-api/members";
+import MainNavigation from "@/app/MainNavigation";
 
-const navigation = [
-  { name: "SCENTED CANDLES", href: "/scented-candles" },
-  { name: "PILLAR CANDLES", href: "/pillar-candles" },
-  { name: "GIFTING COMBOS", href: "/gifting-combos" },
-  { name: "ABOUT US", href: "#about" },
-  { name: "CONTACT", href: "/contact" },
-];
+
 
 export async function SiteHeader() {
   
@@ -23,6 +18,7 @@ export async function SiteHeader() {
     getCart(wixClient),
     getLoggedInMember(wixClient),
   ]);
+
 
   return (
     <header className="sticky top-0 z-50 w-full">
@@ -39,20 +35,7 @@ export async function SiteHeader() {
           <span className="text-2xl font-bold text-white">RADIATE</span>
         </Link>
 
-        <nav className="text-white">
-          <ul className="container flex items-center justify-center space-x-8 py-4">
-            {navigation.map((item) => (
-              <li key={item.name}>
-                <Link
-                  href={item.href}
-                  className="text-sm hover:text-white-500/50"
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <MainNavigation collections={[]} />
         <div className="flex items-center space-x-4">
           <button
             type="button"

@@ -136,9 +136,9 @@ function ShoppingCartItem({ item }: { item: currentCart.LineItem }) {
         </div>
 
         <div className="flex-grow">
-          <div className="flex justify-between">
-            <h3 className="font-semibold">{item.productName?.original}</h3>
-            <div className="text-right">
+          <div className="flex justify-between gap-4">
+            <h3 className="font-semibold line-clamp-2 flex-1 whitespace-normal break-words">{item.productName?.original}</h3>
+            <div className="text-right flex-shrink-0">
               <div className="font-semibold">{item.price?.formattedAmount}</div>
               <div className="text-xs text-gray-500 line-through">
                 {item.fullPrice?.formattedAmount}

@@ -4,6 +4,7 @@ import { cache } from "react";
 
 export const getCollectionBySlug = cache(async (wixClient: WixClient, slug: string) => {
   const {collection} = await wixClient?.collections?.getCollectionBySlug(slug);
+  console.log(collection)
   return collection || null;
 })
 
