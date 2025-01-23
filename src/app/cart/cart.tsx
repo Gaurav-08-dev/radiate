@@ -22,7 +22,6 @@ export default function Cart({ initialCart }: CartProps) {
   const mayLike = useGetMayLike();
 
   const isLoading = cart.isFetching || mayLike.isFetching;
-
   const isPending = cart.isPending || mayLike.isPending;
 
   const totalQuantity =
@@ -56,8 +55,8 @@ export default function Cart({ initialCart }: CartProps) {
                     /* @ts-expect-error Server component type mismatch with client component */
                     (cart?.data?.subtotal?.amount / 999) * 100 > 100
                       ? 100
-                      /* @ts-expect-error Server component type mismatch with client component */
-                      : (cart?.data?.subtotal?.amount / 999) * 100
+                      : /* @ts-expect-error Server component type mismatch with client component */
+                        (cart?.data?.subtotal?.amount / 999) * 100
                   }
                   className="h-4"
                   max={100}
@@ -137,8 +136,10 @@ function ShoppingCartItem({ item }: { item: currentCart.LineItem }) {
 
         <div className="flex-grow">
           <div className="flex justify-between gap-4">
-            <h3 className="font-semibold line-clamp-2 flex-1 whitespace-normal break-words">{item.productName?.original}</h3>
-            <div className="text-right flex-shrink-0">
+            <h3 className="line-clamp-2 flex-1 whitespace-normal break-words font-semibold">
+              {item.productName?.original}
+            </h3>
+            <div className="flex-shrink-0 text-right">
               <div className="font-semibold">{item.price?.formattedAmount}</div>
               <div className="text-xs text-gray-500 line-through">
                 {item.fullPrice?.formattedAmount}
@@ -206,7 +207,7 @@ function ShoppingCartItem({ item }: { item: currentCart.LineItem }) {
 function NoItemsInCart() {
   return (
     <div className="mt-16 text-center">
-      <p className="text-lg text-gray-500">Your Shopping Bag is empty</p>
+      <p className="text-lg text-gray-500">Your shopping bag is empty</p>
       <Link href="/">
         <Button className="mt-4 bg-[#500769] text-white hover:bg-[#500769]/80">
           Continue Shopping

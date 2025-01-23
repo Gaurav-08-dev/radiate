@@ -7,7 +7,7 @@ import WixImage from "./WixImage";
 
 import { AddToCartButton } from "./AddToCartButton";
 import ProductOptions from "./ProductOptions";
-import { findVariant } from "@/lib/utils";
+// import { findVariant } from "@/lib/utils";
 
 interface ProductGridUnitProps {
   product: products.Product;
@@ -33,7 +33,7 @@ const ProductGridUnit = ({
       ?.reduce((acc, option) => ({ ...acc, ...option }), {}) || {},
   );
 
-  const selectedVariant = findVariant(product, selectedOptions);
+  // const selectedVariant = findVariant(product, selectedOptions);
   
   return (
     <div className="flex h-[500px] w-72 flex-col overflow-hidden rounded-lg p-4">

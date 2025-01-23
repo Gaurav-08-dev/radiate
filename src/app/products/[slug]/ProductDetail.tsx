@@ -139,28 +139,42 @@ export default function ProductDetails({ product }: ProductDetailProps) {
             </div>
 
             <div
-              className={`mt-10 flex h-[50px] w-[400px] overflow-hidden rounded-sm`}
+              className={`mt-10 flex h-[50px] w-[400px] overflow-hidden rounded-sm gap-10`}
             >
               {isInStock ? (
-                <Select
-                  value={quantity.toString()}
-                  onValueChange={(value) => setQuantity(Number(value))}
+                <div className="flex rounded border">
+                <button
+                  disabled={quantity === 1}
+                  type="button"
+                  className="px-3 py-1"
+                  onClick={() =>
+                    setQuantity(quantity - 1)
+                  }
                 >
-                  <SelectTrigger className="h-full w-1/6 rounded-sm rounded-r-none border-r-0 border-[#500769] bg-white">
-                    <SelectValue defaultValue={1} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {[1, 2, 3, 4, 5].map((num) => (
-                      <SelectItem key={num} value={num.toString()}>
-                        {num}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                  -
+                </button>
+                <input
+                  title="Quantity"
+                  type="number"
+                  className="w-12 pl-3 text-center"
+                  value={quantity}
+                  readOnly
+                  // onChange={(e) => setQuantity(parseInt(e.target.value))}
+                />
+                <button
+                  type="button"
+                  className="px-3 py-1"
+                  onClick={() =>
+                    setQuantity(quantity + 1)
+                  }
+                >
+                  +
+                </button>
+              </div>
               ) : null}
 
               <AddToCartButton
-                className={`h-full flex-1 rounded-l-none rounded-r-sm bg-[#500769] text-xl text-white hover:bg-[#500769]/90`}
+                className={`h-full flex-1 rounded-sm bg-[#500769] text-xl text-white hover:bg-[#500769]/90`}
                 product={product}
                 quantity={quantity}
                 buttonText={isInStock ? "Add to My Bag" : "Out of stock"}

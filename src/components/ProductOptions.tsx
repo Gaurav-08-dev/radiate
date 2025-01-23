@@ -1,5 +1,6 @@
 import { products } from "@wix/stores";
 import { Label } from "./ui/label";
+import { checkInStock, cn } from "@/lib/utils";
 
 interface ProductOptionsProps {
   product: products.Product;
@@ -8,18 +9,14 @@ interface ProductOptionsProps {
 }
 
 export default function ProductOptions({ product, selectedOptions, setSelectedOptions }: ProductOptionsProps) {
+
   const id = product._id;
   const inventoryStatus = product.stock?.inventoryStatus?.toLowerCase() === "out_of_stock" ? true : false;
-  console.log(product.productOptions)
+  
   return (
       <div className="flex flex-wrap gap-2">
       {product.productOptions?.map((option) => (
           <fieldset key={`${option.name} + ${id}}`} className="space-y-1.5" disabled={inventoryStatus}>
-          {/* <legend>
-            <Label asChild>
-              <span>{option.name}</span>
-            </Label>
-          </legend> */}
           <div className="flex flex-wrap items-center gap-1.5">
             {option.choices?.map((choice, index) => (
                 <div key={`${choice.description} + ${id} + ${index}`}>
@@ -42,7 +39,10 @@ export default function ProductOptions({ product, selectedOptions, setSelectedOp
                 />
                 <Label
                   htmlFor={`${choice.description} + ${id} + ${index}`}
-                  className="flex min-w-14 cursor-pointer items-center justify-center gap-1.5 border rounded-md p-2 peer-checked:border-primary"
+                  className={cn("flex min-w-14 cursor-pointer items-center justify-center gap-1.5 border rounded-md p-2 peer-checked:border-primary",!checkInStock(product, {
+                    ...selectedOptions,
+                    [option.name || ""]: choice.description || "",
+                  }) && "opacity-50 cursor-not-allowed")}
                 >
                   {choice.description}
                 </Label>

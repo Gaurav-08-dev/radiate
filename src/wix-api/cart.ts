@@ -8,7 +8,8 @@ export async function getCart(wixClient: WixClient) {
     return await wixClient.currentCart.getCurrentCart();
   } catch (error) {
     if (
-      (error as any).details.applicationError.code === "OWNED_CART_NOT_FOUND"
+      // @ts-expect-error - Wix error type is not properly typed, checking for cart not found error
+      (error as unknown).details.applicationError.code === "OWNED_CART_NOT_FOUND"
     ) {
       return null;
     } else {
@@ -73,7 +74,8 @@ export async function clearCart(wixClient: WixClient) {
     return await wixClient.currentCart.deleteCurrentCart();
   } catch (error) {
     if (
-      (error as any).details.applicationError.code === "OWNED_CART_NOT_FOUND"
+      // @ts-expect-error - Wix error type is not properly typed, checking for cart not found error
+      (error as unknown).details.applicationError.code === "OWNED_CART_NOT_FOUND"
     ) {
       return;
     } else {
