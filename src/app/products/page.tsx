@@ -19,40 +19,54 @@ export default async function Page({
   params: { slug },
   searchParams: { page = "1" },
 }: PageProps) {
-  const pageSize = 12;
-  const pageNumber = parseInt(page);
   const collection = await getCollectionBySlug(
     getWixServerClient(),
     "all-products",
   );
+  if (!collection?._id) notFound();
+
+  return (
+      <Suspense fallback={<Loading />} key={page}>
+    <div className="flex gap-8 p-10">
+        <FiltersSectionComponent className="max-h-fit w-1/5" />
+        <div className="flex flex-col">
+          <h1 className="mb-6 font-serif text-2xl text-gray-600">
+            Showing all products
+          </h1>
+          <Products
+            collectionId={collection?._id || ""}
+            page={parseInt(page)}
+          />
+        </div>
+    </div>
+      </Suspense>
+  );
+}
+
+interface ProductProps {
+  collectionId: string;
+  page: number;
+}
+async function Products({ collectionId, page }: ProductProps) {
+  const pageSize = 12;
 
   const products = await queryProducts(getWixServerClient(), {
-    collectionIds: collection?._id ? collection._id : undefined,
+    collectionIds: collectionId ? collectionId : undefined,
     limit: pageSize,
-    skip: (pageNumber - 1) * pageSize,
+    skip: (page - 1) * pageSize,
   });
 
   if (!products.length) notFound();
 
-  if (pageNumber > (products.totalPages || 1)) notFound();
-
+  if (page > (products.totalPages || 1)) notFound();
   return (
-    <div className="flex gap-8 p-10">
-      <FiltersSectionComponent className="max-h-fit w-1/5" />
-      <div className="flex flex-col">
-        <h1 className="mb-6 text-2xl font-serif text-gray-600">Showing all products</h1>
-        <Suspense fallback={<Loading />} key={pageNumber}>
-          <div className="grid flex-1 grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {products?.items?.map((product) => (
-              <ProductGridUnit product={product} key={product._id} />
-            ))}
-          </div>
-        <PaginationBar
-          currentPage={pageNumber}
-          totalPages={products.totalPages || 1}
-        />
-        </Suspense>
+    <div className="flex h-full flex-col items-center justify-between">
+      <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {products?.items?.map((product) => (
+          <ProductGridUnit product={product} key={product._id} />
+        ))}
       </div>
+      <PaginationBar currentPage={page} totalPages={products.totalPages || 1} />
     </div>
   );
 }

@@ -36,12 +36,11 @@ const ProductGridUnit = ({
     (section) => section.title?.toLowerCase() === "net weight",
   )?.description;
 
-  console.log(product.productOptions);
   // const selectedVariant = findVariant(product, selectedOptions);
 
   return (
     <div className="flex h-[500px] w-[280px] flex-col overflow-hidden">
-      <Link href={`/products/${product.slug}`}>
+      <Link href={`/products/${product.slug}`} prefetch={true}>
         <div className="relative mb-4 aspect-square h-[250px] w-[300px] overflow-hidden">
           <WixImage
             mediaIdentifier={mainImage?.url}

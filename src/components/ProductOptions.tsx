@@ -80,7 +80,7 @@ export default function ProductOptions({
                       ) : (
                         <div 
                           style={{ 
-                            backgroundColor: choice.description.toLowerCase()
+                            backgroundColor: choice?.description?.toLowerCase()
                           }} 
                           className="h-4 w-4" 
                         />
