@@ -14,11 +14,11 @@ import { Button } from "@/components/ui/button"
 export function ShopByScent() {
   return (
     <div className="w-full">
-        <h1 className="text-4xl font-serif text-center py-8">Shop By Scent</h1>
-      <Carousel className="w-full max-w-5xl mx-auto">
+        <h1 className="text-5xl font-serif text-center py-12">Shop By Scent</h1>
+      <Carousel className="w-full max-w-7xl mx-auto">
         <CarouselContent>
           {scents.map((scent, index) => (
-            <CarouselItem key={index} className="sm:basis-1/2 md:basis-1/3 lg:basis-1/3">
+            <CarouselItem key={index} className="sm:basis-1/2 md:basis-1/4 lg:basis-1/4">
               <div className="p-1">
                 <Card className="border-0 bg-transparent">
                   <CardContent className="relative aspect-square p-0">
@@ -57,6 +57,7 @@ export function ShopByScent() {
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}
+        
       </div>
     </div>
   )

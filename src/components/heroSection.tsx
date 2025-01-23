@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import banner from "@/assets/banner.jpg";
+import Link from "next/link";
 
 export function HeroSection() {
   return (
@@ -16,12 +17,14 @@ export function HeroSection() {
             Because every time they smell it, they&apos;ll remember you.
           </p>
 
-          <Button
-            // size="lg"
-            className="h-12 w-1/2 bg-[#500769] px-8 py-6 text-2xl text-white hover:bg-[#500769]/90"
-          >
+          <Link href="/products">
+            <Button
+              // size="lg"
+              className="h-12 w-1/2 bg-[#500769] px-8 py-6 text-2xl text-white hover:bg-[#500769]/90"
+            >
             Find your scent
           </Button>
+          </Link>
         </div>
 
         <div className="relative h-[500px] lg:h-[600px]">

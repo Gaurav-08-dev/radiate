@@ -8,6 +8,7 @@ type ProductDescriptionProps = {
 };
 
 export default function ProductDescription({ title, description }: ProductDescriptionProps) {
+  console.log(description)
   const [open, setOpen] = useState(false);
 
   if(!description) return null;

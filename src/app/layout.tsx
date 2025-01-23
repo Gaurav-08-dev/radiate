@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Montserrat } from "next/font/google";
+import { Playfair_Display, Montserrat  } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/siteHeader";
 import { SiteFooter } from "@/components/siteFooter";
 import ReactQueryProvider from "./ReactQueryProvider";
 import { Toaster } from "@/components/ui/toaster";
+
 const playfairDisplayt = Playfair_Display({
   subsets: ["latin"],
+  
 });
 
 const montserrat = Montserrat({

@@ -9,10 +9,10 @@ import { collections } from "@wix/stores";
 import Link from "next/link";
 
 const navigation = [
-  { name: "Shop All", href: "/products" },
-  { name: "Gifting Combos", href: "/products?gifting-combos" },
-  { name: "About Us", href: "#about" },
-  { name: "Contact", href: "#contact" },
+  { name: "Shop", href: "/products" },
+  // { name: "Gifting Combos", href: "/products?gifting-combos" },
+  // { name: "About Us", href: "#about" },
+  // { name: "Contact", href: "#contact" },
 ];
 interface MainNavigationProps {
   collections?: collections.Collection[];

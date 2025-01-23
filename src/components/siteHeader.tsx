@@ -32,7 +32,7 @@ export async function SiteHeader() {
               className="object-contain"
             />
           </div>
-          <span className="text-2xl font-bold text-white">RADIATE</span>
+          <span className="text-2xl text-white">RADIATE</span>
         </Link>
 
         <MainNavigation collections={[]} />

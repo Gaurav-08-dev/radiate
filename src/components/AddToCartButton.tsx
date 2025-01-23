@@ -26,7 +26,7 @@ export function AddToCartButton({
     <LoadingButton
       isLoading={isPending}
       onClick={() => mutate({ product, selectedOptions, quantity })}
-      className={cn("w-full flex items-center justify-center gap-2", className)}
+      className={cn("flex items-center justify-center gap-2", className)}
       {...props}
     >
       <ShoppingCartIcon className=""/>

@@ -3,13 +3,7 @@ import { useState } from "react";
 import WixImage from "@/components/WixImage";
 import { products } from "@wix/stores";
 // import { Star } from "lucide-react";
-import {
-  Select,
-  SelectValue,
-  SelectTrigger,
-  SelectItem,
-  SelectContent,
-} from "@/components/ui/select";
+
 import ProductDescription from "@/components/ProductDescription";
 import { AddToCartButton } from "@/components/AddToCartButton";
 
@@ -46,6 +40,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
 
   return (
     <div className="container mx-auto px-40 py-24">
+
       <div className="flex flex-col gap-12 md:flex-row">
         <div className="w-[40%] space-y-4">
           <div className="relative aspect-square max-h-fit max-w-fit overflow-hidden rounded-lg">
@@ -80,22 +75,10 @@ export default function ProductDetails({ product }: ProductDetailProps) {
         </div>
 
         <div className="w-[60%] space-y-6">
-          <h1 className="text-3xl font-semibold">{product.name}</h1>
-
-          {/* <div className="flex items-center gap-2">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={`h-4 w-4 ${i < product?.rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
-              />
-            ))}
-            <span className="text-sm text-gray-600">
-              ({product?.reviews} Reviews)
-            </span>
-          </div> */}
+          <h1 className="text-4xl font-semibold">{product.name}</h1>
 
           <div
-            className="text-xl text-gray-600"
+            className="text-base text-gray-600"
             dangerouslySetInnerHTML={{
               __html: product.description || "",
             }}
@@ -125,7 +108,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                 </span>
               </div>
               <div className="flex flex-col gap-4">
-                <span className="text-5xl font-semibold">
+                <span className="text-4xl font-semibold">
                   {priceData?.formatted?.discountedPrice ||
                     priceData?.formatted?.price}
                 </span>
@@ -174,7 +157,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
               ) : null}
 
               <AddToCartButton
-                className={`h-full flex-1 rounded-sm bg-[#500769] text-xl text-white hover:bg-[#500769]/90`}
+                className={`h-full flex-1  bg-[#500769] text-xl text-white hover:bg-[#500769]/90`}
                 product={product}
                 quantity={quantity}
                 buttonText={isInStock ? "Add to My Bag" : "Out of stock"}

@@ -13,12 +13,11 @@ interface ProductGridUnitProps {
   product: products.Product;
   width?: number;
   height?: number;
+  showDescription?: boolean;
 }
 
 const ProductGridUnit = ({
   product,
-  width = 700,
-  height = 700,
 }: ProductGridUnitProps) => {
   const mainImage = product.media?.mainMedia?.image;
   const discount = product.discount;
@@ -33,38 +32,49 @@ const ProductGridUnit = ({
       ?.reduce((acc, option) => ({ ...acc, ...option }), {}) || {},
   );
 
+  const netWeight = product.additionalInfoSections?.find(
+    (section) => section.title?.toLowerCase() === "net weight",
+  )?.description;
+
+  console.log(product.productOptions);
   // const selectedVariant = findVariant(product, selectedOptions);
-  
+
   return (
-    <div className="flex h-[500px] w-72 flex-col overflow-hidden rounded-lg p-4">
+    <div className="flex h-[500px] w-[280px] flex-col overflow-hidden">
       <Link href={`/products/${product.slug}`}>
-        <div className="relative mb-4 aspect-square h-[250px] overflow-hidden rounded-lg">
+        <div className="relative mb-4 aspect-square h-[250px] w-[300px] overflow-hidden">
           <WixImage
             mediaIdentifier={mainImage?.url}
             alt={mainImage?.altText}
-            width={width}
-            height={height}
+            width={300}
+            height={250}
             className="object-cover transition-transform duration-300 hover:scale-105"
           />
         </div>
-        <div className="line-clamp-1 h-6 overflow-hidden text-ellipsis font-semibold">
+        <div className="line-clamp-1 h-6 overflow-hidden text-ellipsis font-semibold mb-2">
           {product.name}
         </div>
       </Link>
 
-      <div className="mt-2 flex flex-grow flex-col justify-between gap-2">
-        <div>
-          <div
-            className={`prose my-2 text-ellipsis text-sm text-gray-600 dark:prose-invert ${!product.productOptions?.length ? "line-clamp-2" : "line-clamp-1"}`}
-            dangerouslySetInnerHTML={{ __html: product.description || "" }}
-          />
-          <div className="flex min-h-[39px] gap-2">
-            <ProductOptions
-              product={product}
-              selectedOptions={selectedOptions}
-              setSelectedOptions={setSelectedOptions}
+      <div className="flex flex-grow flex-col gap-4">
+        <div className="flex items-center justify-between min-h-[42px]">
+          {netWeight && (
+            <div
+              className="text-sm text-gray-600"
+              dangerouslySetInnerHTML={{ __html: netWeight || "" }}
             />
-          </div>
+          )}
+          {product.productOptions?.length ? (
+            <div className="flex min-h-[39px] gap-2">
+              <ProductOptions
+                product={product}
+                selectedOptions={selectedOptions}
+                setSelectedOptions={setSelectedOptions}
+              />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
 
         <div className="flex flex-col gap-2">
@@ -85,7 +95,7 @@ const ProductGridUnit = ({
           <AddToCartButton
             variant="default"
             size="lg"
-            className="bg-[#500769] hover:bg-purple-700"
+            className="w-full rounded-none bg-[#500769] hover:bg-[#500769]/90"
             product={product}
             quantity={1}
             disabled={!product?.stock?.inStock}

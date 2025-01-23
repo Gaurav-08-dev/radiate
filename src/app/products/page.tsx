@@ -40,8 +40,9 @@ export default async function Page({
     <div className="flex gap-8 p-10">
       <FiltersSectionComponent className="max-h-fit w-1/5" />
       <div className="flex flex-col">
+        <h1 className="mb-6 text-2xl font-serif text-gray-600">Showing all products</h1>
         <Suspense fallback={<Loading />} key={pageNumber}>
-          <div className="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid flex-1 grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {products?.items?.map((product) => (
               <ProductGridUnit product={product} key={product._id} />
             ))}
