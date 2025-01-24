@@ -8,7 +8,7 @@ import { getWixServerClient } from "@/lib/wix-client.server";
 import UserButton from "./UserButton";
 import { getLoggedInMember } from "@/wix-api/members";
 import MainNavigation from "@/app/MainNavigation";
-
+import SearchField from "@/components/SearchField";
 
 
 export async function SiteHeader() {
@@ -37,13 +37,7 @@ export async function SiteHeader() {
 
         <MainNavigation collections={[]} />
         <div className="flex items-center space-x-4">
-          <button
-            type="button"
-            className="h-10 w-6 text-white"
-            aria-label="Search"
-          >
-            <Search />
-          </button>
+          <SearchField className="max-w-96" />
           <UserButton
             className="text-white outline-none"
             loggedInMember={loggedInMember}

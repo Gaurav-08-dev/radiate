@@ -30,7 +30,7 @@ export async function ProductGrid() {
   if (!featuredProducts.items.length) return null;
 
   return (
-    <div className="px-40 pt-0 pb-12">
+    <div className="px-40 pt-0">
       <h1 className="py-12 text-center font-serif text-5xl">
         Customer Favorites
       </h1>

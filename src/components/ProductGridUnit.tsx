@@ -14,10 +14,14 @@ interface ProductGridUnitProps {
   width?: number;
   height?: number;
   showDescription?: boolean;
+  showAddToCart?: boolean;
+  showOptions?: boolean;
 }
 
 const ProductGridUnit = ({
   product,
+  showAddToCart = true,
+  showOptions = true,
 }: ProductGridUnitProps) => {
   const mainImage = product.media?.mainMedia?.image;
   const discount = product.discount;
@@ -39,7 +43,7 @@ const ProductGridUnit = ({
   // const selectedVariant = findVariant(product, selectedOptions);
 
   return (
-    <div className="flex h-[500px] w-[280px] flex-col overflow-hidden">
+    <div className="flex h-[450px] w-[280px] flex-col overflow-hidden">
       <Link href={`/products/${product.slug}`} prefetch={true}>
         <div className="relative mb-4 aspect-square h-[250px] w-[300px] overflow-hidden">
           <WixImage
@@ -63,7 +67,7 @@ const ProductGridUnit = ({
               dangerouslySetInnerHTML={{ __html: netWeight || "" }}
             />
           )}
-          {product.productOptions?.length ? (
+          {showOptions && product.productOptions?.length ? (
             <div className="flex min-h-[39px] gap-2">
               <ProductOptions
                 product={product}
@@ -91,17 +95,19 @@ const ProductGridUnit = ({
             </span>
           </div>
 
-          <AddToCartButton
-            variant="default"
-            size="lg"
-            className="w-full rounded-none bg-[#500769] hover:bg-[#500769]/90"
-            product={product}
-            quantity={1}
-            disabled={!product?.stock?.inStock}
-            buttonText={
-              product?.stock?.inStock ? "Add to my bag" : "Out of stock"
-            }
-          />
+          {showAddToCart && (
+            <AddToCartButton
+              variant="default"
+              size="lg"
+              className="w-full rounded-none bg-[#500769] hover:bg-[#500769]/90"
+              product={product}
+              quantity={1}
+              disabled={!product?.stock?.inStock}
+              buttonText={
+                product?.stock?.inStock ? "Add to my bag" : "Out of stock"
+              }
+            />
+          )}
         </div>
       </div>
     </div>

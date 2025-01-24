@@ -19,6 +19,8 @@ export default async function Page({
   params: { slug },
   searchParams: { page = "1" },
 }: PageProps) {
+
+
   const collection = await getCollectionBySlug(
     getWixServerClient(),
     "all-products",
