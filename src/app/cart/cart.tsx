@@ -53,7 +53,7 @@ export default function Cart({ initialCart }: CartProps) {
 
             {
               // @ts-expect-error Server component type mismatch with client component
-              (cart?.data?.subtotal?.amount / 999) * 100 > 100 ? (
+              (cart?.data?.subtotal?.amount / 999) * 100 >= 100 ? (
                 <div className="absolute -translate-x-1/2 -translate-y-1/2">
                   <Confetti  
                   recycle={false}
