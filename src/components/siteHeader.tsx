@@ -34,7 +34,7 @@ export async function SiteHeader() {
           <span className="text-2xl text-white font-playfair-display">RADIATE</span>
         </Link>
 
-        <MainNavigation collections={[]} />
+        <MainNavigation />
         <div className="flex items-center space-x-4">
           <SearchField className="max-w-96" />
           <UserButton
