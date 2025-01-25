@@ -12,6 +12,7 @@ import YouMayLikeSection from "@/components/YouMayLikeSection";
 import { useGetMayLike } from "@/hooks/use-get-mayLike";
 import Loading from "./loading";
 import { Progress } from "@/components/ui/progress";
+import Confetti from 'react-confetti'
 
 interface CartProps {
   initialCart: currentCart.Cart | null;
@@ -48,7 +49,19 @@ export default function Cart({ initialCart }: CartProps) {
               ))}
             </div>
 
-            <div className="w-80">
+            <div className="w-80 relative">
+
+            {
+              (cart?.data?.subtotal?.amount / 999) * 100 > 100 ? (
+                <div className="absolute -translate-x-1/2 -translate-y-1/2">
+                  <Confetti  
+                  recycle={false}
+                  tweenDuration={1000} 
+                  numberOfPieces={200} 
+                  width={300} height={100} style={{top: '20px'}} />
+                </div>
+              ) : null
+            }
               <div className="rounded bg-gray-50 p-4">
                 <Progress
                   value={
