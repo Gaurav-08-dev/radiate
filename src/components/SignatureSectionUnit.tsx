@@ -68,7 +68,7 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
                 <AddToCartButton
                   product={product}
                   quantity={1}
-                  className="h-14 w-1/2 bg-[#500769] text-xl text-white hover:bg-[#500769]/90"
+                  className="rounded-none h-14 w-1/2 bg-[#500769] text-xl text-white hover:bg-[#500769]/90"
                 />
               </div>
             </div>

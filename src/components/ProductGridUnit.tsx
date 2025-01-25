@@ -54,7 +54,7 @@ const ProductGridUnit = ({
             className="object-cover transition-transform duration-300 hover:scale-105"
           />
         </div>
-        <div className="line-clamp-2 h-12 overflow-hidden text-ellipsis font-semibold mb-2 text-sm">
+        <div className="line-clamp-2 h-12 overflow-y-scroll text-ellipsis font-semibold mb-2 text-sm no-scrollbar">
           {product.name}
         </div>
       </Link>

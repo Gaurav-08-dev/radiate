@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Search } from "lucide-react";
 import logo from "@/assets/logo.svg";
 import { ShoppingCartButton } from "@/components/ShoppingCartButton";
 import { getCart } from "@/wix-api/cart";
@@ -32,7 +31,7 @@ export async function SiteHeader() {
               className="object-contain"
             />
           </div>
-          <span className="text-2xl text-white">RADIATE</span>
+          <span className="text-2xl text-white font-playfair-display">RADIATE</span>
         </Link>
 
         <MainNavigation collections={[]} />
