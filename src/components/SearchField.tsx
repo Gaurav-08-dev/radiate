@@ -136,7 +136,7 @@ export default function SearchField({
                               height={250}
                             className="object-cover w-full h-auto"
                           />
-                          <div className="line-clamp-1 h-6 overflow-hidden text-ellipsis mt-2">
+                          <div className="line-clamp-2 h-12 overflow-y-scroll text-ellipsis mt-2 no-scrollbar">
                             {result.name}
                           </div>
                         </div>
