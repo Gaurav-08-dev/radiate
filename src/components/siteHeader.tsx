@@ -39,7 +39,7 @@ export async function SiteHeader() {
             </span>
           </Link>
           <Suspense>
-            <MainNavigation />
+            <MainNavigation collections={collections || []} />
           </Suspense>
           <div className="flex items-center space-x-4">
             <SearchField className="max-w-96" />

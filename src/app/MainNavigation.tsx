@@ -12,77 +12,52 @@ import { cn } from "@/lib/utils";
 import { collections } from "@wix/stores";
 import Link from "next/link";
 
-const navigation = [
-  {
-    name: "Shop",
-    href: "/products",
-    childNav: [
-      {
-        name: " Scentend Candles",
-        href: "/collections/scented-candles",
-      },
-      {
-        name: " Designer Pillar Candles",
-        href: "/collections/designer-pillar-candles",
-      },
-      {
-        name: "Floating Candles",
-        href: "/collections/floating-candles",
-      },
-      {
-        name: "Gifting Combos",
-        href: "/collections/gifting-combos",
-      },
-    ],
-  },
-  {
-    name: "Best Sellers",
-    href: "/collections/best-sellers",
-  },
-  {
-    name: "Contact Us",
-    href: "#contact",
-  },
-];
 interface MainNavigationProps {
   collections?: collections.Collection[];
   className?: string;
 }
-const MainNavigation = ({ className }: MainNavigationProps) => {
+const MainNavigation = ({ className, collections }: MainNavigationProps) => {
   return (
-    <NavigationMenu >
-      <NavigationMenuList className={cn("flex items-center justify-center gap-8 text-white", className)}>
-        {navigation.map((item) =>
-          item.childNav ? (
-            <NavigationMenuItem key={item.href}>
-              <NavigationMenuTrigger className="focus:bg-transparent m-0 p-0 text-white bg-transparent hover:bg-transparent hover:text-white ">{item.name}</NavigationMenuTrigger>
-              <NavigationMenuContent className="">
-                <ul className="p-4">
-                  {item.childNav.map((child, index) => (
-                    <li key={child.name + index}>
-                      <Link href={child.href} legacyBehavior passHref>
-                        <NavigationMenuLink
-                          className={cn(
-                            navigationMenuTriggerStyle(),
-                            "w-full justify-start whitespace-nowrap hover:bg-[#500769]/40",
-                          )}
-                        >
-                          {child.name}
-                        </NavigationMenuLink>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          ) : (
-            <NavigationMenuItem key={item.name} >
-              <Link href={item.href} legacyBehavior passHref>
-                <NavigationMenuLink>{item.name}</NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          ),
+    <NavigationMenu>
+      <NavigationMenuList
+        className={cn(
+          "flex items-center justify-center gap-8 text-white",
+          className,
         )}
+      >
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="m-0 bg-transparent p-0 text-white hover:bg-transparent hover:text-white focus:bg-transparent">
+            Shop
+          </NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="p-4">
+              {collections?.map((collection) => (
+                <li key={collection._id}>
+                  <Link
+                    href={`/shop?collection=${collection._id}`}
+                    legacyBehavior
+                    passHref
+                  >
+                    <NavigationMenuLink
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        "w-full justify-start whitespace-nowrap hover:bg-[#500769]/40",
+                      )}
+                    >
+                      {collection.name}
+                    </NavigationMenuLink>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem>
+          <Link href="#contact" legacyBehavior passHref>
+            <NavigationMenuLink>Contact Us</NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );
