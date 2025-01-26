@@ -12,7 +12,8 @@ import YouMayLikeSection from "@/components/YouMayLikeSection";
 import { useGetMayLike } from "@/hooks/use-get-mayLike";
 import Loading from "./loading";
 import { Progress } from "@/components/ui/progress";
-import Confetti from 'react-confetti'
+import Confetti from "react-confetti";
+import CheckoutButton from "@/components/CheckoutButton";
 
 interface CartProps {
   initialCart: currentCart.Cart | null;
@@ -49,20 +50,22 @@ export default function Cart({ initialCart }: CartProps) {
               ))}
             </div>
 
-            <div className="w-80 relative">
-
-            {
-              // @ts-expect-error Server component type mismatch with client component
-              (cart?.data?.subtotal?.amount / 999) * 100 >= 100 ? (
-                <div className="absolute -translate-x-1/2 -translate-y-1/2">
-                  <Confetti  
-                  recycle={false}
-                  tweenDuration={1000} 
-                  numberOfPieces={200} 
-                  width={300} height={100} style={{top: '20px'}} />
-                </div>
-              ) : null
-            }
+            <div className="relative w-80">
+              {
+                // @ts-expect-error Server component type mismatch with client component
+                (cart?.data?.subtotal?.amount / 999) * 100 >= 100 ? (
+                  <div className="absolute -translate-x-1/2 -translate-y-1/2">
+                    <Confetti
+                      recycle={false}
+                      tweenDuration={1000}
+                      numberOfPieces={200}
+                      width={300}
+                      height={100}
+                      style={{ top: "20px" }}
+                    />
+                  </div>
+                ) : null
+              }
               <div className="rounded bg-gray-50 p-4">
                 <Progress
                   value={
@@ -102,12 +105,10 @@ export default function Cart({ initialCart }: CartProps) {
                   </span>
                 </div>
 
-                <Button
-                  disabled={!cart?.data?.lineItems?.length || isLoading}
-                  className="w-full rounded bg-purple-700 py-3 text-white"
-                >
-                  Proceed to buy
-                </Button>
+                <CheckoutButton
+                  disabled={!cart?.data?.lineItems?.length}
+                  className="w-full rounded bg-[#500769] py-3 text-white hover:bg-[#500769]/80"
+                />
               </div>
             </div>
           </div>
