@@ -23,7 +23,7 @@ export async function SiteHeader() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full hidden lg:block">
+      <header className="sticky top-0 z-50 hidden w-full lg:block">
         <div className="flex h-16 items-center justify-between bg-[#500769] px-11">
           <Link href="/" className="flex items-center space-x-2">
             <div className="relative h-12 w-12">
@@ -51,7 +51,9 @@ export async function SiteHeader() {
           </div>
         </div>
       </header>
-      <MobileMenu collections={collections} loggedInMember={loggedInMember} />
+      <Suspense>
+        <MobileMenu collections={collections} loggedInMember={loggedInMember} />
+      </Suspense>
     </>
   );
 }

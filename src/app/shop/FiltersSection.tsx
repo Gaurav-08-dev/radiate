@@ -1,8 +1,8 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { Suspense, useOptimistic, useTransition } from "react";
-import { SlidersHorizontal, X } from "lucide-react";
+import { useOptimistic, useTransition } from "react";
+import { SlidersHorizontal} from "lucide-react";
 import { collections } from "@wix/stores";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ProductSort } from "@/wix-api/products";
@@ -57,7 +57,7 @@ export default function FiltersSectionComponent({
   }
 
   return (
-    <Suspense>
+    
       <main className="group flex gap-8 p-10">
         <aside
           data-pending={isPending ? "" : undefined}
@@ -81,7 +81,7 @@ export default function FiltersSectionComponent({
         </aside>
         {children}
       </main>
-    </Suspense>
+    
   );
 }
 

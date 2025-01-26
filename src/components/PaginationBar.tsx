@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense } from "react";
+import React from "react";
 import { useSearchParams } from "next/navigation";
 import {
   Pagination,
@@ -11,7 +11,6 @@ import {
   PaginationPrevious,
 } from "./ui/pagination";
 import { cn } from "@/lib/utils";
-import Loading from "@/app/loading";
 
 interface PaginationBarProps {
   totalPages: number;
@@ -29,7 +28,7 @@ const PaginationBar = ({ totalPages, currentPage }: PaginationBarProps) => {
   if (totalPages <= 1) return null;
 
   return (
-    <Suspense>
+    
       <Pagination>
         <PaginationContent>
           <PaginationItem>
@@ -79,7 +78,7 @@ const PaginationBar = ({ totalPages, currentPage }: PaginationBarProps) => {
         </PaginationItem>
         </PaginationContent>
       </Pagination>
-    </Suspense>
+    
   );
 };
 
