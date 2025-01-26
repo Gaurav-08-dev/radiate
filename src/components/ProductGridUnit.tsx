@@ -24,7 +24,7 @@ const ProductGridUnit = ({
   showAddToCart = true,
   showOptions = true,
   width = 300,
-  height = 300,
+  height = 250,
   className,
 }: ProductGridUnitProps) => {
   const mainImage = product.media?.mainMedia?.image;
@@ -49,7 +49,7 @@ const ProductGridUnit = ({
   return (
     <div className={cn("flex h-[450px] w-[280px] flex-col overflow-hidden", className)}>
       <Link href={`/products/${product.slug}`} prefetch={true}>
-        <div className="relative mb-4 aspect-auto h-[250px] w-[300px] overflow-hidden">
+        <div className="relative mb-4 aspect-auto h-[250px] w-[280px] overflow-hidden">
           <WixImage
             mediaIdentifier={mainImage?.url}
             alt={mainImage?.altText}

@@ -10,42 +10,46 @@ import MainNavigation from "@/app/MainNavigation";
 import SearchField from "@/components/SearchField";
 import { getCollections } from "@/wix-api/collections";
 
+import { MobileMenu } from "@/app/MobileMenu";
 
 export async function SiteHeader() {
-  
   const wixClient = getWixServerClient();
   const [cart, loggedInMember, collections] = await Promise.all([
     getCart(wixClient),
     getLoggedInMember(wixClient),
-    getCollections(wixClient),  
+    getCollections(wixClient),
   ]);
 
-
   return (
-    <header className="sticky top-0 z-50 w-full">
-      <div className="flex h-16 items-center justify-between bg-[#500769] px-11">
-        <Link href="/" className="flex items-center space-x-2">
-          <div className="relative h-12 w-12">
-            <Image
-              src={logo}
-              alt="Radiate Logo Diamond"
-              fill
-              className="object-contain"
-            />
-          </div>
-          <span className="text-2xl text-white font-playfair-display">RADIATE</span>
-        </Link>
+    <>
+      <header className="sticky top-0 z-50 w-full hidden lg:block">
+        <div className="flex h-16 items-center justify-between bg-[#500769] px-11">
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="relative h-12 w-12">
+              <Image
+                src={logo}
+                alt="Radiate Logo Diamond"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <span className="font-playfair-display text-2xl text-white">
+              RADIATE
+            </span>
+          </Link>
 
-        <MainNavigation />
-        <div className="flex items-center space-x-4">
-          <SearchField className="max-w-96" />
-          <UserButton
-            className="text-white outline-none"
-            loggedInMember={loggedInMember}
-          />
-          <ShoppingCartButton initialData={cart} />
+          <MainNavigation />
+          <div className="flex items-center space-x-4">
+            <SearchField className="max-w-96" />
+            <UserButton
+              className="text-white outline-none"
+              loggedInMember={loggedInMember}
+            />
+            <ShoppingCartButton initialData={cart} />
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+      <MobileMenu collections={collections} loggedInMember={loggedInMember} />
+    </>
   );
 }

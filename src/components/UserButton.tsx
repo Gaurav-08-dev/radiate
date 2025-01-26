@@ -12,6 +12,7 @@ import {
 } from "./ui/dropdown-menu";
 import { LogInIcon, LogOutIcon, User, UserIcon } from "lucide-react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface UserButtonProps {
   loggedInMember: members.Member | null;
@@ -25,9 +26,10 @@ export default function UserButton({
   const { login, logout } = useAuth();
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button title="Profile" type="button" className={className}>
+    <div className={cn("", className)}>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <button title="Profile" type="button" className={className}>
           <User />
         </button>
       </DropdownMenuTrigger>
@@ -60,7 +62,8 @@ export default function UserButton({
             Login
           </DropdownMenuItem>
         )}
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }

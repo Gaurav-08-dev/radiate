@@ -50,8 +50,8 @@ interface MainNavigationProps {
 }
 const MainNavigation = ({ className }: MainNavigationProps) => {
   return (
-    <NavigationMenu className={className}>
-      <NavigationMenuList className="flex items-center justify-center gap-8 text-white">
+    <NavigationMenu >
+      <NavigationMenuList className={cn("flex items-center justify-center gap-8 text-white", className)}>
         {navigation.map((item) =>
           item.childNav ? (
             <NavigationMenuItem key={item.href}>

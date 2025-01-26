@@ -52,7 +52,7 @@ async function Products({ page, collectionIds, sort }: ProductProps) {
       <div className="flex h-full flex-col items-center justify-between gap-10">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {products?.items?.map((product) => (
-            <ProductGridUnit product={product} key={product._id} width={300} height={300}  />
+            <ProductGridUnit product={product} key={product._id} width={280} height={250} className="h-[450px] w-[280px]" />
           ))}
         </div>
         <PaginationBar

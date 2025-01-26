@@ -6,9 +6,9 @@ import { SiteFooter } from "@/components/siteFooter";
 import ReactQueryProvider from "./ReactQueryProvider";
 import { Toaster } from "@/components/ui/toaster";
 
+
 const playfairDisplayt = Playfair_Display({
   subsets: ["latin"],
-  
 });
 
 const montserrat = Montserrat({
@@ -31,7 +31,8 @@ export default function RootLayout({
         className={`${playfairDisplayt.className} ${montserrat.className} antialiased`}
       >
         <ReactQueryProvider>
-          <div className="flex min-h-screen flex-col">
+          <div className="flex min-h-screen flex-col relative">
+            
             <SiteHeader />
             <div className="flex-grow">{children}</div>
             <SiteFooter />

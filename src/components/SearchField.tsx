@@ -10,6 +10,7 @@ import { products } from "@wix/stores";
 import WixImage from "./WixImage";
 import Link from "next/link";
 import {debounce} from "lodash";
+import { cn } from "@/lib/utils";
 
 interface SearchFieldProps {
   className?: string;
@@ -18,6 +19,7 @@ interface SearchFieldProps {
 
 export default function SearchField({
   limit = 6,
+  className,
 }: SearchFieldProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchResults, setSearchResults] = useState<products.Product[]>([]);
@@ -61,9 +63,10 @@ export default function SearchField({
 
 
   return (
-    <Popover open={isSearchOpen} onOpenChange={setIsSearchOpen}>
-      <PopoverTrigger asChild>
-        <button
+    <div className={cn("", className)}>
+      <Popover open={isSearchOpen} onOpenChange={setIsSearchOpen}>
+        <PopoverTrigger asChild>
+          <button
           type="button"
           aria-label="Open search"
           className="text-white outline-none"
@@ -163,5 +166,6 @@ export default function SearchField({
         </div>
       </PopoverContent>
     </Popover>
+    </div>
   );
 }
