@@ -11,6 +11,7 @@ import SearchField from "@/components/SearchField";
 import { getCollections } from "@/wix-api/collections";
 
 import { MobileMenu } from "@/app/MobileMenu";
+import { Suspense } from "react";
 
 export async function SiteHeader() {
   const wixClient = getWixServerClient();
@@ -37,8 +38,9 @@ export async function SiteHeader() {
               RADIATE
             </span>
           </Link>
-
-          <MainNavigation />
+          <Suspense>
+            <MainNavigation />
+          </Suspense>
           <div className="flex items-center space-x-4">
             <SearchField className="max-w-96" />
             <UserButton
