@@ -152,7 +152,7 @@ export default function SearchField({
                 {searchResults.length > 0 && (
                   <div className="mt-4 flex justify-center border-t pt-4">
                     <Link 
-                      href="/products" 
+                      href="/shop" 
                       className="text-sm font-medium text-purple-600 hover:text-purple-800"
                       onClick={resetSearch}
                     >
