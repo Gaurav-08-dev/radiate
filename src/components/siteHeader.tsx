@@ -8,14 +8,16 @@ import UserButton from "./UserButton";
 import { getLoggedInMember } from "@/wix-api/members";
 import MainNavigation from "@/app/MainNavigation";
 import SearchField from "@/components/SearchField";
+import { getCollections } from "@/wix-api/collections";
 
 
 export async function SiteHeader() {
   
   const wixClient = getWixServerClient();
-  const [cart, loggedInMember] = await Promise.all([
+  const [cart, loggedInMember, collections] = await Promise.all([
     getCart(wixClient),
     getLoggedInMember(wixClient),
+    getCollections(wixClient),  
   ]);
 
 

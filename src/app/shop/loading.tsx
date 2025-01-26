@@ -4,13 +4,13 @@ const Loading = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col gap-8 md:flex-row">
-        {/* Filters Sidebar Skeleton */}
+        {/* Filters Sidebar Skeleton
         <div className="w-full md:w-1/4">
           <div className="rounded-lg bg-white p-4">
             <Skeleton className="mb-4 h-6 w-24" />
             <Skeleton className="mb-6 h-10 w-full" />
 
-            {/* Filter sections */}
+            
             {[1, 2, 3, 4].map((section) => (
               <div key={section} className="mb-6">
                 <Skeleton className="mb-3 h-5 w-32" />
@@ -25,7 +25,7 @@ const Loading = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Products Grid and Pagination */}
         <div className="w-full md:w-3/4">
@@ -33,15 +33,18 @@ const Loading = () => {
             {/* Products Grid */}
             <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((product) => (
-                <div key={product} className="rounded-lg bg-white p-4">
-                  <Skeleton className="mb-4 aspect-square w-full rounded-lg" />
-                  <Skeleton className="mb-2 h-6 w-3/4" />
-                  <Skeleton className="mb-2 h-4 w-full" />
-                  <div className="mb-4 flex items-center justify-between">
+                <div key={product} className="h-[450px] w-[280px] rounded-lg bg-white p-4">
+                  <Skeleton className="mb-4 h-[250px] w-[300px] rounded-lg" />
+                  <Skeleton className="mb-2 h-12 w-3/4" />
+                  <div className="mb-4 min-h-[42px]">
                     <Skeleton className="h-4 w-20" />
-                    <Skeleton className="h-4 w-16" />
                   </div>
-                  <Skeleton className="h-10 w-full" />
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-baseline gap-2">
+                      <Skeleton className="h-4 w-20" />
+                    </div>
+                    <Skeleton className="h-10 w-full" />
+                  </div>
                 </div>
               ))}
             </div>

@@ -4,7 +4,7 @@ import { products } from "@wix/stores";
 import Link from "next/link";
 import WixImage from "./WixImage";
 // import Badge from "./ui/badge";
-
+import { cn } from "@/lib/utils";
 import { AddToCartButton } from "./AddToCartButton";
 import ProductOptions from "./ProductOptions";
 // import { findVariant } from "@/lib/utils";
@@ -16,12 +16,16 @@ interface ProductGridUnitProps {
   showDescription?: boolean;
   showAddToCart?: boolean;
   showOptions?: boolean;
+  className?: string;
 }
 
 const ProductGridUnit = ({
   product,
   showAddToCart = true,
   showOptions = true,
+  width = 300,
+  height = 300,
+  className,
 }: ProductGridUnitProps) => {
   const mainImage = product.media?.mainMedia?.image;
   const discount = product.discount;
@@ -43,14 +47,14 @@ const ProductGridUnit = ({
   // const selectedVariant = findVariant(product, selectedOptions);
 
   return (
-    <div className="flex h-[450px] w-[280px] flex-col overflow-hidden">
+    <div className={cn("flex h-[450px] w-[280px] flex-col overflow-hidden", className)}>
       <Link href={`/products/${product.slug}`} prefetch={true}>
-        <div className="relative mb-4 aspect-square h-[250px] w-[300px] overflow-hidden">
+        <div className="relative mb-4 aspect-auto h-[250px] w-[300px] overflow-hidden">
           <WixImage
             mediaIdentifier={mainImage?.url}
             alt={mainImage?.altText}
-            width={300}
-            height={250}
+            width={width}
+            height={height}
             className="object-cover transition-transform duration-300 hover:scale-105"
           />
         </div>

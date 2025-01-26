@@ -1,30 +1,41 @@
 import { WixClient } from "@/lib/wix-client.base";
 import { cache } from "react";
 
-type ProductSort = "last_updated" | "price_asc" | "price_desc";
+export type ProductSort = "last_updated" | "price_asc" | "price_desc";
 
-interface QueryProductsFilter{
-    search?: string;
-    collectionIds?: string[] | string;
-    sort?: ProductSort;
-    skip?: number; // skip n results
-    limit?: number; // results per page
+interface QueryProductsFilter {
+  search?: string;
+  collectionIds?: string[] | string;
+  sort?: ProductSort;
+  skip?: number; // skip n results
+  limit?: number; // results per page
+  priceMin?: number;
+  priceMax?: number;
 }
-export async function queryProducts(wixClient: WixClient, {
+export async function queryProducts(
+  wixClient: WixClient,
+  {
     collectionIds,
     sort = "last_updated",
     skip,
     limit,
     search,
-}: QueryProductsFilter) {
+    priceMin,
+    priceMax,
+  }: QueryProductsFilter,
+) {
   let query = wixClient.products.queryProducts();
 
   if (search) {
     query = query.startsWith("name", search);
   }
 
-  const collectionIdsArray = collectionIds ? (Array.isArray(collectionIds) ? collectionIds : [collectionIds]) : [];
-  
+  const collectionIdsArray = collectionIds
+    ? Array.isArray(collectionIds)
+      ? collectionIds
+      : [collectionIds]
+    : [];
+
   if (collectionIdsArray.length) {
     query = query.hasSome("collectionIds", collectionIdsArray);
   }
@@ -41,22 +52,36 @@ export async function queryProducts(wixClient: WixClient, {
       break;
   }
 
-  if(limit) {
+  if (limit) {
     query = query.limit(limit);
   }
 
-  if(skip) {
+  if (skip) {
     query = query.skip(skip);
+  }
+
+  if (priceMin) {
+    query = query.ge("priceData.price", priceMin);
+  }
+
+  if (priceMax) {
+    query = query.le("priceData.price", priceMax);
   }
 
   return query.find();
 }
 
-export const getProductBySlug = cache(async (wixClient: WixClient, slug: string) => {
-  const {items} = await wixClient.products.queryProducts().eq("slug", slug).limit(1).find();
-  const product = items[0];
-  if (!product || !product.visible) {
-    return null;
-  }
-  return product;
-});
+export const getProductBySlug = cache(
+  async (wixClient: WixClient, slug: string) => {
+    const { items } = await wixClient.products
+      .queryProducts()
+      .eq("slug", slug)
+      .limit(1)
+      .find();
+    const product = items[0];
+    if (!product || !product.visible) {
+      return null;
+    }
+    return product;
+  },
+);
