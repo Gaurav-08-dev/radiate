@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   Pagination,
@@ -11,6 +11,7 @@ import {
   PaginationPrevious,
 } from "./ui/pagination";
 import { cn } from "@/lib/utils";
+import Loading from "@/app/loading";
 
 interface PaginationBarProps {
   totalPages: number;
@@ -28,9 +29,10 @@ const PaginationBar = ({ totalPages, currentPage }: PaginationBarProps) => {
   if (totalPages <= 1) return null;
 
   return (
-    <Pagination>
-      <PaginationContent>
-        <PaginationItem>
+    <Suspense>
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
           <PaginationPrevious
             href={getLink(currentPage - 1)}
             className={cn(
@@ -75,8 +77,9 @@ const PaginationBar = ({ totalPages, currentPage }: PaginationBarProps) => {
             )}
           />
         </PaginationItem>
-      </PaginationContent>
-    </Pagination>
+        </PaginationContent>
+      </Pagination>
+    </Suspense>
   );
 };
 

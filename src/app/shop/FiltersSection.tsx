@@ -1,7 +1,7 @@
 "use client";
 
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useOptimistic, useTransition } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { Suspense, useOptimistic, useTransition } from "react";
 import { SlidersHorizontal, X } from "lucide-react";
 import { collections } from "@wix/stores";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -28,7 +28,6 @@ export default function FiltersSectionComponent({
   collections: collections.Collection[];
 }) {
   const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   const [optimisticFilters, setOptimisticFilters] = useOptimistic({
     collection: searchParams.getAll("collection") || [],
@@ -58,27 +57,31 @@ export default function FiltersSectionComponent({
   }
 
   return (
-    <main className="group flex gap-8 p-10">
-      <aside
-        data-pending={isPending ? "" : undefined}
-        className="flex max-h-fit w-1/5 gap-8 lg:sticky lg:left-0 lg:top-10 lg:w-1/5"
-      >
-        <div className="w-64 space-y-6">
-          <SortFilter
-            selectedSortOption={optimisticFilters?.sort}
-            updateSortOption={(sortOption) => updateFilters({ sort: sortOption })}
-          />
-          <CollectionsFilter
-            collections={collections}
-            selectedCollectionIds={optimisticFilters?.collection}
-            updateCollectionIds={(collectionIds) => {
-              updateFilters({ collection: collectionIds });
-            }}
-          />
-        </div>
-      </aside>
-      {children}
-    </main>
+    <Suspense>
+      <main className="group flex gap-8 p-10">
+        <aside
+          data-pending={isPending ? "" : undefined}
+          className="flex max-h-fit w-1/5 gap-8 lg:sticky lg:left-0 lg:top-10 lg:w-1/5"
+        >
+          <div className="w-64 space-y-6">
+            <SortFilter
+              selectedSortOption={optimisticFilters?.sort}
+              updateSortOption={(sortOption) =>
+                updateFilters({ sort: sortOption })
+              }
+            />
+            <CollectionsFilter
+              collections={collections}
+              selectedCollectionIds={optimisticFilters?.collection}
+              updateCollectionIds={(collectionIds) => {
+                updateFilters({ collection: collectionIds });
+              }}
+            />
+          </div>
+        </aside>
+        {children}
+      </main>
+    </Suspense>
   );
 }
 
@@ -157,7 +160,7 @@ function SortFilter({ selectedSortOption, updateSortOption }: SortFilterProps) {
         onValueChange={updateSortOption}
       >
         <SelectTrigger>
-            <SelectValue />
+          <SelectValue />
         </SelectTrigger>
         <SelectContent>
           {sortOptions.map((option) => (
