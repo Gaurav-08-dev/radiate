@@ -63,7 +63,7 @@ export default function FiltersSectionComponent({
           data-pending={isPending ? "" : undefined}
           className="flex max-h-fit w-1/5 gap-8 lg:sticky lg:left-0 lg:top-10 lg:w-1/5"
         >
-          <div className="w-64 space-y-6">
+          <div className="w-64 space-y-6"> 
             <SortFilter
               selectedSortOption={optimisticFilters?.sort}
               updateSortOption={(sortOption) =>
@@ -158,6 +158,7 @@ function SortFilter({ selectedSortOption, updateSortOption }: SortFilterProps) {
       <Select
         value={selectedSortOption || "last_updated"}
         onValueChange={updateSortOption}
+        defaultValue="last_updated"
       >
         <SelectTrigger>
           <SelectValue />

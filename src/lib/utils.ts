@@ -3,6 +3,15 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "../../tailwind.config";
+import {Playfair_Display, Montserrat} from "next/font/google"
+
+export const playfair = Playfair_Display({
+  subsets: ["latin"],
+});
+
+export const montserrat = Montserrat({
+  subsets: ["latin"],
+});
 
 export const twConfig = resolveConfig(tailwindConfig);
 export function cn(...inputs: ClassValue[]) {

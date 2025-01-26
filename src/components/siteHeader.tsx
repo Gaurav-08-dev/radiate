@@ -9,9 +9,9 @@ import { getLoggedInMember } from "@/wix-api/members";
 import MainNavigation from "@/app/MainNavigation";
 import SearchField from "@/components/SearchField";
 import { getCollections } from "@/wix-api/collections";
-
 import { MobileMenu } from "@/app/MobileMenu";
 import { Suspense } from "react";
+import { playfairDisplayt } from "@/app/layout";
 
 export async function SiteHeader() {
   const wixClient = getWixServerClient();
@@ -34,13 +34,11 @@ export async function SiteHeader() {
                 className="object-contain"
               />
             </div>
-            <span className="font-playfair-display text-2xl text-white">
+            <span className={`text-2xl text-white ${playfairDisplayt.className}`}>
               RADIATE
             </span>
           </Link>
-          <Suspense>
             <MainNavigation collections={collections || []} />
-          </Suspense>
           <div className="flex items-center space-x-4">
             <SearchField className="max-w-96" />
             <UserButton

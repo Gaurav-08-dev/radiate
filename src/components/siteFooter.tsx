@@ -1,9 +1,10 @@
 import Link from "next/link"
 import { Instagram, FacebookIcon as Facebook, MailIcon as Mail, PhoneIcon as Phone } from 'lucide-react'
+import { cn } from "@/lib/utils"
 
-export function SiteFooter() {
+export function SiteFooter({className}: {className?: string}) {
   return (
-    <footer className="bg-[#500769] text-white py-12 px-16 mt-auto" id="contact">
+    <footer className={cn("bg-[#500769] text-white py-12 px-16 mt-auto", className)} id="contact">
       <div className="container grid grid-cols-1 md:grid-cols-3 gap-12">
         {/* Contact Us Section */}
         <div className="space-y-4  pr-16">

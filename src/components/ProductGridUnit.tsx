@@ -3,12 +3,10 @@ import React, { useState } from "react";
 import { products } from "@wix/stores";
 import Link from "next/link";
 import WixImage from "./WixImage";
-// import Badge from "./ui/badge";
 import { cn } from "@/lib/utils";
 import { AddToCartButton } from "./AddToCartButton";
 import ProductOptions from "./ProductOptions";
-// import { findVariant } from "@/lib/utils";
-
+import { playfair, montserrat } from "@/lib/utils";
 interface ProductGridUnitProps {
   product: products.Product;
   width?: number;
@@ -18,6 +16,7 @@ interface ProductGridUnitProps {
   showOptions?: boolean;
   className?: string;
 }
+
 
 const ProductGridUnit = ({
   product,
@@ -47,8 +46,8 @@ const ProductGridUnit = ({
   // const selectedVariant = findVariant(product, selectedOptions);
 
   return (
-    <div className={cn("flex h-[450px] w-[280px] flex-col overflow-hidden", className)}>
-      <Link href={`/products/${product.slug}`} prefetch={true}>
+    <div className={cn(`flex h-[450px] w-[280px] flex-col overflow-hidden`, className)}>
+      <Link href={`/products/${product.slug}`} prefetch={true} className={`${playfair.className}`}>
         <div className="relative mb-4 aspect-auto h-[250px] w-[280px] overflow-hidden">
           <WixImage
             mediaIdentifier={mainImage?.url}
@@ -58,12 +57,12 @@ const ProductGridUnit = ({
             className="object-cover transition-transform duration-300 hover:scale-105"
           />
         </div>
-        <div className="line-clamp-2 h-12 overflow-y-scroll text-ellipsis font-semibold mb-2 text-sm no-scrollbar">
+        <div className="line-clamp-2 h-12 overflow-y-hidden text-ellipsis font-semibold mb-2 text-[0.850rem]/tight no-scrollbar">
           {product.name}
         </div>
       </Link>
 
-      <div className="flex flex-grow flex-col gap-4">
+      <div className={`flex flex-grow flex-col gap-4 ${montserrat.className}`}>
         <div className="flex items-center justify-between min-h-[42px]">
           {netWeight && (
             <div
