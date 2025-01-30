@@ -2,16 +2,20 @@
 
 import { useState } from "react";
 
+
 type ProductDescriptionProps = {
   title: string;
   description: string;
 };
 
-export default function ProductDescription({ title, description }: ProductDescriptionProps) {
-  console.log(description)
-  const [open, setOpen] = useState(false);
+export default function ProductDescription({
+  title,
+  description,
+}: ProductDescriptionProps) {
+  const [open, setOpen] = useState(true);
 
-  if(!description) return null;
+
+  if (!description) return null;
 
   return (
     <div className="border-b py-4">
@@ -40,7 +44,10 @@ export default function ProductDescription({ title, description }: ProductDescri
         </div>
       </div>
       {open && (
-        <div className="mt-4 text-gray-500" dangerouslySetInnerHTML={{ __html: description }} />
+        <div
+          className="mt-4 flex flex-col gap-2 text-gray-500"
+          dangerouslySetInnerHTML={{ __html: description }}
+        />
       )}
     </div>
   );

@@ -2,15 +2,24 @@
 import { useState } from "react";
 import WixImage from "@/components/WixImage";
 import { products } from "@wix/stores";
-// import { Star } from "lucide-react";
-
 import ProductDescription from "@/components/ProductDescription";
 import { AddToCartButton } from "@/components/AddToCartButton";
-
+// import BuyNowButton from "@/components/BuyNowButton";
+// import ProductOptions from "@/components/ProductOptions";
 interface ProductDetailProps {
   product: products.Product;
 }
 export default function ProductDetails({ product }: ProductDetailProps) {
+  const [selectedOptions] = useState<
+    Record<string, string>
+  >(
+    product.productOptions
+      ?.map((option) => ({
+        [option.name || ""]: option.choices?.[0]?.description || "",
+      }))
+      ?.reduce((acc, option) => ({ ...acc, ...option }), {}) || {},
+  );
+
   const [quantity, setQuantity] = useState(1);
   const [currentImage, setCurrentImage] = useState(
     product.media?.mainMedia?.image,
@@ -40,7 +49,6 @@ export default function ProductDetails({ product }: ProductDetailProps) {
 
   return (
     <div className="container mx-auto px-40 py-24">
-
       <div className="flex flex-col gap-12 md:flex-row">
         <div className="w-[40%] space-y-4">
           <div className="relative aspect-square max-h-fit max-w-fit overflow-hidden rounded-lg">
@@ -78,7 +86,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
           <h1 className="text-4xl font-semibold">{product.name}</h1>
 
           <div
-            className="text-base text-gray-600 space-y-4"
+            className="space-y-4 text-base text-gray-600"
             dangerouslySetInnerHTML={{
               __html: product.description || "",
             }}
@@ -122,47 +130,59 @@ export default function ProductDetails({ product }: ProductDetailProps) {
             </div>
 
             <div
-              className={`mt-10 flex h-[50px] w-[400px] overflow-hidden rounded-sm gap-10`}
+              className={`mt-10 flex h-[50px] w-[400px] max-w-fit gap-10 overflow-hidden rounded-sm`}
             >
+              {/* <ProductOptions
+                  product={product}
+                  selectedOptions={selectedOptions}
+                  setSelectedOptions={setSelectedOptions}
+                  className="w-[80px]"
+                /> */}
               {isInStock ? (
                 <div className="flex rounded border">
-                <button
-                  disabled={quantity === 1}
-                  type="button"
-                  className="px-3 py-1"
-                  onClick={() =>
-                    setQuantity(quantity - 1)
-                  }
-                >
-                  -
-                </button>
-                <input
-                  title="Quantity"
-                  type="number"
-                  className="w-12 pl-3 text-center"
-                  value={quantity}
-                  readOnly
-                  // onChange={(e) => setQuantity(parseInt(e.target.value))}
-                />
-                <button
-                  type="button"
-                  className="px-3 py-1"
-                  onClick={() =>
-                    setQuantity(quantity + 1)
-                  }
-                >
-                  +
-                </button>
-              </div>
+                  <button
+                    disabled={quantity === 1}
+                    type="button"
+                    className="px-3 py-1"
+                    onClick={() => setQuantity(quantity - 1)}
+                  >
+                    -
+                  </button>
+                  <input
+                    title="Quantity"
+                    type="number"
+                    className="w-12 pl-3 text-center"
+                    value={quantity}
+                    readOnly
+                    // onChange={(e) => setQuantity(parseInt(e.target.value))}
+                  />
+                  <button
+                    type="button"
+                    className="px-3 py-1"
+                    onClick={() => setQuantity(quantity + 1)}
+                  >
+                    +
+                  </button>
+                </div>
               ) : null}
 
-              <AddToCartButton
-                className={`h-full flex-1  bg-[#500769] text-xl text-white hover:bg-[#500769]/90`}
-                product={product}
-                quantity={quantity}
-                buttonText={isInStock ? "Add to My Bag" : "Out of stock"}
-                disabled={!isInStock}
-              />
+              <div className="flex gap-2">
+                
+                {/* <BuyNowButton
+                  product={product}
+                  quantity={quantity}
+                  selectedOptions={{}}
+                  disabled={!isInStock}
+                /> */}
+                <AddToCartButton
+                  className={`h-full flex-1 bg-[#500769] text-xl text-white hover:bg-[#500769]/90`}
+                  product={product}
+                  quantity={quantity}
+                  buttonText={isInStock ? "Add to My Bag" : "Out of stock"}
+                  disabled={!isInStock}
+                  selectedOptions={selectedOptions}
+                />
+              </div>
             </div>
           </div>
           <div className="space-y-4 border-t pt-6">

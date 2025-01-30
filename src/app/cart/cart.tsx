@@ -20,10 +20,11 @@ interface CartProps {
 }
 export default function Cart({ initialCart }: CartProps) {
   const cart = useCart(initialCart);
+
   const lineItems = cart?.data?.lineItems;
   const mayLike = useGetMayLike();
 
-  const isLoading = cart.isFetching || mayLike.isFetching;
+  // const isLoading = cart.isFetching || mayLike.isFetching;
   const isPending = cart.isPending || mayLike.isPending;
 
   const totalQuantity =
@@ -122,6 +123,7 @@ export default function Cart({ initialCart }: CartProps) {
 }
 
 function ShoppingCartItem({ item }: { item: currentCart.LineItem }) {
+  console.log(item.descriptionLines);
   const removeCartItemMutation = useRemoveCartItem();
   const updateCartItemQuantityMutation = useUpdateCartItemQuantity();
 
@@ -161,7 +163,40 @@ function ShoppingCartItem({ item }: { item: currentCart.LineItem }) {
               </div>
             </div>
           </div>
-
+          {item.descriptionLines?.[0]?.colorInfo?.original?.includes("&") ? (
+              <div className="h-4 w-4 overflow-hidden border border-gray-200">
+                <div className="flex h-full">
+                  <div
+                    style={{
+                      backgroundColor:
+                        item.descriptionLines?.[0]?.colorInfo?.original
+                          .split("&")[0]
+                          .trim()
+                          .toLowerCase(),
+                    }}
+                    className="h-full w-1/2"
+                  />
+                  <div
+                    style={{
+                      backgroundColor:
+                        item.descriptionLines?.[0]?.colorInfo?.original
+                          .split("&")[1]
+                          .trim()
+                          .toLowerCase(),
+                    }}
+                    className="h-full w-1/2"
+                  />
+                </div>
+              </div>
+            ) : (
+              <div
+                style={{
+                  backgroundColor:
+                    item.descriptionLines?.[0]?.colorInfo?.original?.toLowerCase(),
+                }}
+                className="h-4 w-4"
+              />
+            )}
           <div className="mt-4 flex items-center gap-4">
             <div className="flex rounded border">
               <button

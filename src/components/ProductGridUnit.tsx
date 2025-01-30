@@ -17,7 +17,6 @@ interface ProductGridUnitProps {
   className?: string;
 }
 
-
 const ProductGridUnit = ({
   product,
   showAddToCart = true,
@@ -46,8 +45,17 @@ const ProductGridUnit = ({
   // const selectedVariant = findVariant(product, selectedOptions);
 
   return (
-    <div className={cn(`flex h-[450px] w-[280px] flex-col overflow-hidden`, className)}>
-      <Link href={`/products/${product.slug}`} prefetch={true} className={`${playfair.className}`}>
+    <div
+      className={cn(
+        `flex h-[450px] w-[280px] flex-col overflow-hidden`,
+        className,
+      )}
+    >
+      <Link
+        href={`/products/${product.slug}`}
+        prefetch={true}
+        className={`${playfair.className}`}
+      >
         <div className="relative mb-4 aspect-auto h-[250px] w-[280px] overflow-hidden">
           <WixImage
             mediaIdentifier={mainImage?.url}
@@ -57,13 +65,13 @@ const ProductGridUnit = ({
             className="object-cover transition-transform duration-300 hover:scale-105"
           />
         </div>
-        <div className="line-clamp-2 h-12 overflow-y-hidden text-ellipsis font-semibold mb-2 text-[0.850rem]/tight no-scrollbar">
+        <div className="no-scrollbar mb-2 line-clamp-2 h-12 overflow-y-hidden text-ellipsis text-[0.850rem]/tight font-semibold">
           {product.name}
         </div>
       </Link>
 
       <div className={`flex flex-grow flex-col gap-4 ${montserrat.className}`}>
-        <div className="flex items-center justify-between min-h-[42px]">
+        <div className="flex min-h-[42px] items-center justify-between">
           {netWeight && (
             <div
               className="text-sm text-gray-600"
@@ -100,6 +108,7 @@ const ProductGridUnit = ({
 
           {showAddToCart && (
             <AddToCartButton
+              selectedOptions={selectedOptions}
               variant="default"
               size="lg"
               className="w-full rounded-none bg-[#500769] hover:bg-[#500769]/90"
