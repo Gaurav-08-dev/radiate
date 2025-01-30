@@ -12,7 +12,7 @@ export default function ProductDescription({
   title,
   description,
 }: ProductDescriptionProps) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
 
   if (!description) return null;
