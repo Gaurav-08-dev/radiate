@@ -35,7 +35,11 @@ export async function ProductGrid() {
       </h1>
 
       <div className="">
-        <Carousel className="mx-auto max-w-7xl">
+        <Carousel
+        opts={{
+          slidesToScroll:4
+        }}
+        className="mx-auto max-w-7xl">
           <CarouselContent className="-ml-1">
             {featuredProducts?.items?.map((product) => (
               <CarouselItem

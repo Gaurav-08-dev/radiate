@@ -11,12 +11,14 @@ import {
 import { cn } from "@/lib/utils";
 import { collections } from "@wix/stores";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface MainNavigationProps {
   collections?: collections.Collection[];
   className?: string;
 }
 const MainNavigation = ({ className, collections }: MainNavigationProps) => {
+  const router = useRouter();
   return (
     <NavigationMenu>
       <NavigationMenuList
@@ -26,7 +28,12 @@ const MainNavigation = ({ className, collections }: MainNavigationProps) => {
         )}
       >
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="m-0 bg-transparent p-0 text-white hover:bg-transparent hover:text-white focus:bg-transparent">
+          <NavigationMenuTrigger
+            onClick={() => {
+              router.push("/shop");
+            }}
+            className="m-0 bg-transparent p-0 text-white hover:bg-transparent hover:text-white focus:bg-transparent"
+          >
             Shop
           </NavigationMenuTrigger>
           <NavigationMenuContent>

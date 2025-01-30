@@ -78,7 +78,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
           <h1 className="text-4xl font-semibold">{product.name}</h1>
 
           <div
-            className="text-base text-gray-600"
+            className="text-base text-gray-600 space-y-4"
             dangerouslySetInnerHTML={{
               __html: product.description || "",
             }}

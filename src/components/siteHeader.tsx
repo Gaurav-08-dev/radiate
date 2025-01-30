@@ -34,7 +34,7 @@ export async function SiteHeader() {
                 className="object-contain"
               />
             </div>
-            <span className={`text-2xl text-white ${playfairDisplayt.className}`}>
+            <span className={`text-3xl text-white ${playfairDisplayt.className}`}>
               RADIATE
             </span>
           </Link>
