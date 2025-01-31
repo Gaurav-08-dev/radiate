@@ -38,6 +38,7 @@ async function Products({ page, collectionIds, sort }: ProductProps) {
     sort: sort ? sort : undefined,
   });
 
+
   if (!products.length) notFound();
 
   if (page > (products.totalPages || 1)) notFound();

@@ -48,10 +48,10 @@ const MainNavigation = ({ className, collections }: MainNavigationProps) => {
                     <NavigationMenuLink
                       className={cn(
                         navigationMenuTriggerStyle(),
-                        "w-full justify-start whitespace-nowrap hover:bg-[#500769]/40",
+                        "w-full justify-start whitespace-nowrap hover:bg-[#500769]/40 capitalize",
                       )}
                     >
-                      {collection.name}
+                      {collection.name?.split('-')?.[0]}
                     </NavigationMenuLink>
                   </Link>
                 </li>

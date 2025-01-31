@@ -2,7 +2,7 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useOptimistic, useTransition } from "react";
-import { SlidersHorizontal} from "lucide-react";
+import { SlidersHorizontal } from "lucide-react";
 import { collections } from "@wix/stores";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ProductSort } from "@/wix-api/products";
@@ -13,6 +13,7 @@ import {
   SelectItem,
   SelectContent,
 } from "@/components/ui/select";
+import { CollectionGroup, formatCategoryTitle, organizeCollections } from "@/lib/utils";
 
 const sortOptions = [
   { label: "Featured", value: "last_updated" },
@@ -27,6 +28,7 @@ export default function FiltersSectionComponent({
   children: React.ReactNode;
   collections: collections.Collection[];
 }) {
+  const groupedCollections = organizeCollections(collections);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [optimisticFilters, setOptimisticFilters] = useOptimistic({
@@ -57,36 +59,35 @@ export default function FiltersSectionComponent({
   }
 
   return (
-    
-      <main className="group flex gap-8 p-10">
-        <aside
-          data-pending={isPending ? "" : undefined}
-          className="flex max-h-fit w-1/5 gap-8 lg:sticky lg:left-0 lg:top-10 lg:w-1/5"
-        >
-          <div className="w-64 space-y-6"> 
-            <SortFilter
-              selectedSortOption={optimisticFilters?.sort}
-              updateSortOption={(sortOption) =>
-                updateFilters({ sort: sortOption })
-              }
-            />
-            <CollectionsFilter
-              collections={collections}
-              selectedCollectionIds={optimisticFilters?.collection}
-              updateCollectionIds={(collectionIds) => {
-                updateFilters({ collection: collectionIds });
-              }}
-            />
-          </div>
-        </aside>
-        {children}
-      </main>
-    
+    <main className="group flex gap-8 p-10">
+      <aside
+        data-pending={isPending ? "" : undefined}
+        className="flex max-h-fit w-1/5 gap-8 lg:sticky lg:left-0 lg:top-10 lg:w-1/5"
+      >
+        <div className="w-64 space-y-6">
+          <SortFilter
+            selectedSortOption={optimisticFilters?.sort}
+            updateSortOption={(sortOption) =>
+              updateFilters({ sort: sortOption })
+            }
+          />
+          <CollectionsFilter
+            // @ts-expect-error
+            collections={groupedCollections}
+            selectedCollectionIds={optimisticFilters?.collection}
+            updateCollectionIds={(collectionIds) => {
+              updateFilters({ collection: collectionIds });
+            }}
+          />
+        </div>
+      </aside>
+      {children}
+    </main>
   );
 }
 
 interface CollectionsFilterProps {
-  collections: collections.Collection[];
+  collections: CollectionGroup[];
   selectedCollectionIds?: string[];
   updateCollectionIds: (collectionIds: string[]) => void;
 }
@@ -112,34 +113,41 @@ function CollectionsFilter({
           </Button>
         )} */}
       </div>
-      <ul className="space-y-1.5">
-        {collections.map((collection) => {
-          const collectionId = collection._id;
-          if (!collectionId) return null;
-          return (
-            <li key={collectionId}>
-              <label className="flex cursor-pointer items-center gap-2">
-                <Checkbox
-                  id={collectionId}
-                  checked={selectedCollectionIds?.includes(collectionId)}
-                  onCheckedChange={(checked) => {
-                    updateCollectionIds(
-                      checked
-                        ? [...(selectedCollectionIds || []), collectionId]
-                        : (selectedCollectionIds || []).filter(
-                            (id) => id !== collectionId,
-                          ),
-                    );
-                  }}
-                />
-                <span className="line-clamp-1 break-all">
-                  {collection.name}
-                </span>
-              </label>
-            </li>
-          );
-        })}
-      </ul>
+      {collections.map((group) => (
+        <div key={group.header} className="space-y-2">
+        <h3 className="text-sm font-medium text-gray-500">
+          {formatCategoryTitle(group.header)}
+        </h3>
+        <ul className="space-y-1.5" key={group?.header}>
+          {group.collections.map((collection) => {
+            const collectionId = collection._id;
+            if (!collectionId) return null;
+            return (
+              <li key={collectionId}>
+                <label className="flex cursor-pointer items-center gap-2">
+                  <Checkbox
+                    id={collectionId}
+                    checked={selectedCollectionIds?.includes(collectionId)}
+                    onCheckedChange={(checked) => {
+                      updateCollectionIds(
+                        checked
+                          ? [...(selectedCollectionIds || []), collectionId]
+                          : (selectedCollectionIds || []).filter(
+                              (id) => id !== collectionId,
+                            ),
+                      );
+                    }}
+                  />
+                  <span className="line-clamp-1 break-all">
+                    {collection.name?.split(/[-–]/)?.[0]}
+                  </span>
+                </label>
+              </li>
+            );
+          })}
+        </ul>
+        </div>
+      ))}
     </div>
   );
 }

@@ -8,17 +8,18 @@ import UserButton from "./UserButton";
 import { getLoggedInMember } from "@/wix-api/members";
 import MainNavigation from "@/app/MainNavigation";
 import SearchField from "@/components/SearchField";
-import { getCollections } from "@/wix-api/collections";
+import { getCollectionsForHeader } from "@/wix-api/collections";
 import { MobileMenu } from "@/app/MobileMenu";
 import { Suspense } from "react";
 import { playfairDisplayt } from "@/app/layout";
+import { organizeCollections } from "@/lib/utils";
 
 export async function SiteHeader() {
   const wixClient = getWixServerClient();
   const [cart, loggedInMember, collections] = await Promise.all([
     getCart(wixClient),
     getLoggedInMember(wixClient),
-    getCollections(wixClient),
+    getCollectionsForHeader(wixClient),
   ]);
 
   return (

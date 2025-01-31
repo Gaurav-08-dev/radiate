@@ -3,7 +3,8 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "../../tailwind.config";
-import {Playfair_Display, Montserrat} from "next/font/google"
+import { Playfair_Display, Montserrat } from "next/font/google";
+import { collections } from "@wix/stores";
 
 export const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -61,4 +62,76 @@ export function checkInStock(
     : product.stock?.inventoryStatus === products.InventoryStatus.IN_STOCK ||
         product.stock?.inventoryStatus ===
           products.InventoryStatus.PARTIALLY_OUT_OF_STOCK;
+}
+
+interface CategoryGroup {
+  header: string;
+  collections: collections.Collection[];
+}
+
+export function organizeCollections(
+  collections: collections.Collection[],
+): CategoryGroup[] {
+  const groups = new Map<string, collections.Collection[]>();
+  const ungrouped: collections.Collection[] = [];
+
+  collections.forEach((collection) => {
+    const collectionName = collection.name;
+    const nameParts = collectionName?.split(/[-–]/);
+    if (nameParts && nameParts.length > 1) {
+      const header = nameParts[1].trim().toLowerCase();
+      if (!groups.has(header)) {
+        groups.set(header, []);
+      }
+      groups.get(header)?.push(collection);
+    } else {
+      groups.set(collection?.name || "", []);
+      groups.get(collection?.name || "")?.push(collection);
+    }
+  });
+
+  const result: CategoryGroup[] = [];
+
+  // Add grouped collections
+  groups.forEach((collections, header) => {
+    result.push({
+      header: header.charAt(0).toUpperCase() + header.slice(1),
+      collections,
+    });
+  });
+
+  // Add ungrouped collections if any
+  if (ungrouped.length > 0) {
+    result.push({
+      header: "Other",
+      collections: ungrouped,
+    });
+  }
+  return result;
+}
+
+interface MediaItem {
+  items: any[]; // You can make this more specific if needed
+}
+
+interface Collection {
+  name: string;
+  media: MediaItem;
+  numberOfProducts: number;
+  description: string;
+  slug: string;
+  visible: boolean;
+  _id: string;
+}
+
+export interface CollectionGroup {
+  header: string;
+  collections: Collection[];
+}
+
+export function formatCategoryTitle(category: string): string {
+  return category
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }

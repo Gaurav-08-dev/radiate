@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 
-
 type ProductDescriptionProps = {
   title: string;
   description: string;
@@ -13,8 +12,6 @@ export default function ProductDescription({
   description,
 }: ProductDescriptionProps) {
   const [open, setOpen] = useState(false);
-
-
   if (!description) return null;
 
   return (
