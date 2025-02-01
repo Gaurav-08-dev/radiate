@@ -8,20 +8,21 @@ import UserButton from "./UserButton";
 import { getLoggedInMember } from "@/wix-api/members";
 import MainNavigation from "@/app/MainNavigation";
 import SearchField from "@/components/SearchField";
-import { getCollectionsForHeader } from "@/wix-api/collections";
+import { getCollectionsForHeader, getCustomerFavorites } from "@/wix-api/collections";
 import { MobileMenu } from "@/app/MobileMenu";
 import { Suspense } from "react";
 import { playfairDisplayt } from "@/app/layout";
-import { organizeCollections } from "@/lib/utils";
+
 
 export async function SiteHeader() {
   const wixClient = getWixServerClient();
-  const [cart, loggedInMember, collections] = await Promise.all([
+  const [cart, loggedInMember, collections, customerFavorites] = await Promise.all([
     getCart(wixClient),
     getLoggedInMember(wixClient),
     getCollectionsForHeader(wixClient),
+    getCustomerFavorites(wixClient),
   ]);
-
+  
   return (
     <>
       <header className="sticky top-0 z-50 hidden w-full lg:block">
@@ -39,7 +40,7 @@ export async function SiteHeader() {
               RADIATE
             </span>
           </Link>
-            <MainNavigation collections={collections || []} />
+            <MainNavigation collections={collections || []} customerFavorites={customerFavorites || []} />
           <div className="flex items-center space-x-4">
             <SearchField className="max-w-96" />
             <UserButton

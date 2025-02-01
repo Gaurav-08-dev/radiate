@@ -16,8 +16,9 @@ import { useRouter } from "next/navigation";
 interface MainNavigationProps {
   collections?: collections.Collection[];
   className?: string;
+  customerFavorites?: collections.Collection[];
 }
-const MainNavigation = ({ className, collections }: MainNavigationProps) => {
+const MainNavigation = ({ className, collections, customerFavorites }: MainNavigationProps) => {
   const router = useRouter();
   return (
     <NavigationMenu>
@@ -60,6 +61,11 @@ const MainNavigation = ({ className, collections }: MainNavigationProps) => {
           </NavigationMenuContent>
         </NavigationMenuItem>
 
+        <NavigationMenuItem>
+          <Link href={`/shop?collection=${customerFavorites?.[0]?._id}`} legacyBehavior passHref>
+            <NavigationMenuLink>Customer Favorites</NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
         <NavigationMenuItem>
           <Link href="#contact" legacyBehavior passHref>
             <NavigationMenuLink>Contact Us</NavigationMenuLink>
