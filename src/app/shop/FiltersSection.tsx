@@ -32,7 +32,7 @@ export default function FiltersSectionComponent({
   children: React.ReactNode;
   collections: collections.Collection[];
 }) {
-  console.log(collections)
+
   const groupedCollections = organizeCollections(collections);
 
   const router = useRouter();

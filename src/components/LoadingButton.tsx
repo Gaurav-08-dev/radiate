@@ -14,7 +14,7 @@ export default function LoadingButton({
   return (
     <Button
       disabled={disabled || isLoading}
-      className={cn("flex items-center gap-2", className)}
+      className={cn("flex items-center gap-2 rounded-none bg-[#500769] hover:bg-[#500769]/80", className)}
       {...props}
     >
       {props.children}

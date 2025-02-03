@@ -16,7 +16,6 @@ export async function getLoginUrl(wixClient: WixClient, oAuthData: OauthData) {
   const { authUrl } = await wixClient?.auth.getAuthUrl(oAuthData, {
     responseMode: "query",
   });
-
   return authUrl;
 }
 

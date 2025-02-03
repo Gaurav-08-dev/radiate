@@ -14,6 +14,7 @@ export function useCart(initialData?: currentCart.Cart | null) {
   });
 }
 
+// ! SAME IMPLEMENTATION CAN BE USED FOR MEMBERS UPDATE
 export const useAddItemToCart = () => {
   const queryClient = useQueryClient();
   const { toast } = useToast();

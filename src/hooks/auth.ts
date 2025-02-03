@@ -18,9 +18,8 @@ export default function useAuth() {
         secure: process.env.NODE_ENV === "production",
         expires: new Date(Date.now() + 60 * 10 * 1000),
       });
-
       const redirectUrl = await getLoginUrl(wixBrowserClient, oAuthData);
-
+      
       window.location.href = redirectUrl;
     } catch (error) {
       console.error(error);
