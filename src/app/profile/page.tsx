@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
+  
   const member = await getLoggedInMember(getWixServerClient());
   if (!member) notFound();
 
