@@ -13,7 +13,11 @@ import {
   SelectItem,
   SelectContent,
 } from "@/components/ui/select";
-import { CollectionGroup, formatCategoryTitle, organizeCollections } from "@/lib/utils";
+import {
+  CollectionGroup,
+  formatCategoryTitle,
+  organizeCollections,
+} from "@/lib/utils";
 
 const sortOptions = [
   { label: "Featured", value: "last_updated" },
@@ -28,13 +32,16 @@ export default function FiltersSectionComponent({
   children: React.ReactNode;
   collections: collections.Collection[];
 }) {
+  console.log(collections)
   const groupedCollections = organizeCollections(collections);
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const [optimisticFilters, setOptimisticFilters] = useOptimistic({
     collection: searchParams.getAll("collection") || [],
     sort: searchParams.get("sort") || "last_updated",
   });
+
   const [isPending, startTransition] = useTransition();
 
   function updateFilters(updates: Partial<typeof optimisticFilters>) {
@@ -90,6 +97,8 @@ interface CollectionsFilterProps {
   collections: CollectionGroup[];
   selectedCollectionIds?: string[];
   updateCollectionIds: (collectionIds: string[]) => void;
+  availability?: string[] | null;
+  updateAvailability: (availability: string[] | null) => void;
 }
 function CollectionsFilter({
   collections,
@@ -97,10 +106,11 @@ function CollectionsFilter({
   updateCollectionIds,
 }: CollectionsFilterProps) {
   return (
-    <div className="space-y-3">
-      <div className="flex items-center gap-4">
-        <div className="text-lg font-medium">Collections</div>
-        {/* {selectedCollectionIds.length > 0 && (
+    <div className="flex flex-col gap-4">
+      <div className="space-y-3">
+        <div className="flex items-center gap-4">
+          <div className="text-lg font-medium">Collections</div>
+          {/* {selectedCollectionIds.length > 0 && (
           <Button
             variant="outline"
             onClick={() => updateCollectionIds([])}
@@ -112,42 +122,84 @@ function CollectionsFilter({
             <X className="h-5 w-5" />
           </Button>
         )} */}
-      </div>
-      {collections.map((group) => (
-        <div key={group.header} className="space-y-2">
-        <h3 className="text-sm font-medium text-gray-500">
-          {formatCategoryTitle(group.header)}
-        </h3>
-        <ul className="space-y-1.5" key={group?.header}>
-          {group.collections.map((collection) => {
-            const collectionId = collection._id;
-            if (!collectionId) return null;
-            return (
-              <li key={collectionId}>
-                <label className="flex cursor-pointer items-center gap-2">
-                  <Checkbox
-                    id={collectionId}
-                    checked={selectedCollectionIds?.includes(collectionId)}
-                    onCheckedChange={(checked) => {
-                      updateCollectionIds(
-                        checked
-                          ? [...(selectedCollectionIds || []), collectionId]
-                          : (selectedCollectionIds || []).filter(
-                              (id) => id !== collectionId,
-                            ),
-                      );
-                    }}
-                  />
-                  <span className="line-clamp-1 break-all">
-                    {collection.name?.split(/[-–]/)?.[0]}
-                  </span>
-                </label>
-              </li>
-            );
-          })}
-        </ul>
         </div>
-      ))}
+        {collections.map((group) => (
+          <div key={group.header} className="space-y-2">
+            <h3 className="text-sm font-medium text-gray-500">
+              {formatCategoryTitle(group.header)}
+            </h3>
+            <ul className="space-y-1.5" key={group?.header}>
+              {group.collections.map((collection) => {
+                const collectionId = collection._id;
+                if (!collectionId) return null;
+                return (
+                  <li key={collectionId}>
+                    <label className="flex cursor-pointer items-center gap-2">
+                      <Checkbox
+                        id={collectionId}
+                        checked={selectedCollectionIds?.includes(collectionId)}
+                        onCheckedChange={(checked) => {
+                          updateCollectionIds(
+                            checked
+                              ? [...(selectedCollectionIds || []), collectionId]
+                              : (selectedCollectionIds || []).filter(
+                                  (id) => id !== collectionId,
+                                ),
+                          );
+                        }}
+                      />
+                      <span className="line-clamp-1 break-all">
+                        {collection.name?.split(/[-]/)?.[0]}
+                      </span>
+                    </label>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </div>
+      {/* <div className="space-y-3">
+        <div className="flex flex-col items-start gap-4">
+          <div className="text-lg font-medium">Availability</div>
+          <ul className="space-y-1.5">
+            <li>
+              <label className="flex cursor-pointer items-center gap-2">
+                <Checkbox
+                  checked={availability?.includes("in_stock")}
+                  onCheckedChange={(checked) => {
+                    updateAvailability(
+                      checked
+                        ? [...(availability || []), "in_stock"]
+                        : (availability || []).filter(
+                            (id) => id !== "in_stock",
+                          ),
+                    );
+                  }}
+                />
+                <span className="line-clamp-1 break-all">In Stock</span>
+              </label>
+            </li>
+            <li>
+              <label className="flex cursor-pointer items-center gap-2">
+                <Checkbox
+                  checked={availability?.includes("out_of_stock")}
+                  onCheckedChange={(checked) => {
+                    updateAvailability(
+                      checked
+                        ? [...(availability || []), "out_of_stock"]
+                        : (availability || []).filter(
+                            (id) => id !== "out_of_stock",
+                          ),
+                    );
+                  }}
+                />
+                <span className="line-clamp-1 break-all">Out of Stock</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div> */}
     </div>
   );
 }

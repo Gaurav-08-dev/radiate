@@ -7,7 +7,12 @@ import { notFound } from "next/navigation";
 import PaginationBar from "@/components/PaginationBar";
 
 interface PageProps {
-  searchParams: { query?: string; collection?: string[]; page?: string, sort?: ProductSort };
+  searchParams: {
+    query?: string;
+    collection?: string[];
+    page?: string;
+    sort?: ProductSort;
+  };
 }
 
 export default async function Page({
@@ -16,7 +21,11 @@ export default async function Page({
   return (
     <div className="flex flex-col group-has-[[data-pending]]:animate-pulse">
       <Suspense fallback={<Loading />} key={`${page}-${query}`}>
-        <Products collectionIds={collectionIds} page={parseInt(page)} sort={sort} />
+        <Products
+          collectionIds={collectionIds}
+          page={parseInt(page)}
+          sort={sort}
+        />
       </Suspense>
     </div>
   );
@@ -28,8 +37,9 @@ interface ProductProps {
   sort?: ProductSort;
 }
 async function Products({ page, collectionIds, sort }: ProductProps) {
+  
   const pageSize = 12;
-  const products = await queryProducts(getWixServerClient(), {
+  let products = await queryProducts(getWixServerClient(), {
     collectionIds: collectionIds?.length
       ? collectionIds
       : ["00000000-000000-000000-000000000001"],
@@ -37,7 +47,6 @@ async function Products({ page, collectionIds, sort }: ProductProps) {
     skip: (page - 1) * pageSize,
     sort: sort ? sort : undefined,
   });
-
 
   if (!products.length) notFound();
 
@@ -53,7 +62,13 @@ async function Products({ page, collectionIds, sort }: ProductProps) {
       <div className="flex h-full flex-col items-center justify-between gap-10">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {products?.items?.map((product) => (
-            <ProductGridUnit product={product} key={product._id} width={280} height={250} className="h-[450px] w-[280px]" />
+            <ProductGridUnit
+              product={product}
+              key={product._id}
+              width={280}
+              height={250}
+              className="h-[450px] w-[280px]"
+            />
           ))}
         </div>
         <PaginationBar

@@ -11,6 +11,7 @@ interface QueryProductsFilter {
   limit?: number; // results per page
   priceMin?: number;
   priceMax?: number;
+  availability?: string;
 }
 export async function queryProducts(
   wixClient: WixClient,
@@ -34,7 +35,7 @@ export async function queryProducts(
     ? Array.isArray(collectionIds)
       ? collectionIds
       : [collectionIds]
-    : [];
+    : [];  
 
   if (collectionIdsArray.length) {
     query = query.hasSome("collectionIds", collectionIdsArray);
