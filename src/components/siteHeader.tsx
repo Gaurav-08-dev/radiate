@@ -8,21 +8,24 @@ import UserButton from "./UserButton";
 import { getLoggedInMember } from "@/wix-api/members";
 import MainNavigation from "@/app/MainNavigation";
 import SearchField from "@/components/SearchField";
-import { getCollectionsForHeader, getCustomerFavorites } from "@/wix-api/collections";
+import {
+  getCollectionsForHeader,
+  getCustomerFavorites,
+} from "@/wix-api/collections";
 import { MobileMenu } from "@/app/MobileMenu";
 import { Suspense } from "react";
 import { playfairDisplayt } from "@/app/layout";
 
-
 export async function SiteHeader() {
   const wixClient = getWixServerClient();
-  const [cart, loggedInMember, collections, customerFavorites] = await Promise.all([
-    getCart(wixClient),
-    getLoggedInMember(wixClient),
-    getCollectionsForHeader(wixClient),
-    getCustomerFavorites(wixClient),
-  ]);
-  
+  const [cart, loggedInMember, collections, customerFavorites] =
+    await Promise.all([
+      getCart(wixClient),
+      getLoggedInMember(wixClient),
+      getCollectionsForHeader(wixClient),
+      getCustomerFavorites(wixClient),
+    ]);
+
   return (
     <>
       <header className="sticky top-0 z-50 hidden w-full lg:block">
@@ -36,11 +39,16 @@ export async function SiteHeader() {
                 className="object-contain"
               />
             </div>
-            <span className={`text-3xl text-white ${playfairDisplayt.className}`}>
+            <span
+              className={`text-3xl text-white ${playfairDisplayt.className}`}
+            >
               RADIATE
             </span>
           </Link>
-            <MainNavigation collections={collections || []} customerFavorites={customerFavorites || []} />
+          <MainNavigation
+            collections={collections || []}
+            customerFavorites={customerFavorites || []}
+          />
           <div className="flex items-center space-x-4">
             <SearchField className="max-w-96" />
             <UserButton

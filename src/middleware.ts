@@ -20,8 +20,8 @@ export async function middleware(request: NextRequest) {
       sessionTokens = await wixClient.auth.renewToken(
         sessionTokens.refreshToken,
       );
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) { 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
       sessionTokens = await wixClient.auth.generateVisitorTokens();
     }
   }

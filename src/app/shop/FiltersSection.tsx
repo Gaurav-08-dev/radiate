@@ -37,6 +37,7 @@ export default function FiltersSectionComponent({
 
   const router = useRouter();
   const searchParams = useSearchParams();
+  
   const [optimisticFilters, setOptimisticFilters] = useOptimistic({
     collection: searchParams.getAll("collection") || [],
     sort: searchParams.get("sort") || "last_updated",

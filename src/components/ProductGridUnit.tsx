@@ -87,7 +87,15 @@ const ProductGridUnit = ({
               />
             </div>
           ) : (
-            ""
+            <div
+              className="text-sm text-gray-600"
+              dangerouslySetInnerHTML={{
+                __html:
+                  product.additionalInfoSections?.find(
+                    (section) => section.title?.toLowerCase() === "subtitle",
+                  )?.description || "",
+              }}
+            />
           )}
         </div>
 

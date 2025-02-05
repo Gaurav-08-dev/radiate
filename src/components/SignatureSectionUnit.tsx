@@ -12,8 +12,17 @@ interface SignatureSectionUnitProps {
 const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
   const mainImage = product.media?.mainMedia?.image;
   const priceData = product?.priceData;
+  const originalPrice = priceData?.formatted?.price;
+  const discount = priceData?.formatted?.discountedPrice;
   const productOptions = product?.productOptions;
+  const title = product?.additionalInfoSections?.find(
+    (section) => section.title?.toLowerCase() === "landing page title",
+  )?.description || product.name;
 
+
+
+  console.log(product)
+  
   return (
     <div className="flex w-full flex-col items-center justify-center gap-12">
       <h1 className="py-8 text-center font-serif text-5xl font-medium tracking-tight">
@@ -34,13 +43,15 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
           <div className="flex items-center justify-center md:flex-row">
             <div className="flex flex-col gap-6">
               <Link href={`/products/${product.slug}`}>
-                <h1 className="font-serif text-5xl font-medium">
-                  {product.name}
-                </h1>
+                <div className="font-serif text-5xl font-medium" 
+                  dangerouslySetInnerHTML={{
+                    __html: title || "",
+                  }}
+                />
               </Link>
 
               <div
-                className="text-zinc-600 w-[80%]"
+                className="text-zinc-600 w-[80%] text-justify"
                 dangerouslySetInnerHTML={{
                   __html: product.description || "",
                 }}
@@ -58,9 +69,18 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
                       </span>
                     </div>
                   ))}
-                  <p className="text-xl font-bold">
-                    {replaceRupeesSymbol(priceData?.formatted?.price || "")}
-                  </p>
+                </div>
+                <div className="flex gap-2 items-center">
+                  {originalPrice && (
+                    <p className={`text-m font-bold ${discount ? "line-through text-gray-500" : ""}`}>
+                      {originalPrice}
+                    </p>
+                  )}
+                  {discount && (
+                    <p className="text-xl font-bold">
+                      {discount}
+                    </p>
+                  )}
                 </div>
               </div>
 

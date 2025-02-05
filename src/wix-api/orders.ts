@@ -11,3 +11,23 @@ export async function getOrder(wixClient: WixClient, orderId: string) {
     }
   }
 }
+
+export interface GetUserOrdersFilters {
+  limit?: number;
+  cursor?: string | null; // cursor is the id of the last order in the previous page
+}
+
+export async function getUserOrders(
+  wixClient: WixClient,
+  { limit, cursor }: GetUserOrdersFilters,
+) {
+  const orders = await wixClient.orders.searchOrders({
+    search: {
+      cursorPaging: {
+        limit,
+        cursor,
+      },
+    },
+  });
+  return orders;
+}

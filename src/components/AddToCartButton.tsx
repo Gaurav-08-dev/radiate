@@ -17,19 +17,21 @@ export function AddToCartButton({
   selectedOptions = {},
   quantity,
   className,
-  buttonText = 'Add to my bag',
+  buttonText = "Add to my bag",
   ...props
 }: AddToCartButtonProps) {
-
   const { mutate, isPending } = useAddItemToCart();
   return (
     <LoadingButton
       isLoading={isPending}
       onClick={() => mutate({ product, selectedOptions, quantity })}
-      className={cn("flex items-center justify-center gap-2 min-w-fit", className)}
+      className={cn(
+        "flex min-w-fit items-center justify-center gap-2",
+        className,
+      )}
       {...props}
     >
-      <ShoppingCartIcon className=""/>
+      <ShoppingCartIcon className="" />
       {buttonText}
     </LoadingButton>
   );

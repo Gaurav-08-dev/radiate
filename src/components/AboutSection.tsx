@@ -7,12 +7,12 @@ export function AboutSection() {
     <div className=" w-full py-16 md:py-24" id="about">
       
         <div className="relative mx-auto flex w-full items-center justify-center text-center overflow-clip">            
-          <div className="lg:block md:hidden absolute aspect-square w-[400px] h-[300px] rotate-[10deg] top-10 left-[-35px]">
+          <div className="hidden lg:block absolute aspect-square w-[400px] h-[300px] rotate-[10deg] top-10 left-[-35px]">
             <Image
               src={leftCandle}
               alt="Candle making process - pouring wax into containers"
               fill
-              className="rounded-lg object-cover"
+              className="rounded-none object-cover"
             />
           </div>
 
@@ -37,12 +37,12 @@ export function AboutSection() {
             </p>
           </div>
 
-          <div className="lg:block md:hidden absolute aspect-square w-[400px] h-[300px] rotate-[-10deg] top-10 right-[-35px]">
+          <div className="hidden lg:block absolute aspect-square w-[400px] h-[300px] rotate-[-10deg] top-10 right-[-35px]">
             <Image
               src={rightCandle}
               alt="Candle packaging process"
               fill
-              className="rounded-lg object-cover"
+              className="rounded-none object-cover"
             />
           </div>
         </div>

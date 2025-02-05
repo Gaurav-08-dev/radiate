@@ -3,6 +3,7 @@ import { getLoggedInMember } from "@/wix-api/members";
 import { getWixServerClient } from "@/lib/wix-client.server";
 import { notFound } from "next/navigation";
 import MemberInfoForm from "./MemberInfoForm";
+import Orders from "./Orders";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -18,6 +19,7 @@ export default async function Page() {
     <main className="mx-auto max-w-7xl space-y-10 px-4 py-10">
       <h1 className="text-2xl font-bold">Your Profile</h1>
       <MemberInfoForm member={member} />
+      <Orders /> 
     </main>
   );
 }

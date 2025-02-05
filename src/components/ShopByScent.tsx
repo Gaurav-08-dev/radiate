@@ -21,14 +21,26 @@ export async function ShopByScent() {
       <h1 className="py-12 text-center font-serif text-5xl">Shop By Scent</h1>
       <Carousel className="mx-auto w-full max-w-7xl"
         opts={{
-          slidesToScroll: 4,
+          slidesToScroll:1,
+          loop: true,
+          breakpoints: {
+            '(min-width: 640px)': {
+              slidesToScroll: 2,
+            },
+          '(min-width: 768px)': {
+            slidesToScroll: 2,
+          },
+          '(min-width: 1024px)': {
+            slidesToScroll: 4,
+            },
+          },
         }}
       >
-        <CarouselContent>
+        <CarouselContent className="-ml-2 md:-ml-4">
           {collections?.map((collection, index) => (
             <CarouselItem
               key={index}
-              className="sm:basis-1/2 md:basis-1/4 lg:basis-1/4"
+              className="pl-2 md:pl-4 basis-full sm:basis-1/2 md:basis-1/2 lg:basis-1/4 flex justify-center"
             >
               <div className="p-1">
                 <Card className="border-0 bg-transparent">
@@ -62,11 +74,10 @@ export async function ShopByScent() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="hidden md:flex" />
-        <CarouselNext className="hidden md:flex" />
+        <CarouselPrevious className="hidden lg:inline-flex" />
+        <CarouselNext className="hidden lg:inline-flex" />
       </Carousel>
 
-      {/* Custom Dots Navigation */}
       <div className="mt-6 flex justify-center gap-2">
         {collections?.map((_, index) => (
           <button

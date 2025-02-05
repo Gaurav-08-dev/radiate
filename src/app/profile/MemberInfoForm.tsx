@@ -3,9 +3,10 @@
 import { members } from "@wix/members";
 import { z } from "zod";
 import { requiredString } from "@/lib/validation";
-import { useForm } from "react-hook-form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMembersUpdate } from "@/hooks/members";
+import {useForm} from "react-hook-form"
 import {
   Form,
   FormControl,
@@ -28,6 +29,7 @@ interface MemberInfoFormProps {
   member: members.Member;
 }
 export default function MemberInfoForm({ member }: MemberInfoFormProps) {
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,6 +38,7 @@ export default function MemberInfoForm({ member }: MemberInfoFormProps) {
       lastName: member.contact?.lastName || "",
     },
   });
+
 
   const mutation = useMembersUpdate();
 
