@@ -130,8 +130,8 @@ export default function ProductDetails({ product }: ProductDetailProps) {
 
           <div className="flex items-center gap-20">
             <div className="flex flex-col gap-2">
-                  <span className="rounded-none bg-red-600 px-2 py-1 text-sm font-medium text-white">
-                    {ribbon}
+                  <span className="rounded-none text-center bg-red-600 px-1 py-1 text-sm font-medium text-white">
+                    {ribbon?.trim()}
                   </span>
               <div className="flex items-center gap-4">
                 <span className="font-semibold">MRP</span>
