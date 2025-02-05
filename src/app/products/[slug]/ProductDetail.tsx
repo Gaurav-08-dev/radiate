@@ -37,6 +37,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
     ?.replace(/&gt;/g, ">")
     ?.replace(/&quot;/g, '"')
     ?.replace(/&#39;/g, "'")
+    ?.replace(/&nbsp;/g, "")
     ?.replace(/<[^>]*>/g, "")
     ?.split("\n")
     ?.map((feature) => feature.trim())
@@ -109,7 +110,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
             }}
           />
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-4">
             {featuresList?.split(",").map((feature, i) => (
               <span key={i} className="text-sm font-medium">
                 <span className="flex items-center gap-1">
