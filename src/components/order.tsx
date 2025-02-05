@@ -11,9 +11,8 @@ interface OrderProps {
 }
 
 export default function Order({ order }: OrderProps) {
-  console.log(order);
-  const shippingDestination =
-    order?.shippingInfo?.logistics?.shippingDestination;
+  
+  const shippingDestination =order?.shippingInfo?.logistics?.shippingDestination;
   // @ts-expect-error
   const paymentStatusMap: Record<orders.PaymentStatus, string> = {
     [orders.PaymentStatus.PENDING]: "Pending",

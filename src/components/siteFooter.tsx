@@ -57,13 +57,13 @@ export function SiteFooter({className}: {className?: string}) {
           <h2 className="text-2xl font-playfair mb-6">Quick Links</h2>
           <div className="space-y-3">
             <Link 
-              href="/faqs" 
+              href="/faq" 
               className="block hover:opacity-80"
             >
               FAQs
             </Link>
             <Link 
-              href="/return-policy" 
+              href="/return-refund-policy" 
               className="block hover:opacity-80"
             >
               Return & refund policy

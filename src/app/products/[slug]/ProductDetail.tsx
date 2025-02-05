@@ -51,7 +51,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
     <div className="container mx-auto px-40 py-24">
       <div className="flex flex-col gap-12 md:flex-row">
         <div className="w-[40%] space-y-4">
-          <div className="relative aspect-square max-h-fit max-w-fit overflow-hidden rounded-lg">
+          <div className="relative aspect-square max-h-fit max-w-fit overflow-hidden rounded-none">
             <WixImage
               mediaIdentifier={currentImage?.url}
               alt={currentImage?.altText}
@@ -64,7 +64,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
             {imagesList?.map((img, i) => (
               <div
                 key={i}
-                className="relative h-28 w-28 flex-shrink-0 cursor-pointer rounded-lg"
+                className="relative h-28 w-28 flex-shrink-0 cursor-pointer rounded-none"
                 onClick={() => handleImageClick(img)}
               >
                 <WixImage
@@ -72,10 +72,10 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                   alt={img?.image?.altText}
                   width={112}
                   height={112}
-                  className="rounded object-cover"
+                  className="rounded-none object-cover"
                 />
                 {img?.image?.url === currentImage?.url && (
-                  <div className="absolute inset-0 rounded-sm bg-black/50"></div>
+                  <div className="absolute inset-0 rounded-none bg-black/50"></div>
                 )}
               </div>
             ))}
@@ -130,7 +130,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
             </div>
 
             <div
-              className={`mt-10 flex h-[50px] w-[400px] max-w-fit gap-10 overflow-hidden rounded-sm`}
+              className={`mt-10 flex h-[50px] w-[400px] max-w-fit gap-10 overflow-hidden rounded-none`}
             >
               {/* <ProductOptions
                   product={product}
@@ -139,7 +139,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                   className="w-[80px]"
                 /> */}
               {isInStock ? (
-                <div className="flex rounded border">
+                <div className="flex rounded-none border">
                   <button
                     disabled={quantity === 1}
                     type="button"

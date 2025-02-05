@@ -117,13 +117,13 @@ export default function Cart({ initialCart }: CartProps) {
           <NoItemsInCart />
         )}
       </div>
-      <YouMayLikeSection product={mayLike?.data || []} />
+      {/* <YouMayLikeSection product={mayLike?.data || []} /> */}
     </main>
   );
 }
 
 function ShoppingCartItem({ item }: { item: currentCart.LineItem }) {
-  console.log(item.descriptionLines);
+  
   const removeCartItemMutation = useRemoveCartItem();
   const updateCartItemQuantityMutation = useUpdateCartItemQuantity();
 

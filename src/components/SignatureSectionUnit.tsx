@@ -19,10 +19,6 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
     (section) => section.title?.toLowerCase() === "landing page title",
   )?.description || product.name;
 
-
-
-  console.log(product)
-  
   return (
     <div className="flex w-full flex-col items-center justify-center gap-12">
       <h1 className="py-8 text-center font-serif text-5xl font-medium tracking-tight">

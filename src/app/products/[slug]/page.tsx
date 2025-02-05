@@ -51,7 +51,7 @@ export default async function Page({ params:{slug} }: PageProps) {
   return (
     <>
       <ProductDetails product={product} />
-      <YouMayLikeSection product={scentedCandles.items} />
+      <YouMayLikeSection productId={product._id} />
     </>
   );
 }
