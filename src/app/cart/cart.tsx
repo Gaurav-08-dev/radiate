@@ -258,7 +258,7 @@ function NoItemsInCart() {
   return (
     <div className="mt-16 text-center">
       <p className="text-lg text-gray-500">Your shopping bag is empty</p>
-      <Link href="/">
+      <Link href="/shop">
         <Button className="mt-4 bg-[#500769] text-white hover:bg-[#500769]/80">
           Continue Shopping
         </Button>

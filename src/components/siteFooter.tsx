@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Instagram, FacebookIcon as Facebook, MailIcon as Mail, PhoneIcon as Phone } from 'lucide-react'
+import { Instagram, FacebookIcon as Facebook, MailIcon as Mail, PhoneIcon as Phone } from 'lucide-react';
 import { cn } from "@/lib/utils"
 
 export function SiteFooter({className}: {className?: string}) {
@@ -19,7 +19,7 @@ export function SiteFooter({className}: {className?: string}) {
             </a>
             <a 
               href="tel:+917011456324" 
-              className="flex items-center gap-2 hover:opacity-80"
+              className="flex items-center gap-2 hover:opacity-80 w-fit"
             >
               <Phone className="h-5 w-5" />
               +91 7011456324

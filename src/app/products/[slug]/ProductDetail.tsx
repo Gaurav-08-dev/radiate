@@ -43,6 +43,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
   };
 
   const isInStock = product?.stock?.quantity && product?.stock?.quantity > 0;
+  console.log(product);
   //   const availableQuantity = product.stock?.quantity;
   //   const availableQuantityExceeded = !!availableQuantity && quantity > availableQuantity;
   //   const inStock = checkInStock(product, selectedOptions); 3:57:57
