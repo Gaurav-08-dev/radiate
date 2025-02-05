@@ -8,11 +8,11 @@ import { currentCart } from "@wix/ecom";
 import WixImage from "@/components/WixImage";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import YouMayLikeSection from "@/components/YouMayLikeSection";
+// import YouMayLikeSection from "@/components/YouMayLikeSection";
 import { useGetMayLike } from "@/hooks/use-get-mayLike";
 import Loading from "./loading";
 import { Progress } from "@/components/ui/progress";
-import Confetti from "react-confetti";
+// import Confetti from "react-confetti";
 import CheckoutButton from "@/components/CheckoutButton";
 
 interface CartProps {
@@ -36,6 +36,19 @@ export default function Cart({ initialCart }: CartProps) {
 
   return (
     <main>
+      {/* {
+        // @ts-expect-error Server component type mismatch with client component
+        (cart?.data?.subtotal?.amount / 999) * 100 >= 100 ? (
+          <div className="absolute -translate-x-1/2 -translate-y-1/2">
+            <Confetti
+              recycle={false}
+              tweenDuration={1000}
+              numberOfPieces={200}
+              style={{ top: "20px" }}
+            />
+          </div>
+        ) : null
+      } */}
       <div className="mx-auto max-w-6xl p-6">
         {cart?.data?.lineItems?.length ? (
           <h1 className="mb-6 text-center text-3xl font-bold">
@@ -52,21 +65,6 @@ export default function Cart({ initialCart }: CartProps) {
             </div>
 
             <div className="relative w-80">
-              {
-                // @ts-expect-error Server component type mismatch with client component
-                (cart?.data?.subtotal?.amount / 999) * 100 >= 100 ? (
-                  <div className="absolute -translate-x-1/2 -translate-y-1/2">
-                    <Confetti
-                      recycle={false}
-                      tweenDuration={1000}
-                      numberOfPieces={200}
-                      width={300}
-                      height={100}
-                      style={{ top: "20px" }}
-                    />
-                  </div>
-                ) : null
-              }
               <div className="rounded bg-gray-50 p-4">
                 <Progress
                   value={
@@ -117,13 +115,12 @@ export default function Cart({ initialCart }: CartProps) {
           <NoItemsInCart />
         )}
       </div>
-      {/* <YouMayLikeSection product={mayLike?.data || []} /> */}
+      {/* <YouMayLikeSection productId={mayLike?.data?.[0]?._id} /> */}
     </main>
   );
 }
 
 function ShoppingCartItem({ item }: { item: currentCart.LineItem }) {
-  
   const removeCartItemMutation = useRemoveCartItem();
   const updateCartItemQuantityMutation = useUpdateCartItemQuantity();
 
@@ -164,39 +161,39 @@ function ShoppingCartItem({ item }: { item: currentCart.LineItem }) {
             </div>
           </div>
           {item.descriptionLines?.[0]?.colorInfo?.original?.includes("&") ? (
-              <div className="h-4 w-4 overflow-hidden border border-gray-200">
-                <div className="flex h-full">
-                  <div
-                    style={{
-                      backgroundColor:
-                        item.descriptionLines?.[0]?.colorInfo?.original
-                          .split("&")[0]
-                          .trim()
-                          .toLowerCase(),
-                    }}
-                    className="h-full w-1/2"
-                  />
-                  <div
-                    style={{
-                      backgroundColor:
-                        item.descriptionLines?.[0]?.colorInfo?.original
-                          .split("&")[1]
-                          .trim()
-                          .toLowerCase(),
-                    }}
-                    className="h-full w-1/2"
-                  />
-                </div>
+            <div className="h-4 w-4 overflow-hidden border border-gray-200">
+              <div className="flex h-full">
+                <div
+                  style={{
+                    backgroundColor:
+                      item.descriptionLines?.[0]?.colorInfo?.original
+                        .split("&")[0]
+                        .trim()
+                        .toLowerCase(),
+                  }}
+                  className="h-full w-1/2"
+                />
+                <div
+                  style={{
+                    backgroundColor:
+                      item.descriptionLines?.[0]?.colorInfo?.original
+                        .split("&")[1]
+                        .trim()
+                        .toLowerCase(),
+                  }}
+                  className="h-full w-1/2"
+                />
               </div>
-            ) : (
-              <div
-                style={{
-                  backgroundColor:
-                    item.descriptionLines?.[0]?.colorInfo?.original?.toLowerCase(),
-                }}
-                className="h-4 w-4"
-              />
-            )}
+            </div>
+          ) : (
+            <div
+              style={{
+                backgroundColor:
+                  item.descriptionLines?.[0]?.colorInfo?.original?.toLowerCase(),
+              }}
+              className="h-4 w-4"
+            />
+          )}
           <div className="mt-4 flex items-center gap-4">
             <div className="flex rounded border">
               <button

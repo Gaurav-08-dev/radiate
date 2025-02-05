@@ -42,7 +42,7 @@ export default function ProductDescription({
       </div>
       {open && (
         <div
-          className="mt-4 flex flex-col gap-2 text-gray-500"
+          className="space-y-3 mt-4 flex flex-col gap-2 text-gray-500 [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:p-2 [&_th]:border [&_th]:p-2"
           dangerouslySetInnerHTML={{ __html: description }}
         />
       )}

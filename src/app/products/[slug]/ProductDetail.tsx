@@ -4,15 +4,14 @@ import WixImage from "@/components/WixImage";
 import { products } from "@wix/stores";
 import ProductDescription from "@/components/ProductDescription";
 import { AddToCartButton } from "@/components/AddToCartButton";
+import { Check } from "lucide-react";
 // import BuyNowButton from "@/components/BuyNowButton";
 // import ProductOptions from "@/components/ProductOptions";
 interface ProductDetailProps {
   product: products.Product;
 }
 export default function ProductDetails({ product }: ProductDetailProps) {
-  const [selectedOptions] = useState<
-    Record<string, string>
-  >(
+  const [selectedOptions] = useState<Record<string, string>>(
     product.productOptions
       ?.map((option) => ({
         [option.name || ""]: option.choices?.[0]?.description || "",
@@ -28,22 +27,39 @@ export default function ProductDetails({ product }: ProductDetailProps) {
   const imagesList = product.media?.items;
   const priceData = product.priceData;
   const productAdditionalDetails = product.additionalInfoSections;
+  const features = productAdditionalDetails?.find(
+    (detail) => detail.title?.toLowerCase() === "features",
+  );
+
+  const featuresList = features?.description
+    ?.replace(/&amp;/g, "&")
+    ?.replace(/&lt;/g, "<")
+    ?.replace(/&gt;/g, ">")
+    ?.replace(/&quot;/g, '"')
+    ?.replace(/&#39;/g, "'")
+    ?.replace(/<[^>]*>/g, "")
+    ?.split("\n")
+    ?.map((feature) => feature.trim())
+    ?.filter(Boolean)?.[0];
 
   const productIngredients = productAdditionalDetails?.find(
-    (detail) => detail.title === "Product details & ingredients",
+    (detail) =>
+      detail.title?.toLowerCase() === "product details and ingredients",
   );
   const productDirections = productAdditionalDetails?.find(
-    (detail) => detail.title === "Directions of use",
+    (detail) => detail.title?.toLowerCase() === "directions of use",
   );
   const productIdealFor = productAdditionalDetails?.find(
-    (detail) => detail.title === "Ideal for",
+    (detail) => detail.title?.toLowerCase() === "ideal for",
   );
   const handleImageClick = (image: products.MediaItem) => {
     setCurrentImage(image.image);
   };
 
+  const ribbon = product.ribbon;
+
   const isInStock = product?.stock?.quantity && product?.stock?.quantity > 0;
-  console.log(product);
+
   //   const availableQuantity = product.stock?.quantity;
   //   const availableQuantityExceeded = !!availableQuantity && quantity > availableQuantity;
   //   const inStock = checkInStock(product, selectedOptions); 3:57:57
@@ -93,23 +109,29 @@ export default function ProductDetails({ product }: ProductDetailProps) {
             }}
           />
 
-          {/* <div className="flex flex-wrap gap-2">
-            {product?.features?.map((feature, i) => (
-              <span
-                key={i}
-                className="rounded-full bg-gray-100 px-3 py-1 text-sm"
-              >
-                {feature}
+          <div className="flex flex-wrap gap-2">
+            {featuresList?.split(",").map((feature, i) => (
+              <span key={i} className="text-sm font-medium">
+                <span className="flex items-center gap-1">
+                  <Check
+                    size={20}
+                    className="text-[#500769]"
+                    strokeWidth={3}
+                    absoluteStrokeWidth
+                  />
+                  {feature.trim()}
+                </span>
               </span>
             ))}
-          </div> */}
+          </div>
 
           <div className="h-[1px] w-full bg-gray-200" />
 
           <div className="flex items-center gap-20">
-            {/* <div className="flex items-baseline "> */}
-            {/* Display ribbon here - limited time offer */}
             <div className="flex flex-col gap-2">
+                  <span className="rounded-none bg-red-600 px-2 py-1 text-sm font-medium text-white">
+                    {ribbon}
+                  </span>
               <div className="flex items-center gap-4">
                 <span className="font-semibold">MRP</span>
                 <span className="text-gray-400 line-through">
@@ -127,7 +149,6 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                   ""
                 )}
               </div>
-              {/* </div> */}
             </div>
 
             <div
@@ -168,7 +189,6 @@ export default function ProductDetails({ product }: ProductDetailProps) {
               ) : null}
 
               <div className="flex gap-2">
-                
                 {/* <BuyNowButton
                   product={product}
                   quantity={quantity}

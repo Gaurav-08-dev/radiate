@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 
 export function SiteFooter({className}: {className?: string}) {
   return (
-    <footer className={cn("bg-[#500769] text-white py-12 px-16 mt-auto", className)} id="contact">
+    <footer className={cn("bg-[#500769] text-white py-12 px-16 mt-auto ", className)} id="contact">
       <div className="container grid grid-cols-1 md:grid-cols-3 gap-12">
         {/* Contact Us Section */}
         <div className="space-y-4  pr-16">
@@ -19,7 +19,7 @@ export function SiteFooter({className}: {className?: string}) {
             </a>
             <a 
               href="tel:+917011456324" 
-              className="flex items-center gap-2 hover:opacity-80 w-fit"
+              className="flex items-center gap-2 hover:opacity-80"
             >
               <Phone className="h-5 w-5" />
               +91 7011456324

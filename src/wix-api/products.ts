@@ -107,6 +107,10 @@ export async function getRelatedProducts(
         _id: "d5aac1e1-2e53-4d11-85f7-7172710b4783", // "Frequenly bought together"
         appId: WIX_STORE_APP_ID,
       },
+      {
+        _id: "ba491fd2-b172-4552-9ea6-7202e01d1d3c", // "From the best sellers"
+        appId: WIX_STORE_APP_ID,
+      },
     ],
     {
       items: [
@@ -131,5 +135,26 @@ export async function getRelatedProducts(
     .limit(4)
     .find();
 
+  return productsResult.items;
+}
+
+export async function getBestSellers(wixClient: WixClient) {
+  const result = await wixClient.recommendations.getRecommendation(
+    [
+      { _id: "ba491fd2-b172-4552-9ea6-7202e01d1d3c", appId: WIX_STORE_APP_ID },
+      {
+        _id: "68ebce04-b96a-4c52-9329-08fc9d8c1253",
+        appId: WIX_STORE_APP_ID,
+      },
+    ],
+    { items: [], minimumRecommendedItems: 3 },
+  );
+  const productIds = result.recommendation?.items;
+  if (!productIds || !productIds.length) return [];
+  const productsResult = await wixClient.products
+    .queryProducts()
+    .in("_id", productIds)
+    .limit(4)
+    .find();
   return productsResult.items;
 }

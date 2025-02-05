@@ -13,7 +13,7 @@ export function HeroSection() {
           >
             Fragrances that speaks to your soul
           </h1>
-          <p className="mx-auto max-w-xl text-base text-gray-800 md:mx-0 md:text-lg">
+          <p className="mx-auto max-w-xl text-base text-gray-800 md:mx-0 md:text-lg text-justify">
             Candles designed for self-care and meaningful moments. Uniquely
             blended scents to match every mood, and unforgettable gifting.
             Because every time they smell it, they&apos;ll remember you.

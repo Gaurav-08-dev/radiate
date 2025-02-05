@@ -36,7 +36,7 @@ export const useAddItemToCart = () => {
     mutationFn: (values: AddToCartValues) =>
       addToCart(wixBrowserClient, values),
     onSuccess(data) {
-      toast({ description: "Item added to your cart" });
+      toast({ description: "Item added to your cart", duration: 2000 });
       queryClient.cancelQueries({ queryKey });
       queryClient.setQueryData(queryKey, data.cart);
     },
@@ -45,6 +45,7 @@ export const useAddItemToCart = () => {
       toast({
         description: "Error adding item to cart, please try again",
         variant: "destructive",
+        duration: 2000,
       });
     },
   });
@@ -76,6 +77,7 @@ export const useUpdateCartItemQuantity = () => {
       toast({
         description: "Error updating item quantity, please try again",
         variant: "destructive",
+        duration: 2000,
       });
     },
     
@@ -108,6 +110,7 @@ export const useRemoveCartItem = () => {
       toast({
         description: "Error removing item from cart, please try again",
         variant: "destructive",
+        duration: 2000,
       });
     },
     onSettled() {
@@ -123,6 +126,7 @@ export const useClearCart = () => {
     onSuccess() {
       queryClient.setQueryData(queryKey, null);
       queryClient.invalidateQueries({ queryKey });
+      
     },
     retry: 3,
   });

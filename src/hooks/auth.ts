@@ -42,6 +42,7 @@ export default function useAuth() {
       toast({
         variant: "destructive",
         description: "Failed to log out. Please try again.",
+        
       });
     }
   }

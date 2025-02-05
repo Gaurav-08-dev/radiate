@@ -14,6 +14,8 @@ import { getWixServerClient } from "@/lib/wix-client.server";
 export async function ProductGrid() {
   const wixServerClient = getWixServerClient();
 
+  // const bestSellers = await getBestSellers(wixServerClient);
+  // console.log("bestSellers", bestSellers);
   const collection = await getCollectionBySlug(
     wixServerClient,
     "customer-favourites",

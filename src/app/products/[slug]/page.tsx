@@ -5,6 +5,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getWixServerClient } from "@/lib/wix-client.server";
 import YouMayLikeSection from "@/components/YouMayLikeSection";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Suspense } from "react";
 interface PageProps {
   params: {
     slug: string;
@@ -51,7 +53,19 @@ export default async function Page({ params:{slug} }: PageProps) {
   return (
     <>
       <ProductDetails product={product} />
-      <YouMayLikeSection productId={product._id} />
+      <Suspense fallback={<RelatedProductsLoadingSkeleton />}> 
+        <YouMayLikeSection productId={product._id} />
+      </Suspense>
     </>
+  );
+}
+
+function RelatedProductsLoadingSkeleton() {
+  return (
+    <div className="flex grid-cols-2 flex-col gap-5 pt-12 sm:grid lg:grid-cols-4">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <Skeleton key={i} className="h-[26rem] w-full" /> 
+      ))}
+    </div>
   );
 }
