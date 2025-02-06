@@ -5,7 +5,6 @@ import {
   currentCart,
   orders,
   recommendations,
-  
 } from "@wix/ecom";
 import { files } from "@wix/media";
 import { members } from "@wix/members";

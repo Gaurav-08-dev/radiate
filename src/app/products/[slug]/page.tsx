@@ -24,23 +24,31 @@ export async function generateMetadata({
     title: `${product?.name}`,
     description: "Get this product on Radiate",
     openGraph: {
-      images: mainImage?.url ? [{url: mainImage.url,
-        width: mainImage.width,
-        height: mainImage.height,
-        alt: product.name || "Radiate Product",
-      }] : undefined,
+      images: mainImage?.url
+        ? [
+            {
+              url: mainImage.url,
+              width: mainImage.width,
+              height: mainImage.height,
+              alt: product.name || "Radiate Product",
+            },
+          ]
+        : undefined,
     },
   };
 }
 
-
-export default async function Page({ params:{slug} }: PageProps) {
+export default async function Page({ params: { slug } }: PageProps) {
   const product = await getProductBySlug(getWixServerClient(), slug);
   if (!product?._id) {
     return notFound();
   }
 
-  const collection = await getCollectionBySlug(getWixServerClient(), "scented-candle");
+  const collection = await getCollectionBySlug(
+    getWixServerClient(),
+    "scented-candle",
+  );
+  
   if (!collection) {
     return null;
   }
@@ -53,7 +61,7 @@ export default async function Page({ params:{slug} }: PageProps) {
   return (
     <>
       <ProductDetails product={product} />
-      <Suspense fallback={<RelatedProductsLoadingSkeleton />}> 
+      <Suspense fallback={<RelatedProductsLoadingSkeleton />}>
         <YouMayLikeSection productId={product._id} />
       </Suspense>
     </>
@@ -64,7 +72,7 @@ function RelatedProductsLoadingSkeleton() {
   return (
     <div className="flex grid-cols-2 flex-col gap-5 pt-12 sm:grid lg:grid-cols-4">
       {Array.from({ length: 4 }).map((_, i) => (
-        <Skeleton key={i} className="h-[26rem] w-full" /> 
+        <Skeleton key={i} className="h-[26rem] w-full" />
       ))}
     </div>
   );
