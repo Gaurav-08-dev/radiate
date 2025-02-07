@@ -71,6 +71,11 @@ const MainNavigation = ({ className, collections, customerFavorites }: MainNavig
             <NavigationMenuLink>Contact Us</NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href="/about-us" legacyBehavior passHref>
+            <NavigationMenuLink>About Us</NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );
