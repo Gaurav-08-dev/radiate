@@ -66,7 +66,7 @@ export const policyFAQs = [
     emoji: "↩️",
     question: "What is your return & refund policy?",
     answer:
-      "Sorry we do not offer returns or refunds for change of mind purchases.",
+      "We offer a 100% refund for any product that is damaged or incorrect. And 7 days return policy for change of mind purchases.",
   },
   {
     emoji: "❓",
