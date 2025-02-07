@@ -37,7 +37,6 @@ interface ProductProps {
   sort?: ProductSort;
 }
 async function Products({ page, collectionIds, sort }: ProductProps) {
-  
   const pageSize = 12;
   let products = await queryProducts(getWixServerClient(), {
     collectionIds: collectionIds?.length

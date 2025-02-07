@@ -36,3 +36,22 @@ export async function createProductReview(
     },
   });
 }
+
+interface GetProductReviewsProps {
+  productId: string;
+  contactId?: string;
+  limit?: number;
+  cursor?: string | null;
+}
+export async function getProductReviews(
+  wixClient: WixClient,
+  { productId, contactId, limit, cursor }: GetProductReviewsProps,
+) {
+  let query = wixClient.reviews.queryReviews().eq("entityId", productId);
+
+  if (contactId) query = query.eq("author.contactId", contactId);
+  if (limit) query = query.limit(limit);
+  if (cursor) query = query.skipTo(cursor);
+
+  return query.find();
+}

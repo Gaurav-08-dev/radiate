@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { products } from "@wix/stores";
 import { members } from "@wix/members";
-import { useCreateProductReview } from "@/hooks/reviews";
 import { Button } from "@/components/ui/button";
 import CreateProductReviewDialog from "./CreateProductReviewDialog";
 import {
@@ -13,25 +12,27 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { playfair } from "@/lib/utils";
+
 interface CreateProductReviewButtonProps {
   product: products.Product;
-  loggedInMember: members.Member;
+  loggedInMember: members.Member | null;
 }
 
 export default function CreateProductReviewButton({
   product,
   loggedInMember,
 }: CreateProductReviewButtonProps) {
-  const { mutate, isPending } = useCreateProductReview();
 
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
 
   return (
-    <>
+    <div className="flex justify-center">
       <Button
         disabled={!loggedInMember}
         onClick={() => setShowReviewForm(true)}
+        className="bg-[#500769] text-white rounded-none hover:bg-[#500769]/80"
       >
         {loggedInMember ? "Write a review" : "Login to write a review"}
       </Button>
@@ -47,7 +48,7 @@ export default function CreateProductReviewButton({
         open={showConfirmationDialog}
         onOpenChange={setShowConfirmationDialog}
       />
-    </>
+    </div>
   );
 }
 

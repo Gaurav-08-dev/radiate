@@ -66,15 +66,15 @@ export default function ProductDetails({ product }: ProductDetailProps) {
   //   const inStock = checkInStock(product, selectedOptions); 3:57:57
 
   return (
-    <div className="container mx-auto px-40 py-24">
+    <div className="container mx-auto px-40 pt-20">
       <div className="flex flex-col gap-12 md:flex-row">
         <div className="w-[40%] space-y-4">
           <div className="relative aspect-square max-h-fit max-w-fit overflow-hidden rounded-none">
             <WixImage
               mediaIdentifier={currentImage?.url}
               alt={currentImage?.altText}
-              width={400}
-              height={400}
+              width={500}
+              height={500}
               className="object-cover transition-transform duration-300 hover:scale-105"
             />
           </div>
@@ -93,7 +93,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                   className="rounded-none object-cover"
                 />
                 {img?.image?.url === currentImage?.url && (
-                  <div className="absolute inset-0 rounded-none bg-black/50"></div>
+                  <div className="absolute inset-0 rounded-none bg-black/50" />
                 )}
               </div>
             ))}
@@ -130,9 +130,11 @@ export default function ProductDetails({ product }: ProductDetailProps) {
 
           <div className="flex items-center gap-20">
             <div className="flex flex-col gap-2">
-                  <span className="rounded-none text-center bg-red-600 px-1 py-1 text-sm font-medium text-white">
-                    {ribbon?.trim()}
-                  </span>
+              {ribbon && (
+                <span className="rounded-none bg-red-600 px-1 py-1 text-center text-sm font-medium text-white">
+                  {ribbon?.trim()}
+                </span>
+              )}
               <div className="flex items-center gap-4">
                 <span className="font-semibold">MRP</span>
                 <span className="text-gray-400 line-through">

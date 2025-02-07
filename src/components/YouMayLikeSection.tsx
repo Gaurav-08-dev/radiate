@@ -16,7 +16,7 @@ export default async function YouMayLikeSection({
 
   if (!relatedProducts.length) return null;
   return (
-    <div className="px-44 py-12">
+    <div className="px-44">
       <h1 className="py-8 text-center text-4xl font-semibold">
         You may also like
       </h1>
