@@ -32,7 +32,7 @@ export function SiteFooter({className}: {className?: string}) {
           <h2 className="text-2xl font-playfair mb-6">Connect with us</h2>
           <div className="space-y-3">
             <a 
-              href="https://instagram.com" 
+              href="https://instagram.com/radiatecandles" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="flex items-center gap-2 hover:opacity-80"
@@ -41,7 +41,7 @@ export function SiteFooter({className}: {className?: string}) {
               Instagram
             </a>
             <a 
-              href="https://facebook.com" 
+              href="https://www.facebook.com/people/Radiate-Candles/61562013155559/" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="flex items-center gap-2 hover:opacity-80"
