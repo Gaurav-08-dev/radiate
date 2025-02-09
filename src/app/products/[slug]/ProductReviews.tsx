@@ -53,9 +53,9 @@ export default function ProductReviews({ product }: ProductReviewsProps) {
       {status === "error" && (
         <p className="text-destructive">Error loading reviews</p>
       )}
-      {status === "success" && !reviewItems.length && !hasNextPage && (
+      {/* {status === "success" && !reviewItems.length && !hasNextPage && (
         <p className="text-muted-foreground">No reviews yet</p>
-      )}
+      )} */}
 
       <div className="flex flex-col gap-5 justify-center items-center">
         {reviewItems.map((review) => (
