@@ -54,7 +54,7 @@ export function ShoppingCartButton({ initialData }: ShoppingCartButtonProps) {
               </span>
             </SheetTitle>
           </SheetHeader>
-          <div className="flex grow flex-col space-y-5 overflow-y-auto pt-10">
+          <div className="mt-8 flex grow flex-col space-y-5 overflow-y-auto scroll-smooth pt-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar]:w-2">
             <ul className="space-y-5">
               {cart?.data?.lineItems?.map((item) => (
                 <ShoppingCartItem
@@ -129,52 +129,54 @@ function ShoppingCartItem({
     item.quantity >= item.availability.quantityAvailable;
 
   return (
-    <li className="flex items-center justify-between gap-3">
+    <li className="flex items-center justify-between gap-3 pr-2">
       <div className="flex items-start gap-3">
         <div className="relative size-fit flex-none">
           <Link href={`/products/${slug}`} onClick={onProductLinkClicked}>
-          <WixImage
-            mediaIdentifier={item.image}
-            width={110}
-            height={110}
-            alt={item.productName?.translated || "Product image"}
-            className="flex-none bg-secondary"
-          />
-        </Link>
-        <button
-          type="button"
-          aria-label="Remove item"
-          className="absolute -right-1 -top-1 rounded-full border bg-background p-0.5"
-          onClick={() => removeItemMutation.mutate(productId)}
-        >
-          <X className="size-3" />
-        </button>
-      </div>
-      <div className="space-y-1.5 text-sm">
-        <Link href={`/products/${slug}`} onClick={onProductLinkClicked}>
-          <p className="font-bold">{item.productName?.translated || "Item"}</p>
-        </Link>
-        {!!item.descriptionLines?.length && (
-          <p>
-            {item.descriptionLines
-              .map(
-                (line) =>
-                  line.colorInfo?.translated || line.plainText?.translated,
-              )
-              .join(", ")}
-          </p>
-        )}
-        <div className="flex items-center gap-2">
-          {item.quantity} x {item.price?.formattedConvertedAmount}
-          {item.fullPrice && item.fullPrice.amount !== item.price?.amount && (
-            <span className="text-muted-foreground line-through">
-              {item.fullPrice.formattedConvertedAmount}
-            </span>
+            <WixImage
+              mediaIdentifier={item.image}
+              width={110}
+              height={110}
+              alt={item.productName?.translated || "Product image"}
+              className="flex-none bg-secondary"
+            />
+          </Link>
+          <button
+            type="button"
+            aria-label="Remove item"
+            className="absolute -right-1 -top-1 rounded-full border bg-background p-0.5"
+            onClick={() => removeItemMutation.mutate(productId)}
+          >
+            <X className="size-3" />
+          </button>
+        </div>
+        <div className="space-y-1.5 text-sm">
+          <Link href={`/products/${slug}`} onClick={onProductLinkClicked}>
+            <p className="font-bold">
+              {item.productName?.translated || "Item"}
+            </p>
+          </Link>
+          {!!item.descriptionLines?.length && (
+            <p>
+              {item.descriptionLines
+                .map(
+                  (line) =>
+                    line.colorInfo?.translated || line.plainText?.translated,
+                )
+                .join(", ")}
+            </p>
           )}
+          <div className="flex items-center gap-2">
+            {item.quantity} x {item.price?.formattedConvertedAmount}
+            {item.fullPrice && item.fullPrice.amount !== item.price?.amount && (
+              <span className="text-muted-foreground line-through">
+                {item.fullPrice.formattedConvertedAmount}
+              </span>
+            )}
+          </div>
         </div>
       </div>
-      </div>
-      <div className="bg-primary text-white flex items-center gap-1.5">
+      <div className="flex items-center gap-1.5 bg-primary text-white">
         <Button
           className="hover:bg-transparent"
           variant="ghost"
