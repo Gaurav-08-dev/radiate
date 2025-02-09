@@ -15,6 +15,7 @@ interface ProductReviewsProps {
 }
 
 export default function ProductReviews({ product }: ProductReviewsProps) {
+
   const { data, status, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteQuery({
       queryKey: ["product-reviews", product._id],
@@ -29,6 +30,17 @@ export default function ProductReviews({ product }: ProductReviewsProps) {
           cursor: pageParam,
         });
       },
+      select: (data) => ({
+        ...data,
+        pages: data.pages.map((page) => ({
+          ...page,
+          items: page.items.filter(
+            (item) =>
+              item.moderation?.moderationStatus ===
+              reviews.ModerationModerationStatus.APPROVED,
+          ),
+        })),
+      }),
       getNextPageParam: (lastPage) => lastPage.cursors.next,
       initialPageParam: null as string | null,
     });

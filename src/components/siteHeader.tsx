@@ -56,7 +56,6 @@ export async function SiteHeader() {
               loggedInMember={loggedInMember}
             />
             <ShoppingCartButton initialData={cart} />
-            
           </div>
         </div>
       </header>

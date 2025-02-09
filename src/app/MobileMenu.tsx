@@ -17,7 +17,6 @@ import {
 import UserButton from "@/components/UserButton";
 import { useSearchParams } from "next/navigation";
 import { usePathname } from "next/navigation";
-
 interface MobileMenuProps {
   className?: string;
   collections?: collections.Collection[];
@@ -25,6 +24,7 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
+
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -80,12 +80,13 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
                     className="font-semibold hover:underline"
                     href={`/shop?collection=${collection._id}`}
                   >
-                    {collection.name}
+                    {collection.name?.split("-")?.[0]}
                   </Link>
                 </li>
               ))}
             </ul>
             <UserButton loggedInMember={loggedInMember || null} />
+            
           </div>
         </SheetContent>
       </Sheet>
