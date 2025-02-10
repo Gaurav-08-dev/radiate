@@ -62,12 +62,12 @@ export function SiteFooter({className}: {className?: string}) {
             >
               FAQs
             </Link>
-            <Link 
+            {/* <Link 
               href="/return-refund-policy" 
               className="block hover:opacity-80"
             >
               Return & Refund Policy
-            </Link>
+            </Link> */}
 
             <Link 
               href="/terms&conditions" 

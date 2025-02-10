@@ -18,7 +18,7 @@ export default function TermsAndConditions() {
         <h1 className="text-3xl font-bold">Terms & Conditions</h1>
         <button
           onClick={handleDownloadPDF}
-          className="flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+          className="flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-white hover:bg-primary/80"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
