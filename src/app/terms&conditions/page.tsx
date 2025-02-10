@@ -5,7 +5,7 @@ export default function TermsAndConditions() {
     // Create a link element
     const link = document.createElement("a");
     // Replace this URL with your actual PDF file URL
-    link.href = "./terms-condition-policies.pdf";
+    link.href = "/terms-condition-policies.pdf";
     link.download = "terms-and-conditions.pdf";
     document.body.appendChild(link);
     link.click();
