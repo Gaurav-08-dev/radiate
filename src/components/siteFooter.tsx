@@ -66,7 +66,14 @@ export function SiteFooter({className}: {className?: string}) {
               href="/return-refund-policy" 
               className="block hover:opacity-80"
             >
-              Return & refund policy
+              Return & Refund Policy
+            </Link>
+
+            <Link 
+              href="/terms&conditions" 
+              className="block hover:opacity-80"
+            >
+              Terms & Conditions
             </Link>
           </div>
         </div>
