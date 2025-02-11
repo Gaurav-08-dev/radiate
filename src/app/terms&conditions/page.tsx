@@ -396,7 +396,7 @@ export default function TermsAndConditions() {
             </li>
             <li>
               SHRI BALAJI ELECTRONIC SERVICES does not accept cancellation
-              requests for perishable items like flowers, eatables, etc.
+              requests for items like flowers, eatables, etc.
               However, the refund / replacement can be made if the user
               establishes that the quality of the product delivered is not good.
             </li>
@@ -417,8 +417,7 @@ export default function TermsAndConditions() {
             </li>
             <li>
               In case of any refunds approved by SHRI BALAJI ELECTRONIC
-              SERVICES, it will take 5 days for the refund to be processed to
-              you.
+              SERVICES, it will take 5 days for the refund to be credited to you in your registered bank account.
             </li>
           </ol>
         </section>
