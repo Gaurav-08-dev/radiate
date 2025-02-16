@@ -78,7 +78,7 @@ export default function SearchField({
       <PopoverContent
         className={`rounded-none p-0 ${
           searchResults.length > 0 
-            ? 'w-[900px] min-h-[200px]' 
+            ? 'w-[300px] md:w-[600px] lg:w-[900px] min-h-[200px]' 
             : 'w-[300px] min-h-[100px]'
         }`}
         align="end"
@@ -90,7 +90,7 @@ export default function SearchField({
               name="search"
               type="text"
               placeholder="Search products..."
-              className="relative border pe-10 max-w-[300px]"
+              className="relative border pe-10 w-full max-w-[300px]"
               autoFocus
               onChange={handleSearchInput}
             />
@@ -98,9 +98,9 @@ export default function SearchField({
 
           <div className={`mt-4 ${
             searchResults.length > 0 
-              ? 'max-h-[600px]' 
+              ? 'max-h-[400px] md:max-h-[600px]' 
               : 'max-h-[100px]'
-            } overflow-y-auto`}>
+            } overflow-y-auto [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar]:w-2`}>
             {isLoading ? (
               <div className="absolute bottom-0 right-0 flex w-full justify-center py-4">
                 <div className="flex gap-1">
@@ -113,7 +113,7 @@ export default function SearchField({
               <>
                 <div className={`${
                   searchResults.length > 0 
-                    ? 'grid gap-4 grid-cols-3 auto-rows-auto' 
+                    ? 'grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-auto' 
                     : ''
                 }`}>
                   {searchResults.length === 0 && hasSearched ? (

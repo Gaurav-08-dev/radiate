@@ -31,9 +31,12 @@ export async function SiteHeader() {
       <header className="sticky top-0 z-50 w-full">
         <div className="flex h-16 items-center justify-between bg-[#500769] px-4 lg:px-11">
           <div className="flex items-center space-x-1 lg:hidden">
-      <Suspense>
-        <MobileMenu collections={collections} loggedInMember={loggedInMember} />
-      </Suspense>
+            <Suspense>
+              <MobileMenu
+                collections={collections}
+                loggedInMember={loggedInMember}
+              />
+            </Suspense>
             <SearchField className="w-auto" />
           </div>
           <Link href="/" className="flex items-center space-x-2">
@@ -45,7 +48,9 @@ export async function SiteHeader() {
                 className="object-contain"
               />
             </div>
-            <span className={`text-xl lg:text-3xl text-white ${playfairDisplayt.className}`}>
+            <span
+              className={`text-xl text-white lg:text-3xl ${playfairDisplayt.className}`}
+            >
               RADIATE
             </span>
           </Link>
@@ -55,8 +60,8 @@ export async function SiteHeader() {
               customerFavorites={customerFavorites || []}
             />
           </div>
-          <div className="flex items-center space-x-4">
-            <SearchField className="hidden lg:block max-w-96" />
+          <div className="flex items-center space-x-2 lg:space-x-4">
+            <SearchField className="hidden max-w-96 lg:block" />
             <UserButton
               className="text-white outline-none"
               loggedInMember={loggedInMember}
