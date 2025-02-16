@@ -72,7 +72,7 @@ export default function SearchField({
           aria-label="Open search"
           className="text-white outline-none"
         >
-          <SearchIcon className="size-5" />
+          <SearchIcon className="size-6" />
         </button>
       </PopoverTrigger>
       <PopoverContent

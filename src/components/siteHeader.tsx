@@ -29,7 +29,7 @@ export async function SiteHeader() {
   return (
     <>
       <header className="sticky top-0 z-50 w-full">
-        <div className="flex h-16 items-center justify-between bg-[#500769] px-4 lg:px-11">
+        <div className="flex h-16 items-center justify-between bg-[#500769] px-2 lg:px-11">
           <div className="flex items-center space-x-1 lg:hidden">
             <Suspense>
               <MobileMenu
@@ -49,7 +49,7 @@ export async function SiteHeader() {
               />
             </div>
             <span
-              className={`text-xl text-white lg:text-3xl ${playfairDisplayt.className}`}
+              className={`font-semibold lg:font-normal text-xl text-white lg:text-3xl ${playfairDisplayt.className}`}
             >
               RADIATE
             </span>
@@ -63,7 +63,7 @@ export async function SiteHeader() {
           <div className="flex items-center space-x-2 lg:space-x-4">
             <SearchField className="hidden max-w-96 lg:block" />
             <UserButton
-              className="text-white outline-none"
+              className="text-white outline-none pt-[3px]"
               loggedInMember={loggedInMember}
             />
             <ShoppingCartButton initialData={cart} />
