@@ -28,10 +28,16 @@ export async function SiteHeader() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 hidden w-full lg:block">
-        <div className="flex h-16 items-center justify-between bg-[#500769] px-11">
+      <header className="sticky top-0 z-50 w-full">
+        <div className="flex h-16 items-center justify-between bg-[#500769] px-4 lg:px-11">
+          <div className="flex items-center space-x-1 lg:hidden">
+      <Suspense>
+        <MobileMenu collections={collections} loggedInMember={loggedInMember} />
+      </Suspense>
+            <SearchField className="w-auto" />
+          </div>
           <Link href="/" className="flex items-center space-x-2">
-            <div className="relative h-12 w-12">
+            <div className="relative h-8 w-8 lg:h-12 lg:w-12">
               <Image
                 src={logo}
                 alt="Radiate Logo Diamond"
@@ -39,18 +45,18 @@ export async function SiteHeader() {
                 className="object-contain"
               />
             </div>
-            <span
-              className={`text-3xl text-white ${playfairDisplayt.className}`}
-            >
+            <span className={`text-xl lg:text-3xl text-white ${playfairDisplayt.className}`}>
               RADIATE
             </span>
           </Link>
-          <MainNavigation
-            collections={collections || []}
-            customerFavorites={customerFavorites || []}
-          />
+          <div className="hidden lg:block">
+            <MainNavigation
+              collections={collections || []}
+              customerFavorites={customerFavorites || []}
+            />
+          </div>
           <div className="flex items-center space-x-4">
-            <SearchField className="max-w-96" />
+            <SearchField className="hidden lg:block max-w-96" />
             <UserButton
               className="text-white outline-none"
               loggedInMember={loggedInMember}
@@ -59,9 +65,6 @@ export async function SiteHeader() {
           </div>
         </div>
       </header>
-      <Suspense>
-        <MobileMenu collections={collections} loggedInMember={loggedInMember} />
-      </Suspense>
     </>
   );
 }

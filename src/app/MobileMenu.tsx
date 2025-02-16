@@ -52,9 +52,10 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
         type="button"
         title="Menu"
         onClick={() => setIsOpen(!isOpen)}
-        className="absolute left-0 top-0 z-50 p-2 hover:bg-transparent lg:hidden"
+        className=" p-2 hover:bg-transparent lg:hidden"
       >
-        <MenuIcon size={30} />
+        {/* absolute left-0 top-0 z-50 */}
+        <MenuIcon size={30} className="text-white"/>
       </button>
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent side="left" className="border-none outline-none w-full bg-[#500769] text-white">
