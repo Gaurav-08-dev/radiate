@@ -62,7 +62,6 @@ export default function SearchField({
   };
 
 
-
   return (
     <div className={cn("", className)}>
       <Popover open={isSearchOpen} onOpenChange={setIsSearchOpen}>
@@ -70,9 +69,9 @@ export default function SearchField({
           <button
           type="button"
           aria-label="Open search"
-          className="text-white outline-none"
+          className="text-white outline-none pt-[5px]"
         >
-          <SearchIcon className="size-6" />
+          <SearchIcon className="size-5" />
         </button>
       </PopoverTrigger>
       <PopoverContent
