@@ -31,7 +31,7 @@ export function HeroSection() {
           </p>
 
           <Link href="/shop">
-            <Button className="h-12 w-full min-w-fit rounded-none bg-[#500769] px-8 py-6 text-xl text-white hover:bg-[#500769]/90 md:w-1/2 md:text-2xl">
+            <Button className="h-12 w-3/4 mx-auto min-w-fit rounded-none bg-[#500769] px-8 py-6 text-xl text-white hover:bg-[#500769]/90 md:w-1/2 md:text-2xl">
               Find your scent
             </Button>
           </Link>

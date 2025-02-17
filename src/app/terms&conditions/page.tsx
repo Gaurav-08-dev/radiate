@@ -395,12 +395,7 @@ export default function TermsAndConditions() {
               delivery. In such an event, you may choose to reject the product
               at the doorstep.
             </li>
-            <li>
-              SHRI BALAJI ELECTRONIC SERVICES does not accept cancellation
-              requests for items like flowers, eatables, etc.
-              However, the refund / replacement can be made if the user
-              establishes that the quality of the product delivered is not good.
-            </li>
+
             <li>
               In case of receipt of damaged or defective items, please report to
               our customer service team. The request would be entertained once
@@ -443,7 +438,7 @@ export default function TermsAndConditions() {
           <h2 className="mb-4 text-xl font-semibold">Shipping Policy</h2>
           <div className="space-y-4">
             The orders for the user are shipped through registered domestic
-            courier companies and/or speed post only. Orders are deli within
+            courier companies and/or speed post only. Orders are delivered within
             7 days from the date of the order and/or payment or as per the
             delivery date agreed at the time of order confirmation and
             delivering of the shipment, subject to courier company / post office
