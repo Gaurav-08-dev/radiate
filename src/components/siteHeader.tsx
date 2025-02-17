@@ -49,7 +49,7 @@ export async function SiteHeader() {
               />
             </div>
             <span
-              className={`font-semibold lg:font-normal text-xl text-white lg:text-3xl ${playfairDisplayt.className}`}
+              className={`text-xl font-semibold text-white lg:text-3xl lg:font-normal ${playfairDisplayt.className}`}
             >
               RADIATE
             </span>
@@ -63,7 +63,7 @@ export async function SiteHeader() {
           <div className="flex items-center space-x-2 lg:space-x-4">
             <SearchField className="hidden max-w-96 lg:block" />
             <UserButton
-              className="text-white outline-none pt-[3px]"
+              className="pt-[3px] text-white outline-none"
               loggedInMember={loggedInMember}
             />
             <ShoppingCartButton initialData={cart} />
