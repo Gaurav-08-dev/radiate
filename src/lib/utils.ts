@@ -76,6 +76,7 @@ export function organizeCollections(
   const ungrouped: collections.Collection[] = [];
 
   collections.forEach((collection) => {
+    if(collection.visible){
     const collectionName = collection.name;
     const nameParts = collectionName?.split(/[-–]/);
     if (nameParts && nameParts.length > 1) {
@@ -87,7 +88,7 @@ export function organizeCollections(
     } else {
       groups.set(collection?.name || "", []);
       groups.get(collection?.name || "")?.push(collection);
-    }
+    }}
   });
 
   const result: CategoryGroup[] = [];

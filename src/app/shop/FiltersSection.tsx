@@ -106,6 +106,8 @@ function CollectionsFilter({
   selectedCollectionIds,
   updateCollectionIds,
 }: CollectionsFilterProps) {
+
+  
   return (
     <div className="flex flex-col gap-4">
       <div className="space-y-3">

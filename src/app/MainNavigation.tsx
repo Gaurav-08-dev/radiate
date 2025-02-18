@@ -40,7 +40,7 @@ const MainNavigation = ({ className, collections, customerFavorites }: MainNavig
           <NavigationMenuContent>
             <ul className="p-4">
               {collections?.map((collection) => (
-                <li key={collection._id}>
+                collection.visible && <li key={collection._id}>
                   <Link
                     href={`/shop?collection=${collection._id}`}
                     legacyBehavior
