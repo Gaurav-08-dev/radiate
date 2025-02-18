@@ -381,30 +381,6 @@ export default function TermsAndConditions() {
           </div>
         </section>
 
-        {/* <section>
-          <h2 className="mb-4 text-xl font-semibold">
-            Refund and Cancellation Policy
-          </h2>
-          <h3 className="mb-4">
-            This refund and cancellation policy outlines how you can cancel or
-            seek a refund for a product / service that you have purchased
-            through the Platform. Under this policy:
-          </h3>
-          <ul className="list-decimal space-y-4 pl-6">
-            <li>
-              We will notify you once we’ve received and inspected your return,
-              and let you know if the refund was approved or not. If approved,
-              you’ll be automatically credited on your original payment method
-              within 10 business days. Please remember it can take some time for
-              your bank or credit card company to process and post the refund
-              too.
-            </li>
-            <li>
-              If more than 15 business days have passed since we’ve approved
-              your return, please contact us at radiatecandles24@gmail.com
-            </li>
-          </ul>
-        </section> */}
 
         <section>
           <h2 className="mb-4 text-xl font-semibold">Return Policy</h2>
@@ -427,6 +403,26 @@ export default function TermsAndConditions() {
             radiatecandles24@gmail.com.
           </div>
         </section>
+        <section>
+          <h2 className="mb-4 text-xl font-semibold">
+            Refunds Policy
+          </h2>
+          <ul className="list-decimal space-y-4 pl-6">
+            <li>
+              We will notify you once we’ve received and inspected your return,
+              and let you know if the refund was approved or not. If approved,
+              you’ll be automatically credited on your original payment method
+              within 10 business days. Please remember it can take some time for
+              your bank or credit card company to process and post the refund
+              too.
+            </li>
+            <li>
+              If more than 15 business days have passed since we’ve approved
+              your return, please contact us at radiatecandles24@gmail.com
+            </li>
+          </ul>
+        </section>
+
 
         <section>
           <h2 className="mb-4 text-xl font-semibold">Shipping Policy</h2>
