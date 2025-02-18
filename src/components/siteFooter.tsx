@@ -11,18 +11,18 @@ export function SiteFooter({className}: {className?: string}) {
           <h2 className="text-2xl font-playfair mb-6">Contact us</h2>
           <div className="space-y-3">
             <a 
-              href="mailto:radiatecandles24@gmail.com" 
+              href="mailto:radiatecandles24@gmail.com"  
               className="flex items-center gap-2 hover:opacity-80"
             >
               <Mail className="h-5 w-5" />
               radiatecandles24@gmail.com
             </a>
             <a 
-              href="tel:+917011456324" 
+              href="tel:+917011145443" 
               className="flex items-center gap-2 hover:opacity-80"
             >
               <Phone className="h-5 w-5" />
-              +91 7011456324
+              +91 7011145443
             </a>
           </div>
         </div>

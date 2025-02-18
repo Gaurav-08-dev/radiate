@@ -33,6 +33,7 @@ export default function ProductOptions({
     <div className={cn("flex flex-wrap gap-2", className)}>
       {product.productOptions?.map((option) => (
         <Select
+          
           key={`${option.name} + ${id}`}
           disabled={inventoryStatus}
           onValueChange={(value) => {

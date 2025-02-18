@@ -1,22 +1,22 @@
 "use client";
 
 export default function TermsAndConditions() {
-  const handleDownloadPDF = () => {
-    // Create a link element
-    const link = document.createElement("a");
-    // Replace this URL with your actual PDF file URL
-    link.href = "/terms-condition-policies.pdf";
-    link.download = "terms-and-conditions.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  //   const handleDownloadPDF = () => {
+  //     // Create a link element
+  //     const link = document.createElement("a");
+  //     // Replace this URL with your actual PDF file URL
+  //     link.href = "/terms-condition-policies.pdf";
+  //     link.download = "terms-and-conditions.pdf";
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     document.body.removeChild(link);
+  //   };
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-8">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Terms & Conditions</h1>
-        <button
+        {/* <button
           type="button"
           onClick={handleDownloadPDF}
           className="flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-white hover:bg-primary/80"
@@ -36,7 +36,7 @@ export default function TermsAndConditions() {
             />
           </svg>
           Download PDF
-        </button>
+        </button> */}
       </div>
       <div className="space-y-6">
         <section>
@@ -385,19 +385,25 @@ export default function TermsAndConditions() {
           <h2 className="mb-4 text-xl font-semibold">
             Refund and Cancellation Policy
           </h2>
-          <ol className="list-decimal space-y-4 pl-6">
-            <li>
-              Cancellations will only be considered if the request is made 2
-              days of placing the order. However, Cancellation requests may not
-              be entertained if the orders have been communicated to such
-              sellers / merchant(s) listed on the Platform and they have
-              initiated the process of shipping them, or the product is out for
-              delivery. In such an event, you may choose to reject the product
-              at the doorstep.
-            </li>
+          <h3 className="mb-4">
 
+          This refund and cancellation policy outlines how you can cancel or
+              seek a refund for a product / service that you have purchased
+              through the Platform. Under this policy: 
+          </h3>
+          <ul className="list-decimal space-y-4 pl-6">
             <li>
-              In case of receipt of damaged or defective items, please report to
+              Cancellations will
+              only be considered if the request is made 2 days of placing the
+              order. However, cancellation requests may not be entertained if
+              the orders have been communicated to such sellers / merchant(s)
+              listed on the Platform and they have initiated the process of
+              shipping them, or the product is out for delivery. In such an
+              event, you may choose to reject the product at the doorstep.
+              </li>
+              <li>
+              In
+              case of receipt of damaged or defective items, please report to
               our customer service team. The request would be entertained once
               the seller/ merchant listed on the Platform, has checked and
               determined the same at its own end. This should be reported within
@@ -405,32 +411,42 @@ export default function TermsAndConditions() {
               received is not as shown on the site or as per your expectations,
               you must bring it to the notice of our customer service within 2
               days of receiving the product. The customer service team after
-              looking into your complaint will take an appropriate decision.
-            </li>
-            <li>
-              In case of complaints regarding the products that come with a
+              looking into your complaint will take an appropriate decision. 
+              </li>
+              <li>
+              In case ofcomplaints regarding the products that come with a
               warranty from the manufacturers, please refer the issue to them.
+              </li>
+              <li>
+              Incase ofany refunds approved by SHRI BALAJI ELECTRONIC
+              SERVICES, it willtake 5 days for the refund to be credited to you
+              in your registered bank account.
             </li>
-            <li>
-              In case of any refunds approved by SHRI BALAJI ELECTRONIC
-              SERVICES, it will take 5 days for the refund to be credited to you in your registered bank account.
-            </li>
-          </ol>
+          </ul>
         </section>
 
         <section>
           <h2 className="mb-4 text-xl font-semibold">Return Policy</h2>
           <div className="space-y-4">
-            We offer exchange within first 7 days from the date of your
-            purchase. If 7 days have passed since your purchase, you will not be
-            offered a return, exchange or refund of any kind. In order to become
-            eligible for an exchange, (i) the purchased item should
-            be unused and in the same condition as you received it, (ii) the
-            item must have original packaging, (iii) if the item that you
-            purchased on a sale, then the item may not be eligible for an exchange. Further, only such items are replaced by us (based on an
-            exchange request), if such items are found defective or damaged.
+            Weoffer exchange within first 7 days from the date of your purchase.
+            If 7 days have passed since your purchase, you will not be offered a
+            return, exchange or refund of any kind. In order to become eligible
+            for a return or an exchange, (i) the purchased item should be unused
+            and in the same condition as you received it, (ii) the item must
+            have original packaging, (iii) if the item that you purchased on a
+            sale, then the item may not be eligible for a return / exchange.
+            Further, only such items are replaced by us (based on an exchange
+            request), if such items are found defective or damaged. You agree
+            that there may be a certain category of products / items that are
+            exempted from returns or refunds. Such categories of the products
+            would be identified to you at the item of purchase. For exchange /
+            return accepted request(s) (as applicable), once your returned
+            product / item is received and inspected byus, we will send you an
+            email to notify you about receipt of the returned / exchanged
+            product. Further. If the same has been approved after the quality
+            check at our end, your request (i.e. return / exchange) will be
+            processed in accordance with our policies.
             <br />
-
           </div>
         </section>
 
@@ -438,9 +454,9 @@ export default function TermsAndConditions() {
           <h2 className="mb-4 text-xl font-semibold">Shipping Policy</h2>
           <div className="space-y-4">
             The orders for the user are shipped through registered domestic
-            courier companies and/or speed post only. Orders are delivered within
-            7 days from the date of the order and/or payment or as per the
-            delivery date agreed at the time of order confirmation and
+            courier companies and/or speed post only. Orders are delivered
+            within 7 days from the date of the order and/or payment or as per
+            the delivery date agreed at the time of order confirmation and
             delivering of the shipment, subject to courier company / post office
             norms. Platform Owner shall not be liable for any delay in delivery
             by the courier company / postal authority. Delivery of all orders
