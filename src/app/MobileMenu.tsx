@@ -76,7 +76,7 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
           <div className="flex flex-col items-center space-y-10 px-11 py-10">
             <ul className="space-y-5 text-center text-lg">
               {collections?.map((collection) => (
-                <li key={collection._id}>
+                collection.visible && <li key={collection._id}>
                   <Link
                     className="font-semibold hover:underline"
                     href={`/shop?collection=${collection._id}`}

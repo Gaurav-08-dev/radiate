@@ -381,72 +381,50 @@ export default function TermsAndConditions() {
           </div>
         </section>
 
-        <section>
+        {/* <section>
           <h2 className="mb-4 text-xl font-semibold">
             Refund and Cancellation Policy
           </h2>
           <h3 className="mb-4">
-
-          This refund and cancellation policy outlines how you can cancel or
-              seek a refund for a product / service that you have purchased
-              through the Platform. Under this policy: 
+            This refund and cancellation policy outlines how you can cancel or
+            seek a refund for a product / service that you have purchased
+            through the Platform. Under this policy:
           </h3>
           <ul className="list-decimal space-y-4 pl-6">
             <li>
-              Cancellations will
-              only be considered if the request is made 2 days of placing the
-              order. However, cancellation requests may not be entertained if
-              the orders have been communicated to such sellers / merchant(s)
-              listed on the Platform and they have initiated the process of
-              shipping them, or the product is out for delivery. In such an
-              event, you may choose to reject the product at the doorstep.
-              </li>
-              <li>
-              In
-              case of receipt of damaged or defective items, please report to
-              our customer service team. The request would be entertained once
-              the seller/ merchant listed on the Platform, has checked and
-              determined the same at its own end. This should be reported within
-              2 days of receipt of products. In case you feel that the product
-              received is not as shown on the site or as per your expectations,
-              you must bring it to the notice of our customer service within 2
-              days of receiving the product. The customer service team after
-              looking into your complaint will take an appropriate decision. 
-              </li>
-              <li>
-              In case ofcomplaints regarding the products that come with a
-              warranty from the manufacturers, please refer the issue to them.
-              </li>
-              <li>
-              Incase ofany refunds approved by SHRI BALAJI ELECTRONIC
-              SERVICES, it willtake 5 days for the refund to be credited to you
-              in your registered bank account.
+              We will notify you once we’ve received and inspected your return,
+              and let you know if the refund was approved or not. If approved,
+              you’ll be automatically credited on your original payment method
+              within 10 business days. Please remember it can take some time for
+              your bank or credit card company to process and post the refund
+              too.
+            </li>
+            <li>
+              If more than 15 business days have passed since we’ve approved
+              your return, please contact us at radiatecandles24@gmail.com
             </li>
           </ul>
-        </section>
+        </section> */}
 
         <section>
           <h2 className="mb-4 text-xl font-semibold">Return Policy</h2>
           <div className="space-y-4">
-            Weoffer exchange within first 7 days from the date of your purchase.
-            If 7 days have passed since your purchase, you will not be offered a
-            return, exchange or refund of any kind. In order to become eligible
-            for a return or an exchange, (i) the purchased item should be unused
-            and in the same condition as you received it, (ii) the item must
-            have original packaging, (iii) if the item that you purchased on a
-            sale, then the item may not be eligible for a return / exchange.
-            Further, only such items are replaced by us (based on an exchange
-            request), if such items are found defective or damaged. You agree
-            that there may be a certain category of products / items that are
-            exempted from returns or refunds. Such categories of the products
-            would be identified to you at the item of purchase. For exchange /
-            return accepted request(s) (as applicable), once your returned
-            product / item is received and inspected byus, we will send you an
-            email to notify you about receipt of the returned / exchanged
-            product. Further. If the same has been approved after the quality
-            check at our end, your request (i.e. return / exchange) will be
-            processed in accordance with our policies.
+            We have a 7-day return policy, which means you have 7 days after
+            receiving your item to request a return.
             <br />
+            To be eligible for a return, your item must be in the same condition
+            that you received it, unused and in its original packaging. You will
+            also need the receipt or proof of purchase.
+            <br />
+            To start a return, you can contact us at radiatecandles24@gmail.com.
+            <br />
+            If your return is accepted, we will send you a return shipping
+            label, as well as instructions on how and where to send your
+            package. Items sent back to us without first requesting a return
+            will not be accepted.
+            <br />
+            You can always contact us for any return question at
+            radiatecandles24@gmail.com.
           </div>
         </section>
 
