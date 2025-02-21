@@ -59,7 +59,7 @@ const ProductGridUnit = ({
         prefetch={true}
         className={`${playfair.className} lg:w-full`}
       >
-        <div className="relative mb-3 sm:mb-4 h-[170px] w-[170px] sm:h-[250px] sm:w-[280px] overflow-hidden">
+        <div className="relative mb-3 sm:mb-4 h-[170px] w-[190px] sm:h-[250px] sm:w-[280px] overflow-hidden">
           <WixImage
             mediaIdentifier={mainImage?.url}
             alt={mainImage?.altText}
@@ -84,7 +84,7 @@ const ProductGridUnit = ({
             />
           )}
           {showOptions && product.productOptions?.length ? (
-            <div className="flex min-h-[32px] gap-1 ">
+            <div className="flex min-h-[32px] gap-1">
               <ProductOptions
                 product={product}
                 selectedOptions={selectedOptions}

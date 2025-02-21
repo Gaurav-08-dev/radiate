@@ -9,7 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function Home() {
   return (
     <>
-      <main className="flex flex-col gap-6 sm:gap-8 md:gap-12 bg-[#faf5ff]">
+      <main className="flex flex-col gap-0 md:gap-12 bg-[#faf5ff]">
         <HeroSection />
         <Suspense fallback={<StorySkeletonSection />}>
           <ProductGrid />

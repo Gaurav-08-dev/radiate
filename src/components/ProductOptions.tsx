@@ -32,8 +32,7 @@ export default function ProductOptions({
   return (
     <div className={cn("flex flex-wrap gap-2", className)}>
       {product.productOptions?.map((option) => (
-        <Select
-          
+        <Select   
           key={`${option.name} + ${id}`}
           disabled={inventoryStatus}
           onValueChange={(value) => {
@@ -44,7 +43,7 @@ export default function ProductOptions({
           }}
         //   value={selectedOptions[option.name || ""] || option.choices?.[0]?.description || ""}
         >
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="md:w-[180px] w-[100px] md:h-10 h-7">
             <SelectValue placeholder={option.name} />
           </SelectTrigger>
           <SelectContent>

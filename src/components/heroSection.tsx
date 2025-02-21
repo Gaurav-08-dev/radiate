@@ -19,20 +19,20 @@ export function HeroSection() {
           />
         </div>
 
-        <div className="order-2 flex flex-col justify-center space-y-6 p-6 text-center md:order-1 md:p-12 md:text-left">
+        <div className="order-2 flex flex-col justify-center space-y-4 p-6 text-center md:order-1 md:p-12 md:text-left">
           <h1
-            className={`text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl ${playfairDisplayt.className}`}
+            className={`text-xl font-bold tracking-tight md:text-4xl lg:text-5xl ${playfairDisplayt.className}`}
           >
             Fragrances that speaks to your soul
           </h1>
-          <p className="mx-auto max-w-xl text-justify text-base text-gray-800 md:mx-0 md:text-lg">
+          <p className="mx-auto max-w-xl text-pretty text-base text-[#5f5f5f] md:mx-0 md:text-lg">
             Candles designed for self-care and meaningful moments. Uniquely
             blended scents to match every mood, and unforgettable gifting.
             Because every time they smell it, they&apos;ll remember you
           </p>
 
           <Link href="/shop">
-            <Button className="h-12 w-3/4 mx-auto min-w-fit rounded-none bg-[#500769] px-8 py-6 text-xl text-white hover:bg-[#500769]/90 md:w-1/2 md:text-2xl">
+            <Button className="mt-2 h-12 w-3/4 mx-auto min-w-fit rounded-none bg-[#500769] px-8 py-6 text-xl text-white hover:bg-[#500769]/90 md:w-1/2 md:text-2xl">
               Find your scent
             </Button>
           </Link>

@@ -17,7 +17,7 @@ export async function ShopByScent() {
   const collections = await getCollectionsByScent(wixClient);
 
   return (
-    <div className="w-full">
+    <div className="w-full overflow-hidden">
       <h1 className="py-12 text-center font-serif text-5xl">Shop By Scent</h1>
       <Carousel className="mx-auto w-full max-w-7xl"
         opts={{

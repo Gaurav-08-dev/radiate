@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import WixImage from "./WixImage";
-import { replaceRupeesSymbol } from "@/lib/utils";
+import { playfair } from "@/lib/utils";
 import { products } from "@wix/stores";
 import Link from "next/link";
 import { AddToCartButton } from "./AddToCartButton";
@@ -21,11 +21,15 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-12 overflow-hidden">
-      <h1 className="py-8 text-center font-serif text-5xl font-medium tracking-tight">
-        Discover Our Signature Candle
-      </h1>
+      <div className="flex items-center justify-center gap-4">
+        <div className="h-[1px] w-16 bg-gray-200 hidden md:block"></div>
+        <h1 className={`${playfair.className} py-8 text-center font-serif md:text-5xl text-xl font-medium tracking-tight`}>
+          Discover Our Signature Candle
+        </h1>
+        <div className="h-[1px] w-16 bg-gray-200 hidden md:block"></div>
+      </div>
 
-      <div className="flex items-center justify-center bg-[#F8D7E3]">
+      <div className="flex items-center justify-center bg-white md:bg-[#F8D7E3] ">
         <div className="h-full min-h-[400px] w-1/2 overflow-hidden">
           <WixImage
             mediaIdentifier={mainImage?.url}
