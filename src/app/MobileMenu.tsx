@@ -55,7 +55,23 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
         className=" p-2 hover:bg-transparent lg:hidden"
       >
         {/* absolute left-0 top-0 z-50 */}
-        <MenuIcon size={30} className="text-white"/>
+        {/* <MenuIcon size={30} className="text-white"/>
+         */}
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="square"
+          strokeLinejoin="round"
+          className="text-white"
+        >
+          <line x1="4" y1="12" x2="18" y2="12" />
+          <line x1="4" y1="6" x2="25" y2="6" />
+          <line x1="4" y1="18" x2="10" y2="18" />
+        </svg>
       </button>
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent side="left" className="border-none outline-none w-full bg-[#500769] text-white">

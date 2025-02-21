@@ -1,5 +1,5 @@
 import { WixClient } from "@/lib/wix-client.base";
-import { checkout } from "@wix/ecom";
+import { checkout, checkoutSettings } from "@wix/ecom";
 import { env } from "@/env";
 import { products } from "@wix/stores";
 import { findVariant } from "@/lib/utils";
@@ -77,4 +77,8 @@ export async function getCheckoutUrlForProduct(
   }
 
   return redirectSession.fullUrl;
+}
+
+export async function getCheckoutPolicies (wixClient: WixClient){
+ return await wixClient.checkoutSettings.getCheckoutSettings()
 }

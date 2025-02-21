@@ -121,9 +121,9 @@ export default function SearchField({
                     </div>
                   ) : (
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    searchResults?.map((result: any) => (
+                    searchResults?.map((result: any, index) => (
                       <div
-                        key={result.id}
+                        key={result.id+index}
                         className="cursor-pointer rounded-md p-2 hover:bg-accent"
                       >
                         <Link 
