@@ -9,7 +9,6 @@ export default async function TermsAndConditions() {
     checkoutSettings?.checkoutPolicies?.termsAndConditions;
   const privacyPolicy = checkoutSettings?.checkoutPolicies?.privacyPolicy;
 
-  console.log(returnPolicy, termsAndConditions, privacyPolicy);
   return (
     <Suspense>
       <main className="mx-auto max-w-4xl px-4 py-8">

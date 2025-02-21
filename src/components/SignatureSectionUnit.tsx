@@ -20,7 +20,7 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
   )?.description || product.name;
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-12">
+    <div className="flex w-full flex-col items-center justify-center gap-12 overflow-hidden">
       <h1 className="py-8 text-center font-serif text-5xl font-medium tracking-tight">
         Discover Our Signature Candle
       </h1>

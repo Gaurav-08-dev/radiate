@@ -28,13 +28,13 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
     "sweet&gourmand": "🍬",
     "woody&amber": "🌳",
     "fruity&citrus": "🍊",
-    "uniqueblends": "🌿",
-  }
-  console.log(collections);
+    uniqueblends: "🌿",
+  };
+
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [openAccordions, setOpenAccordions] = useState<string[]>([
     "shop",
     "scent",
@@ -86,7 +86,7 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent
           side="left"
-          className="rounded-br-2xl rounded-tr-2xl bg-[#F7F2FA] outline-none shadow-xl"
+          className="rounded-br-2xl rounded-tr-2xl bg-[#F7F2FA] shadow-xl outline-none"
         >
           <SheetHeader className="relative flex w-[91%] items-start">
             <div className="relative min-w-full">
@@ -177,23 +177,37 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
                 </AccordionTrigger>
                 <AccordionContent className={cn(montserrat.className)}>
                   <div className="flex flex-col space-y-4 text-[#5F5F5F]">
-                    {
-                      collections?.map((collection) => (  
-                        <Link
-                          href={`/shop?collection=${collection._id}`}
-                          className="flex items-center gap-2"
-                        >
-                          <span className="h-5 w-5">{scentEmoji[collection.name?.split('-')?.[0]?.replace(/\s+/g, '').toLowerCase() as keyof typeof scentEmoji]}</span> {collection.name?.split('-')?.[0]?.split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                        </Link>
-                      ))
-                    }
-                    
-                    
+                    {collections?.map((collection) => (
+                      <Link
+                        href={`/shop?collection=${collection._id}`}
+                        className="flex items-center gap-2"
+                      >
+                        <span className="h-5 w-5">
+                          {
+                            scentEmoji[
+                              collection.name
+                                ?.split("-")?.[0]
+                                ?.replace(/\s+/g, "")
+                                .toLowerCase() as keyof typeof scentEmoji
+                            ]
+                          }
+                        </span>{" "}
+                        {collection.name
+                          ?.split("-")?.[0]
+                          ?.split(" ")
+                          .map(
+                            (word) =>
+                              word.charAt(0).toUpperCase() + word.slice(1),
+                          )
+                          .join(" ")}
+                      </Link>
+                    ))}
                   </div>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-
+          </div>
+          <div className="flex flex-col items-start space-y-3 text-sm font-medium pl-4">
             <div
               className={cn(
                 playfair.className,

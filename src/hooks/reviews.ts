@@ -14,7 +14,6 @@ export function useCreateProductReview() {
       createProductReview(wixBrowserClient, values),
 
     onError: (error) => {
-      console.log(error);
       toast({
         title: "Error creating review!! Please try again",
         description: error.message,

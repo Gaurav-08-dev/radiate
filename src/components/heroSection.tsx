@@ -7,14 +7,15 @@ export function HeroSection() {
   return (
     <section className="relative md:bg-[#F8D7E3]">
       <div className="flex flex-col md:grid md:grid-cols-2 md:grid-rows-1">
-        <div className="relative order-1 h-[400px] md:order-2 md:h-[500px] lg:h-[600px]">
+        <div className="relative order-1 h-[400px] md:order-2 md:h-[500px] lg:h-[600px] overflow-hidden">
           <Image
             src={banner}
             alt="Radiate Fragrances Display"
-            fill
-            className=""
+            className="object-cover object-right"
             priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            // width={1000}
+            // height={1000}
+            // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
 
@@ -27,7 +28,7 @@ export function HeroSection() {
           <p className="mx-auto max-w-xl text-justify text-base text-gray-800 md:mx-0 md:text-lg">
             Candles designed for self-care and meaningful moments. Uniquely
             blended scents to match every mood, and unforgettable gifting.
-            Because every time they smell it, they&apos;ll remember you.
+            Because every time they smell it, they&apos;ll remember you
           </p>
 
           <Link href="/shop">
