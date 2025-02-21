@@ -34,7 +34,7 @@ export async function ProductGrid() {
   if (!featuredProducts.items.length) return null;
 
   return (
-    <div className="px-4 pt-0">
+    <div className="px-4 pt-0 overflow-hidden">
       <h1 className={`${playfair.className} font-medium py-6 lg:py-12 text-center font-serif text-[1.13rem] md:text-5xl flex items-center justify-center gap-2 before:content-[''] before:h-[1px] before:w-20 before:bg-gray-300 after:content-[''] after:h-[1px] after:w-20 after:bg-gray-300 md:before:hidden md:after:hidden`}>
         Customer Favorites
       </h1>
