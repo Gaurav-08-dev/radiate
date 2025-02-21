@@ -23,10 +23,22 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
+  const scentEmoji = {
+    "floral&aromatic": "🌸",
+    "sweet&gourmand": "🍬",
+    "woody&amber": "🌳",
+    "fruity&citrus": "🍊",
+    "uniqueblends": "🌿",
+  }
+  console.log(collections);
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const [isOpen, setIsOpen] = useState(true);
+  const [openAccordions, setOpenAccordions] = useState<string[]>([
+    "shop",
+    "scent",
+  ]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -74,7 +86,7 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent
           side="left"
-          className="rounded-br rounded-tr bg-[#F7F2FA] outline-none"
+          className="rounded-br-2xl rounded-tr-2xl bg-[#F7F2FA] outline-none shadow-xl"
         >
           <SheetHeader className="relative flex w-[91%] items-start">
             <div className="relative min-w-full">
@@ -99,34 +111,44 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
               </svg>
             </div>
           </SheetHeader>
-          <div className="flex flex-col items-start space-y-10 px-4">
-            <Accordion type="single" collapsible className="w-full">
+          <div className="scrollbar-hide mt-4 flex max-h-[90%] flex-col items-start space-y-5 overflow-y-auto pb-2 pl-4 [&::-webkit-scrollbar]:hidden">
+            <Accordion
+              type="multiple"
+              value={openAccordions}
+              onValueChange={setOpenAccordions}
+              className="w-full"
+            >
               <AccordionItem value="shop">
-                <AccordionTrigger className={cn(playfair.className, "text-sm hover:no-underline")}>
+                <AccordionTrigger
+                  className={cn(
+                    playfair.className,
+                    "pt-0 text-sm hover:no-underline",
+                  )}
+                >
                   Shop
                 </AccordionTrigger>
                 <AccordionContent className={cn(montserrat.className)}>
-                  <div className="flex flex-col space-y-4">
+                  <div className="flex flex-col space-y-4 text-[#5F5F5F]">
                     <Link
-                      href="/shop/scented-candles"
+                      href="/shop?collection=79f1e1c4-9d44-8a1a-ebcc-3c840d3b4d37"
                       className="flex items-center gap-2"
                     >
                       <span className="h-5 w-5">🕯️</span> Scented Candles
                     </Link>
                     <Link
-                      href="/shop/pillar-candles"
+                      href="/shop?collection=dd036eb5-7484-5053-e35e-d3fc046f6417"
                       className="flex items-center gap-2"
                     >
                       <span className="h-5 w-5">🕯️</span> Pillar Candles
                     </Link>
                     <Link
-                      href="/shop/gifting-combos"
+                      href="/shop?collection=e8752ab7-08e0-39a7-5fc8-88df885512b7"
                       className="flex items-center gap-2"
                     >
                       <span className="h-5 w-5">🎁</span> Gifting Combos
                     </Link>
                     <Link
-                      href="/shop/floating-candles"
+                      href="/shop?collection=e47a30b0-abed-082b-89e5-771ea279deae"
                       className="flex items-center gap-2"
                     >
                       <span className="h-5 w-5">🕯️</span> Floating Candles
@@ -137,7 +159,7 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
 
               <div className="py-4">
                 <Link
-                  href="/best-sellers"
+                  href="/shop?collection=2398b8e1-88a1-93c4-2323-9a74d09770f8"
                   className={cn(playfair.className, "text-sm font-medium")}
                 >
                   Best-sellers
@@ -145,51 +167,43 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
               </div>
 
               <AccordionItem value="scent">
-                <AccordionTrigger className={cn(playfair.className, "text-sm hover:no-underline")}>
+                <AccordionTrigger
+                  className={cn(
+                    playfair.className,
+                    "text-sm hover:no-underline",
+                  )}
+                >
                   Shop by scent
                 </AccordionTrigger>
                 <AccordionContent className={cn(montserrat.className)}>
-                  <div className="flex flex-col space-y-4">
-                    <Link
-                      href="/scent/floral-aromatic"
-                      className="flex items-center gap-2"
-                    >
-                      <span className="h-5 w-5">🌸</span> Floral & Aromatic
-                    </Link>
-                    <Link
-                      href="/scent/sweet-gourmand"
-                      className="flex items-center gap-2"
-                    >
-                      <span className="h-5 w-5">🍬</span> Sweet & Gourmand
-                    </Link>
-                    <Link
-                      href="/scent/woody-amber"
-                      className="flex items-center gap-2"
-                    >
-                      <span className="h-5 w-5">🌳</span> Woody & Amber
-                    </Link>
-                    <Link
-                      href="/scent/fruity-citrus"
-                      className="flex items-center gap-2"
-                    >
-                      <span className="h-5 w-5">🍊</span> Fruity & Citrus
-                    </Link>
-                    <Link
-                      href="/scent/unique-blends"
-                      className="flex items-center gap-2"
-                    >
-                      <span className="h-5 w-5">🌿</span> Unique Blends
-                    </Link>
+                  <div className="flex flex-col space-y-4 text-[#5F5F5F]">
+                    {
+                      collections?.map((collection) => (  
+                        <Link
+                          href={`/shop?collection=${collection._id}`}
+                          className="flex items-center gap-2"
+                        >
+                          <span className="h-5 w-5">{scentEmoji[collection.name?.split('-')?.[0]?.replace(/\s+/g, '').toLowerCase() as keyof typeof scentEmoji]}</span> {collection.name?.split('-')?.[0]?.split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                        </Link>
+                      ))
+                    }
+                    
+                    
                   </div>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
 
-            <div className={cn(playfair.className, "flex flex-col space-y-6 text-sm font-medium")}>
-              <Link href="/faqs">FAQs</Link>
-              <Link href="/shipping">Return & shipping policy</Link>
-              <Link href="/about">About us</Link>
-              <Link href="/contact">Contact us</Link>
+            <div
+              className={cn(
+                playfair.className,
+                "flex flex-col space-y-3 text-sm font-medium",
+              )}
+            >
+              <Link href="/faq">FAQs</Link>
+              <Link href="/return-refund-policy">Return & shipping policy</Link>
+              <Link href="/about-us">About us</Link>
+              <Link href="#contact">Contact us</Link>
             </div>
 
             <div className="flex gap-4 pt-4">

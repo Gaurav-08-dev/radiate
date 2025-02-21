@@ -11,6 +11,7 @@ import SearchField from "@/components/SearchField";
 import {
   getCollectionsForHeader,
   getCustomerFavorites,
+  getCollectionsByScent,
 } from "@/wix-api/collections";
 import { MobileMenu } from "@/app/MobileMenu";
 import { Suspense } from "react";
@@ -18,12 +19,13 @@ import { playfairDisplayt } from "@/app/layout";
 
 export async function SiteHeader() {
   const wixClient = getWixServerClient();
-  const [cart, loggedInMember, collections, customerFavorites] =
+  const [cart, loggedInMember, collections, customerFavorites, collectionsByScent] =
     await Promise.all([
       getCart(wixClient),
       getLoggedInMember(wixClient),
       getCollectionsForHeader(wixClient),
       getCustomerFavorites(wixClient),
+      getCollectionsByScent(wixClient),
     ]);
 
   return (
@@ -33,7 +35,7 @@ export async function SiteHeader() {
           <div className="flex items-center space-x-1 lg:hidden">
             <Suspense>
               <MobileMenu
-                collections={collections}
+                collections={collectionsByScent}
                 loggedInMember={loggedInMember}
               />
             </Suspense>
