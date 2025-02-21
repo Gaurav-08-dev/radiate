@@ -3,10 +3,7 @@
 import { collections } from "@wix/stores";
 import { members } from "@wix/members";
 import { useEffect, useState } from "react";
-import { MenuIcon } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
-import logo from "../assets/logo.svg";
 import { twConfig } from "@/lib/utils";
 import {
   Sheet,
@@ -14,7 +11,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import UserButton from "@/components/UserButton";
+
 import { useSearchParams } from "next/navigation";
 import { usePathname } from "next/navigation";
 interface MobileMenuProps {
@@ -28,7 +25,7 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -73,36 +70,33 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
           <line x1="4" y1="18" x2="10" y2="18" />
         </svg>
       </button>
-      <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetContent side="left" className="border-none outline-none w-full bg-[#500769] text-white">
+      <Sheet open={true} onOpenChange={setIsOpen}>
+        <SheetContent side="left" className="rounded-tr rounded-br outline-none w-3/4 bg-[#F7F2FA] ">
           <SheetHeader className="relative flex items-center justify-between px-11">
-            <Link href="/" className="absolute left-[-17px] top-[-16px]">
-              <SheetTitle className="flex items-center gap-2">
-                <Image
-                  src={logo}
-                  alt="Radiate Logo Diamond"
-                  className="h-10 w-10 object-contain"
+          <div className="absolute left-0 top-[-2px]">
+              <input
+                type="search"
+                placeholder="Scented candles"
+                className="w-[260px] rounded-full bg-white/80 py-2 pl-4 text-sm outline-none" 
+              />
+              <svg
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-700"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
-                <span className="font-playfair-display text-white">
-                  RADIATE
-                </span>
-              </SheetTitle>
-            </Link>
+              </svg>
+            </div>
           </SheetHeader>
-          <div className="flex flex-col items-center space-y-10 px-11 py-10">
-            <ul className="space-y-5 text-center text-lg">
-              {collections?.map((collection) => (
-                collection.visible && <li key={collection._id}>
-                  <Link
-                    className="font-semibold hover:underline"
-                    href={`/shop?collection=${collection._id}`}
-                  >
-                    {collection.name?.split("-")?.[0]}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <UserButton loggedInMember={loggedInMember || null} />
+          <div className=" flex flex-col items-center space-y-10 px-11 py-10">
+            
             
           </div>
         </SheetContent>
