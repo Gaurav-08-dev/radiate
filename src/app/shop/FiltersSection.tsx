@@ -2,7 +2,7 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useOptimistic, useTransition } from "react";
-import { SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal, X } from "lucide-react";
 import { collections } from "@wix/stores";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ProductSort } from "@/wix-api/products";
@@ -18,6 +18,7 @@ import {
   formatCategoryTitle,
   organizeCollections,
 } from "@/lib/utils";
+import { useState } from "react";
 
 const sortOptions = [
   { label: "Featured", value: "last_updated" },
@@ -32,9 +33,7 @@ export default function FiltersSectionComponent({
   children: React.ReactNode;
   collections: collections.Collection[];
 }) {
-
   const groupedCollections = organizeCollections(collections);
-
   const router = useRouter();
   const searchParams = useSearchParams();
   
@@ -44,6 +43,7 @@ export default function FiltersSectionComponent({
   });
 
   const [isPending, startTransition] = useTransition();
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   function updateFilters(updates: Partial<typeof optimisticFilters>) {
     const newFilters = { ...optimisticFilters, ...updates };
@@ -67,12 +67,51 @@ export default function FiltersSectionComponent({
   }
 
   return (
-    <main className="group flex gap-8 p-10">
+    <main className="flex flex-col md:flex-row gap-4 md:gap-8 p-4 md:p-10 relative">
+      {/* Mobile filter toggle button - smaller and right-aligned */}
+      <div className="flex justify-end md:hidden mb-4">
+        <button 
+          title="Open Filters"
+          type="button"
+          className="flex items-center gap-1.5 text-xs font-medium p-1.5 border rounded-md"
+          onClick={() => setIsFilterOpen(true)}
+        >
+          <SlidersHorizontal className="h-3.5 w-3.5" strokeWidth={2} />
+          <span>Filter & Sort</span>
+        </button>
+      </div>
+
+      {/* Mobile filter overlay */}
+      <div 
+        className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 md:hidden ${
+          isFilterOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setIsFilterOpen(false)}
+      />
+
+      {/* Sidebar for filters */}
       <aside
         data-pending={isPending ? "" : undefined}
-        className="flex max-h-fit w-1/5 gap-8 lg:sticky lg:left-0 lg:top-10 lg:w-1/5"
+        className={`fixed md:static top-0 right-0 h-full md:h-auto z-50 bg-white md:bg-transparent
+                   w-4/5 max-w-xs md:w-1/5 md:max-w-none overflow-auto
+                   transition-transform duration-300 ease-in-out rounded-l-2xl
+                   ${isFilterOpen ? 'translate-x-0' : 'translate-x-full md:translate-x-0'}
+                   md:sticky md:left-0 md:top-10`}
       >
-        <div className="w-64 space-y-6">
+        <div className="w-full md:w-64 space-y-5 md:space-y-6 p-5 md:p-0">
+          {/* Mobile close button */}
+          <div className="flex justify-between items-center md:hidden">
+            <h2 className="font-semibold text-lg">Filters & Sort</h2>
+            <button 
+              title="Close Filters" 
+              type="button" 
+              onClick={() => setIsFilterOpen(false)} 
+              className="p-1"
+            >
+              <X className="h-6 w-6 text-gray-500" strokeWidth={2} />
+            </button>
+          </div>
+          
           <SortFilter
             selectedSortOption={optimisticFilters?.sort}
             updateSortOption={(sortOption) =>
@@ -89,7 +128,7 @@ export default function FiltersSectionComponent({
           />
         </div>
       </aside>
-      {children}
+      <div className="w-full md:flex-1">{children}</div>
     </main>
   );
 }
@@ -106,32 +145,18 @@ function CollectionsFilter({
   selectedCollectionIds,
   updateCollectionIds,
 }: CollectionsFilterProps) {
-
-  
   return (
-    <div className="flex flex-col gap-4">
-      <div className="space-y-3">
-        <div className="flex items-center gap-4">
-          <div className="text-lg font-medium">Collections</div>
-          {/* {selectedCollectionIds.length > 0 && (
-          <Button
-            variant="outline"
-            onClick={() => updateCollectionIds([])}
-            className="hover:bg-red-500 hover:text-white"
-            title="Clear Filters"
-            style={{width: "fit-content", height: "fit-content", padding: "2px 10px"}}
-          >
-            Clear
-            <X className="h-5 w-5" />
-          </Button>
-        )} */}
+    <div className="flex flex-col gap-4 md:gap-4">
+      <div className="space-y-3 md:space-y-3">
+        <div className="flex items-center gap-3 md:gap-4">
+          <div className="text-base md:text-lg font-medium">Collections</div>
         </div>
         {collections.map((group) => (
-          <div key={group.header} className="space-y-2">
-            <h3 className="text-sm font-medium text-gray-500">
+          <div key={group.header} className="space-y-2 md:space-y-2">
+            <h3 className="text-xs md:text-sm font-medium text-gray-500">
               {formatCategoryTitle(group.header)}
             </h3>
-            <ul className="space-y-1.5" key={group?.header}>
+            <ul className="space-y-2 md:space-y-1.5" key={group?.header}>
               {group.collections.map((collection) => {
                 const collectionId = collection._id;
                 if (!collectionId) return null;
@@ -162,47 +187,6 @@ function CollectionsFilter({
           </div>
         ))}
       </div>
-      {/* <div className="space-y-3">
-        <div className="flex flex-col items-start gap-4">
-          <div className="text-lg font-medium">Availability</div>
-          <ul className="space-y-1.5">
-            <li>
-              <label className="flex cursor-pointer items-center gap-2">
-                <Checkbox
-                  checked={availability?.includes("in_stock")}
-                  onCheckedChange={(checked) => {
-                    updateAvailability(
-                      checked
-                        ? [...(availability || []), "in_stock"]
-                        : (availability || []).filter(
-                            (id) => id !== "in_stock",
-                          ),
-                    );
-                  }}
-                />
-                <span className="line-clamp-1 break-all">In Stock</span>
-              </label>
-            </li>
-            <li>
-              <label className="flex cursor-pointer items-center gap-2">
-                <Checkbox
-                  checked={availability?.includes("out_of_stock")}
-                  onCheckedChange={(checked) => {
-                    updateAvailability(
-                      checked
-                        ? [...(availability || []), "out_of_stock"]
-                        : (availability || []).filter(
-                            (id) => id !== "out_of_stock",
-                          ),
-                    );
-                  }}
-                />
-                <span className="line-clamp-1 break-all">Out of Stock</span>
-              </label>
-            </li>
-          </ul>
-        </div>
-      </div> */}
     </div>
   );
 }
@@ -213,10 +197,10 @@ interface SortFilterProps {
 }
 function SortFilter({ selectedSortOption, updateSortOption }: SortFilterProps) {
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex items-center gap-2 text-xl">
-        <SlidersHorizontal className="h-5 w-5" strokeWidth={2} />
-        <span className="text-lg font-medium">Sort By</span>
+    <div className="flex flex-col gap-4 md:gap-5">
+      <div className="flex items-center gap-3 text-base md:text-lg">
+        <SlidersHorizontal className="h-4 w-4 md:h-5 md:w-5" strokeWidth={2} />
+        <span className="font-medium">Sort By</span>
       </div>
       <Select
         value={selectedSortOption || "last_updated"}
