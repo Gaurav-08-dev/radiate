@@ -48,6 +48,8 @@ export function ShoppingCartButton({ initialData }: ShoppingCartButtonProps) {
 
   // @ts-expect-error
   const totalPriceAfterDiscountWithGST = totalPriceAfterDiscount + totalPriceAfterDiscount * 0.12;
+  // @ts-expect-error
+  const totalGst = totalPriceAfterDiscount * 0.12;
 
   return (
     <>
@@ -134,7 +136,7 @@ export function ShoppingCartButton({ initialData }: ShoppingCartButtonProps) {
                   <span>Tax- GST @12%</span>
                   <span className="font-medium">
                     {/* @ts-expect-error */}
-                    {rupeeSymbol} {totalPriceAfterDiscount * 0.12}
+                    {rupeeSymbol} {totalGst.toFixed(2)}
                   </span>
                 </div>
                 <div className="flex justify-between border-t pt-2 font-bold">
