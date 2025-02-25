@@ -65,7 +65,7 @@ export async function ShopByCategory() {
                       width={700}
                       height={700}
                     />
-                    <div className=" w-5/6 md:w-1/2 absolute bottom-6 left-1/2 -translate-x-1/2 translate-y-1/2 md:translate-y-0">
+                    <div className=" w-11/12 md:w-1/2 absolute bottom-6 left-1/2 -translate-x-1/2 translate-y-1/2 md:translate-y-0">
                       <Link
                         href={`/shop?collection=${collection._id}`}
                         legacyBehavior
