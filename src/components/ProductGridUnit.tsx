@@ -50,7 +50,7 @@ const ProductGridUnit = ({
   return (
     <div
       className={cn(
-        `flex h-[400px] w-[170px] sm:h-[450px] sm:w-[280px] flex-col overflow-hidden`,
+        `flex h-[400px] p-2 md:p-0 w-[170px] sm:h-[450px] sm:w-[280px] flex-col overflow-hidden`,
         className,
       )}
     >
