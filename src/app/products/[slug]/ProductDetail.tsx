@@ -66,10 +66,11 @@ export default function ProductDetails({ product }: ProductDetailProps) {
   //   const inStock = checkInStock(product, selectedOptions); 3:57:57
 
   return (
-    <div className="container mx-auto px-40 pt-20">
-      <div className="flex flex-col gap-12 md:flex-row">
-        <div className="w-[40%] space-y-4">
-          <div className="relative aspect-square max-h-fit max-w-fit overflow-hidden rounded-none">
+    <div className="container mx-auto px-4 md:px-40 pt-6 md:pt-20">
+      <div className="flex flex-col gap-6 md:gap-12 md:flex-row">
+        {/* Mobile layout - Image section */}
+        <div className="w-full md:w-[40%] space-y-4">
+          <div className="relative aspect-square max-h-fit max-w-full md:max-w-fit overflow-hidden rounded-none">
             <WixImage
               mediaIdentifier={currentImage?.url}
               alt={currentImage?.altText}
@@ -82,7 +83,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
             {imagesList?.map((img, i) => (
               <div
                 key={i}
-                className="relative h-28 w-28 flex-shrink-0 cursor-pointer rounded-none"
+                className="relative h-20 w-20 md:h-28 md:w-28 flex-shrink-0 cursor-pointer rounded-none"
                 onClick={() => handleImageClick(img)}
               >
                 <WixImage
@@ -100,71 +101,74 @@ export default function ProductDetails({ product }: ProductDetailProps) {
           </div>
         </div>
 
-        <div className="w-[60%] space-y-6">
-          <h1 className="text-4xl font-semibold">{product.name}</h1>
-
+        <div className="w-full md:w-[60%] space-y-4 md:space-y-6">
+          {/* Product name */}
+          <h1 className="text-2xl md:text-4xl font-semibold">{product.name}</h1>
+          
+          {/* Ribbon - moved up for mobile */}
+          {ribbon && (
+            <span className="inline-block rounded-none bg-red-600 px-2 py-1 text-center text-sm font-medium text-white">
+              {ribbon?.trim()}
+            </span>
+          )}
+          
+          {/* Features list - moved up for mobile */}
+          {featuresList && (
+            <div className="flex flex-wrap gap-3 md:gap-4">
+              {featuresList?.split(",").map((feature, i) => (
+                <span key={i} className="text-xs md:text-sm font-medium">
+                  <span className="flex items-center gap-1">
+                    <Check
+                      size={16}
+                      className="text-[#500769]"
+                      strokeWidth={3}
+                      absoluteStrokeWidth
+                    />
+                    {feature.trim()}
+                  </span>
+                </span>
+              ))}
+            </div>
+          )}
+          
+          {/* Description - moved up for mobile */}
           <div
-            className="space-y-4 text-base text-gray-600"
+            className="space-y-3 md:space-y-4 text-sm md:text-base text-gray-600"
             dangerouslySetInnerHTML={{
               __html: product.description || "",
             }}
           />
 
-          <div className="flex flex-wrap gap-4">
-            {featuresList?.split(",").map((feature, i) => (
-              <span key={i} className="text-sm font-medium">
-                <span className="flex items-center gap-1">
-                  <Check
-                    size={20}
-                    className="text-[#500769]"
-                    strokeWidth={3}
-                    absoluteStrokeWidth
-                  />
-                  {feature.trim()}
-                </span>
-              </span>
-            ))}
-          </div>
-
           <div className="h-[1px] w-full bg-gray-200" />
 
-          <div className="flex items-center gap-20">
+          {/* Price section */}
+          <div className="flex flex-col md:flex-row md:items-center md:gap-20">
             <div className="flex flex-col gap-2">
-              {ribbon && (
-                <span className="rounded-none bg-red-600 px-1 py-1 text-center text-sm font-medium text-white">
-                  {ribbon?.trim()}
-                </span>
-              )}
               <div className="flex items-center gap-4">
                 <span className="font-semibold">MRP</span>
                 <span className="text-gray-400 line-through">
                   {priceData?.formatted?.price}
                 </span>
               </div>
-              <div className="flex flex-col gap-4">
-                <span className="text-4xl font-semibold">
+              <div className="flex flex-col gap-2 md:gap-4">
+                <span className="text-2xl md:text-4xl font-semibold">
                   {priceData?.formatted?.discountedPrice ||
                     priceData?.formatted?.price}
                 </span>
                 {product?.discount?.value ? (
-                  <span className="text-[#1D9C50]">{`You save ₹${product?.discount?.value}`}</span>
+                  <span className="text-sm md:text-base text-[#1D9C50]">{`You save ₹${product?.discount?.value}`}</span>
                 ) : (
                   ""
                 )}
               </div>
             </div>
 
+            {/* Quantity and Add to cart */}
             <div
-              className={`mt-10 flex h-[50px] w-[400px] max-w-fit gap-10 overflow-hidden rounded-none`}
+              className={`mt-4 md:mt-10 flex flex-col md:flex-row gap-4 md:gap-10 w-full md:w-[400px] md:max-w-fit`}
             >
-              {/* <ProductOptions
-                  product={product}
-                  selectedOptions={selectedOptions}
-                  setSelectedOptions={setSelectedOptions}
-                  className="w-[80px]"
-                /> */}
               {isInStock ? (
-                <div className="flex rounded-none border">
+                <div className="flex rounded-none border max-w-fit">
                   <button
                     disabled={quantity === 1}
                     type="button"
@@ -176,10 +180,9 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                   <input
                     title="Quantity"
                     type="number"
-                    className="w-12 pl-3 text-center"
+                    className="w-12 pl-0 md:pl-3 text-center"
                     value={quantity}
                     readOnly
-                    // onChange={(e) => setQuantity(parseInt(e.target.value))}
                   />
                   <button
                     type="button"
@@ -191,15 +194,9 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                 </div>
               ) : null}
 
-              <div className="flex gap-2">
-                {/* <BuyNowButton
-                  product={product}
-                  quantity={quantity}
-                  selectedOptions={{}}
-                  disabled={!isInStock}
-                /> */}
+              <div className="flex w-full">
                 <AddToCartButton
-                  className={`h-full flex-1 bg-[#500769] text-xl text-white hover:bg-[#500769]/90`}
+                  className={`h-12 w-full flex-1 bg-[#500769] text-base md:text-xl text-white hover:bg-[#500769]/90`}
                   product={product}
                   quantity={quantity}
                   buttonText={isInStock ? "Add to My Bag" : "Out of stock"}
@@ -209,7 +206,9 @@ export default function ProductDetails({ product }: ProductDetailProps) {
               </div>
             </div>
           </div>
-          <div className="space-y-4 border-t pt-6">
+          
+          {/* Product details sections */}
+          <div className="space-y-3 md:space-y-4 border-t pt-4 md:pt-6">
             <ProductDescription
               key={productIngredients?.title}
               title={productIngredients?.title || ""}
