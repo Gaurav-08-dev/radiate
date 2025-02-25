@@ -58,7 +58,7 @@ function FAQItem({ question, emoji, answer }: FAQItemProps) {
 export default function FAQPage() {
   return (
     <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-12">FAQs</h1>
+      <h1 className="text-4xl font-bold mb-3 md:mb-12">FAQs</h1>
 
       <div className="max-w-full">
         <FAQItem
