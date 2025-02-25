@@ -74,8 +74,8 @@ export default async function Page({ params: { slug } }: PageProps) {
         <YouMayLikeSection productId={product._id} />
       </Suspense>
       
-      <div className="space-y-10 py-10 px-44">
-        <h2 className={cn("text-center text-3xl font-bold", playfair.className)}>Customer Reviews</h2>
+      <div className="space-y-10 py-10 px-4 md:px-44">
+        <h2 className={cn("text-center text-xl md:text-3xl font-bold", playfair.className)}>Customer Reviews</h2>
         <Suspense fallback={<ProductReviewsLoadingSkeleton />}>
           <ProductReviewsSection product={product} />
         </Suspense>

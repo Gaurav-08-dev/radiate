@@ -48,7 +48,7 @@ export default function ProductReviews({ product }: ProductReviewsProps) {
   const reviewItems = data?.pages.flatMap((page) => page.items) ?? [];
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 border p-4 md:p-0 md:border-none">
       {status === "pending" && <ProductReviewsLoadingSkeleton />}
       {status === "error" && (
         <p className="text-destructive">Error loading reviews</p>
@@ -64,12 +64,15 @@ export default function ProductReviews({ product }: ProductReviewsProps) {
         
       </div>
       {hasNextPage && (
-        <LoadingButton
-          isLoading={isFetchingNextPage}
-          onClick={() => fetchNextPage()}
-        >
-          Load more reviews
-        </LoadingButton>
+        <div className="flex justify-center">
+          <LoadingButton
+            isLoading={isFetchingNextPage}
+            onClick={() => fetchNextPage()}
+            className="h-10 px-4 py-2 text-sm md:text-base rounded-none bg-[#500769] text-white hover:bg-[#500769]/90"
+          >
+            Load more reviews
+          </LoadingButton>
+        </div>
       )}
     </div>
   );
@@ -95,47 +98,44 @@ function ReviewItem({
   review: { author, content, reply, verified },
 }: ReviewItemProps) {
   return (
-    <div className="py-5 first:pt-0 border-b last:border-b-0 last:pb-0 w-full">
+    <div className="py-4 md:py-5 first:pt-0 border-b last:border-b-0 last:pb-0 w-full">
       <div className="space-y-1.5">
-        <div className="flex items-center gap-2">
-          <span className="font-bold">{author?.authorName || "Anonymous"}</span>
-          {verified && <VerifiedIcon className="size-5 text-green-700" />}
-          {Array.from({ length: 5 }).map((_, i) => (
-            <StarIcon
-              key={i}
-              className={cn(
-                "size-5 text-primary",
-                i < (content?.rating || 0) && "fill-primary",
-              )}
-            />
-          ))}
-          {content?.title && <h3 className="font-bold">{content.title}</h3>}
-        </div>
-        {content?.body && (
-          <div className="whitespace-pre-line">{content.body}</div>
-        )}
-        {/* {!!content?.media?.length && (
-          <div className="flex flex-wrap gap-2">
-            {content.media.map((media) => (
-              <MediaAttachment key={media.image || media.video} media={media} />
+        <div className="flex flex-wrap items-center gap-1 md:gap-2">
+          <span className="font-bold text-sm md:text-base">{author?.authorName || "Anonymous"}</span>
+          {verified && <VerifiedIcon className="size-4 md:size-5 text-green-700" />}
+          <div className="flex">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <StarIcon
+                key={i}
+                className={cn(
+                  "size-3.5 md:size-5 text-primary",
+                  i < (content?.rating || 0) && "fill-primary",
+                )}
+              />
             ))}
           </div>
-        )} */}
+        </div>
+        {content?.title && (
+          <h3 className="font-bold text-sm md:text-base">{content.title}</h3>
+        )}
+        {content?.body && (
+          <div className="whitespace-pre-line text-xs md:text-sm">{content.body}</div>
+        )}
       </div>
       {reply?.message && (
-        <div className="ms-10 mt-2.5 space-y-1 pt-2.5">
-          <div className="flex items-center gap-2">
-            <CornerDownRight className="size-5" />
+        <div className="ms-6 md:ms-10 mt-2 md:mt-2.5 space-y-1 pt-2 md:pt-2.5 border-t border-gray-100">
+          <div className="flex items-center gap-1.5 md:gap-2">
+            <CornerDownRight className="size-4 md:size-5" />
             <Image
               src={logo}
-              alt="Flow Store logo"
-              width={24}
-              height={24}
-              className="size-5"
+              alt="Radiate logo"
+              width={20}
+              height={20}
+              className="size-4 md:size-5"
             />
-            <span className="font-bold">Radiate Team</span>
+            <span className="font-bold text-xs md:text-sm">Radiate Team</span>
           </div>
-          <div className="whitespace-pre-line">{reply.message}</div>
+          <div className="whitespace-pre-line text-xs md:text-sm">{reply.message}</div>
         </div>
       )}
     </div>
