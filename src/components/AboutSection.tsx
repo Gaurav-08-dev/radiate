@@ -4,8 +4,7 @@ import rightCandle from "@/assets/right.jpg";
 import logo from "@/assets/logo.svg";
 export function AboutSection() {
   return (
-    <div className=" w-full py-16 md:py-24" id="about">
-      
+    <div className=" w-full py-16 md:py-24 bg-[#fff] md:bg-[#faf5ff] " id="about">
         <div className="relative mx-auto flex w-full items-center justify-center text-center overflow-clip">            
           <div className="hidden lg:block absolute aspect-square w-[400px] h-[300px] rotate-[10deg] top-10 left-[-35px]">
             <Image
@@ -16,7 +15,7 @@ export function AboutSection() {
             />
           </div>
 
-          <div className="flex flex-col items-center w-[50%]">
+          <div className="flex flex-col items-center w-full md:w-[50%] px-4 md:px-0">
             <div className="mb-6 h-20 w-20">
               <Image src={logo} alt="Diamond" className="h-full w-full" />
             </div>
