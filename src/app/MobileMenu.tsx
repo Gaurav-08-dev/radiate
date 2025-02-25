@@ -14,6 +14,18 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+import floatingCandleIcon from "../assets/mobilenavico/floating-candle-icon.png";
+import giftingComboIcon from "../assets/mobilenavico/gifitng-combo-icon.png";
+import pillarCandleIcon from "../assets/mobilenavico/pillar-candle-icon.png";
+import scentedCandleIcon from "../assets/mobilenavico/scented-candles-icon.png";
+
+import floralAromaticIcon from "../assets/mobilenavico/floral-aromatic-icon.png";
+import fruityCitrusIcon from "../assets/mobilenavico/fruity-citrus-icon.png";
+import woodyAmberIcon from "../assets/mobilenavico/woody-amber-icon.png";
+import uniqueBlendsIcon from "../assets/mobilenavico/unique-blends-icon.png";
+import sweetGourmandIcon from "../assets/mobilenavico/sweet-gourmand-icon.png";
+
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { usePathname } from "next/navigation";
 interface MobileMenuProps {
@@ -24,11 +36,11 @@ interface MobileMenuProps {
 
 export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
   const scentEmoji = {
-    "floral&aromatic": "🌸",
-    "sweet&gourmand": "🍬",
-    "woody&amber": "🌳",
-    "fruity&citrus": "🍊",
-    uniqueblends: "🌿",
+    "floral&aromatic": floralAromaticIcon,
+    "sweet&gourmand": sweetGourmandIcon,
+    "woody&amber": woodyAmberIcon,
+    "fruity&citrus": fruityCitrusIcon,
+    uniqueblends: uniqueBlendsIcon,
   };
 
   const pathname = usePathname();
@@ -133,25 +145,49 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
                       href="/shop?collection=79f1e1c4-9d44-8a1a-ebcc-3c840d3b4d37"
                       className="flex items-center gap-2"
                     >
-                      <span className="h-5 w-5">🕯️</span> Scented Candles
+                      <Image 
+                        src={scentedCandleIcon}
+                        alt="Scented Candle"
+                        width={20}
+                        height={20}
+                      />
+                      <span className="h-5 w-fit font-medium">Scented Candles</span>
                     </Link>
                     <Link
                       href="/shop?collection=dd036eb5-7484-5053-e35e-d3fc046f6417"
                       className="flex items-center gap-2"
                     >
-                      <span className="h-5 w-5">🕯️</span> Pillar Candles
+                      <Image 
+                        src={pillarCandleIcon}
+                        alt="Pillar Candle"
+                        width={20}
+                        height={20}
+                      />
+                      <span className="h-5 w-fit font-medium">Pillar Candles</span>
                     </Link>
                     <Link
                       href="/shop?collection=e8752ab7-08e0-39a7-5fc8-88df885512b7"
                       className="flex items-center gap-2"
                     >
-                      <span className="h-5 w-5">🎁</span> Gifting Combos
+                      <Image 
+                        src={giftingComboIcon}
+                        alt="Gifting Combo"
+                        width={20}
+                        height={20}
+                      />
+                      <span className="h-5 w-fit font-medium">Gifting Combos</span>
                     </Link>
                     <Link
                       href="/shop?collection=e47a30b0-abed-082b-89e5-771ea279deae"
                       className="flex items-center gap-2"
                     >
-                      <span className="h-5 w-5">🕯️</span> Floating Candles
+                      <Image 
+                        src={floatingCandleIcon}
+                        alt="Floating Candle"
+                        width={20}
+                        height={20}
+                      />
+                      <span className="h-5 w-fit font-medium">Floating Candles</span>
                     </Link>
                   </div>
                 </AccordionContent>
@@ -180,18 +216,20 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
                     {collections?.map((collection) => (
                       <Link
                         href={`/shop?collection=${collection._id}`}
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-2 font-medium"
                       >
-                        <span className="h-5 w-5">
-                          {
-                            scentEmoji[
-                              collection.name
+                        <Image 
+                          src={scentEmoji[
+                            collection.name
                                 ?.split("-")?.[0]
                                 ?.replace(/\s+/g, "")
                                 .toLowerCase() as keyof typeof scentEmoji
                             ]
                           }
-                        </span>{" "}
+                          alt={collection.name ?? ""}
+                          width={20}
+                          height={20}
+                        />
                         {collection.name
                           ?.split("-")?.[0]
                           ?.split(" ")
@@ -207,7 +245,7 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
               </AccordionItem>
             </Accordion>
           </div>
-          <div className="flex flex-col items-start space-y-3 text-sm font-medium pl-4">
+          <div className="flex flex-col items-start space-y-3 pl-4 text-sm font-medium">
             <div
               className={cn(
                 playfair.className,
