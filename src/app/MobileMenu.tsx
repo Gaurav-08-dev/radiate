@@ -105,6 +105,7 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
               <input
                 type="search"
                 placeholder="Search"
+                autoFocus={false}
                 className="h-8 w-full rounded-full bg-white/80 py-2 pl-4 text-sm outline-none [&::-webkit-search-cancel-button]:hidden"
               />
               <svg
