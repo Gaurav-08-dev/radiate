@@ -5,7 +5,7 @@ import SignatureSection from "@/components/SignatureSection";
 import { ShopByScent } from "@/components/ShopByScent";
 import { AboutSection } from "@/components/AboutSection";
 import { Skeleton } from "@/components/ui/skeleton";
-
+import { ShopByCategory } from "@/components/ShopByCategory";
 export default function Home() {
   return (
     <>
@@ -16,6 +16,7 @@ export default function Home() {
           <SignatureSection />
         </Suspense>
         <ShopByScent />
+        <ShopByCategory />
         <AboutSection />
       </main>
     </>

@@ -8,20 +8,26 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { getCollectionsByScent } from "@/wix-api/collections";
+import { getCollections } from "@/wix-api/collections";
 import { getWixServerClient } from "@/lib/wix-client.server";
 import Link from "next/link";
 import { playfair } from "@/lib/utils";
 
-export async function ShopByScent() {
+export async function ShopByCategory() {
   const wixClient = getWixServerClient();
-  const collections = await getCollectionsByScent(wixClient);
+  const collections = await getCollections(wixClient);
+
+  const filteredCollections = collections.filter(
+    (collection) => collection.name?.toLowerCase().includes("category")
+  );
+
+  
 
   return (
-    <div className="w-full overflow-hidden bg-[#fff] md:bg-[#faf5ff]">
+    <div className="w-full overflow-hidden block md:hidden bg-[#fff] md:bg-[#faf5ff]">
       <div className="flex items-center justify-between">
         <div className="h-[1px] w-[28%] bg-gray-200 block md:hidden"></div>
-        <h1 className={`${playfair.className} py-6 text-center text-xl md:py-12 md:text-5xl`}>Shop By Scent</h1>
+        <h1 className={`${playfair.className} py-6 text-center text-xl md:py-12 md:text-5xl`}>Shop By Category</h1>
         <div className="h-[1px] w-[28%] bg-gray-200 block md:hidden"></div>
       </div>
       <Carousel className="mx-auto w-full max-w-7xl px-4 md:px-0"
@@ -42,7 +48,7 @@ export async function ShopByScent() {
         }}
       >
         <CarouselContent className="-ml-2 md:-ml-4">
-          {collections?.map((collection, index) => (
+          {filteredCollections?.map((collection, index) => (
             <CarouselItem
               key={index}
               className="pl-2 md:pl-4 basis-1/2 sm:basis-1/2 md:basis-1/2 lg:basis-1/4 flex justify-center"
