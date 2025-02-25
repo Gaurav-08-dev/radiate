@@ -135,7 +135,6 @@ export function ShoppingCartButton({ initialData }: ShoppingCartButtonProps) {
                 <div className="flex justify-between text-sm">
                   <span>Tax- GST @12%</span>
                   <span className="font-medium">
-                    {/* @ts-expect-error */}
                     {rupeeSymbol} {totalGst.toFixed(2)}
                   </span>
                 </div>
