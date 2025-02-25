@@ -29,6 +29,26 @@ export function ShoppingCartButton({ initialData }: ShoppingCartButtonProps) {
       0,
     ) || 0;
 
+  const rupeeSymbol = "₹";
+  const totaldiscount = cart?.data?.lineItems?.reduce(
+    (acc, item) =>
+      acc +
+      (Number(item?.fullPrice?.amount) || 0) -
+      (Number(item.price?.amount) || 0),
+    0,
+  );
+  const totalPriceBeforeDiscount = cart?.data?.lineItems?.reduce(
+    (acc, item) => acc + (Number(item?.fullPrice?.amount) || 0),
+    0,
+  );
+  const totalPriceAfterDiscount = cart?.data?.lineItems?.reduce(
+    (acc, item) => acc + (Number(item.price?.amount) || 0),
+    0,
+  ) ;
+
+  // @ts-expect-error
+  const totalPriceAfterDiscountWithGST = totalPriceAfterDiscount + totalPriceAfterDiscount * 0.12;
+
   return (
     <>
       <button
@@ -45,16 +65,11 @@ export function ShoppingCartButton({ initialData }: ShoppingCartButtonProps) {
         )}
       </button>
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <SheetContent className="flex flex-col sm:max-w-lg">
-          <SheetHeader className="absolute left-5 top-2">
-            <SheetTitle>
-              Cart{" "}
-              <span className="text-base">
-                ({totalQuantity} {totalQuantity === 1 ? "item" : "items"})
-              </span>
-            </SheetTitle>
+        <SheetContent className="flex w-11/12 flex-col md:max-w-lg rounded-tl-lg rounded-bl-lg">
+          <SheetHeader className="border-b pb-4 text-center">
+            <SheetTitle className="mx-auto">SHOPPING CART</SheetTitle>
           </SheetHeader>
-          <div className="mt-8 flex grow flex-col space-y-5 overflow-y-auto scroll-smooth pt-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar]:w-2">
+          <div className="mt-4 flex grow flex-col space-y-5 overflow-y-auto scroll-smooth pt-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar]:w-2">
             <ul className="space-y-5">
               {cart?.data?.lineItems?.map((item) => (
                 <ShoppingCartItem
@@ -83,23 +98,60 @@ export function ShoppingCartButton({ initialData }: ShoppingCartButtonProps) {
               </div>
             )}
           </div>
-          <hr />
-          <div className="flex items-center justify-between gap-5">
-            <div className="space-y-0.5">
-              <p className="text-sm">Subtotal amount:</p>
-              <p className="font-bold">
-                {/* @ts-expect-error */}
-                {cart?.data?.subtotal?.formattedConvertedAmount}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                Shipping and taxes calculated at checkout
-              </p>
+          {/* @ts-expect-error  */}
+          {cart?.data?.lineItems?.length > 0 && (
+            <div className="mt-4 space-y-4">
+              <div className="flex items-center gap-2 rounded-md bg-green-100 p-3">
+                  <span className="text-md">🥳</span>
+                <p className="text-sm text-green-800">
+                  {`Woohoo! You saved ₹${totaldiscount} on your order`}
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <h3 className="text-lg font-semibold">Bill details</h3>
+                <div className="flex justify-between text-sm">
+                  <span>Items total</span>
+                  <div>
+                    <span className="mr-2 text-xs text-gray-400 line-through">
+                      {rupeeSymbol} {totalPriceBeforeDiscount}
+                    </span>
+                    <span className="font-medium">
+                      {rupeeSymbol} {totalPriceAfterDiscount}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span>Delivery charges</span>
+                  <span className="font-medium text-green-600">
+                    {/* @ts-expect-error */}
+                    {totalPriceAfterDiscount >= 999
+                      ? "FREE"
+                      : `${rupeeSymbol} 999`}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span>Tax- GST @12%</span>
+                  <span className="font-medium">
+                    {/* @ts-expect-error */}
+                    {rupeeSymbol} {totalPriceAfterDiscount * 0.12}
+                  </span>
+                </div>
+                <div className="flex justify-between border-t pt-2 font-bold">
+                  <span>Order total</span>
+                  <span>
+                    {rupeeSymbol} {totalPriceAfterDiscountWithGST}
+                  </span>
+                </div>
+              </div>
+
+              <CheckoutButton
+                size="lg"
+                className="w-full"
+                disabled={!totalQuantity || cart?.isFetching}
+              />
             </div>
-            <CheckoutButton
-              size="lg"
-              disabled={!totalQuantity || cart?.isFetching}
-            />
-          </div>
+          )}
         </SheetContent>
       </Sheet>
     </>
@@ -129,83 +181,91 @@ function ShoppingCartItem({
     item.quantity >= item.availability.quantityAvailable;
 
   return (
-    <li className="flex items-center justify-between gap-3 pr-2">
-      <div className="flex items-start gap-3">
-        <div className="relative size-fit flex-none">
+    <li className="flex items-center gap-3 border-b pb-4">
+      <div className="flex-shrink-0">
+        <Link href={`/products/${slug}`} onClick={onProductLinkClicked}>
+          <WixImage
+            mediaIdentifier={item.image}
+            width={80}
+            height={80}
+            alt={item.productName?.translated || "Product image"}
+            className="rounded-md"
+          />
+        </Link>
+      </div>
+
+      <div className="flex-grow space-y-1">
+        <div className="flex justify-between">
           <Link href={`/products/${slug}`} onClick={onProductLinkClicked}>
-            <WixImage
-              mediaIdentifier={item.image}
-              width={110}
-              height={110}
-              alt={item.productName?.translated || "Product image"}
-              className="flex-none bg-secondary"
-            />
-          </Link>
-          <button
-            type="button"
-            aria-label="Remove item"
-            className="absolute -right-1 -top-1 rounded-full border bg-background p-0.5"
-            onClick={() => removeItemMutation.mutate(productId)}
-          >
-            <X className="size-3" />
-          </button>
-        </div>
-        <div className="space-y-1.5 text-sm">
-          <Link href={`/products/${slug}`} onClick={onProductLinkClicked}>
-            <p className="font-bold">
+            <p className="text-sm font-medium">
               {item.productName?.translated || "Item"}
             </p>
           </Link>
-          {!!item.descriptionLines?.length && (
-            <p>
-              {item.descriptionLines
-                .map(
-                  (line) =>
-                    line.colorInfo?.translated || line.plainText?.translated,
-                )
-                .join(", ")}
+          <div className="text-right">
+            <p className="font-semibold">
+              {item.price?.formattedConvertedAmount}
             </p>
-          )}
-          <div className="flex items-center gap-2">
-            {item.quantity} x {item.price?.formattedConvertedAmount}
             {item.fullPrice && item.fullPrice.amount !== item.price?.amount && (
-              <span className="text-muted-foreground line-through">
+              <p className="text-xs text-gray-400 line-through">
                 {item.fullPrice.formattedConvertedAmount}
-              </span>
+              </p>
             )}
           </div>
         </div>
-      </div>
-      <div className="flex items-center gap-1.5 bg-primary text-white">
-        <Button
-          className="hover:bg-transparent"
-          variant="ghost"
-          size="sm"
-          disabled={item.quantity === 1}
-          onClick={() =>
-            updateQuantityMutation.mutate({
-              productId,
-              newQuantity: !item.quantity ? 0 : item.quantity - 1,
-            })
-          }
-        >
-          -
-        </Button>
-        <span className="text-white">{item.quantity}</span>
-        <Button
-          variant="ghost"
-          size="sm"
-          disabled={quantityLimitReached}
-          onClick={() =>
-            updateQuantityMutation.mutate({
-              productId,
-              newQuantity: !item.quantity ? 1 : item.quantity + 1,
-            })
-          }
-        >
-          +
-        </Button>
-        {quantityLimitReached && <span>Quantity limit reached</span>}
+
+        {!!item.descriptionLines?.length && (
+          <p className="text-xs text-gray-500">
+            {item.descriptionLines
+              .map(
+                (line) =>
+                  line.colorInfo?.translated || line.plainText?.translated,
+              )
+              .join(", ")}
+          </p>
+        )}
+
+        <div className="mt-2 flex items-center justify-between">
+          <div className="flex items-center rounded-md border">
+            <button
+              className="px-3 py-1 text-gray-500"
+              disabled={item.quantity === 1}
+              onClick={() =>
+                updateQuantityMutation.mutate({
+                  productId,
+                  newQuantity: !item.quantity ? 0 : item.quantity - 1,
+                })
+              }
+            >
+              −
+            </button>
+            <span className="px-3 py-1">{item.quantity}</span>
+            <button
+              type="button"
+              className="px-3 py-1 text-gray-500"
+              disabled={quantityLimitReached}
+              onClick={() =>
+                updateQuantityMutation.mutate({
+                  productId,
+                  newQuantity: !item.quantity ? 1 : item.quantity + 1,
+                })
+              }
+            >
+              +
+            </button>
+          </div>
+
+          <button
+            type="button"
+            className="text-sm text-gray-500"
+            onClick={() => removeItemMutation.mutate(productId)}
+          >
+            Remove
+          </button>
+        </div>
+
+        {quantityLimitReached && (
+          <p className="text-xs text-amber-600">Quantity limit reached</p>
+        )}
       </div>
     </li>
   );
