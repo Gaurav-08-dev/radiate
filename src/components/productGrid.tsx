@@ -42,16 +42,13 @@ export async function ProductGrid() {
         <div className="h-[1px] w-[28%] bg-gray-200 block md:hidden"></div>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-6 px-4 md:px-0">
         <Carousel
           opts={{
             slidesToScroll: 2,
             loop: true,
             breakpoints: {
               "(max-width: 640px)": {
-                slidesToScroll: 2,
-              },
-              "(min-width: 640px)": {
                 slidesToScroll: 2,
               },
               "(min-width: 768px)": {
@@ -68,7 +65,7 @@ export async function ProductGrid() {
             {featuredProducts?.items?.map((product) => (
               <CarouselItem
                 key={product.numericId}
-                className="flex basis-1/2 justify-center sm:basis-1/2 md:basis-1/2 md:pl-4 lg:basis-1/4"
+                className="flex basis-1/2 justify-center sm:basis-1/2 md:basis-1/2 pl-0 md:pl-4 lg:basis-1/4"
               >
                 <ProductGridUnit
                   product={product}
