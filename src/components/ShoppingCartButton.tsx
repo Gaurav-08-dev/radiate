@@ -67,7 +67,7 @@ export function ShoppingCartButton({ initialData }: ShoppingCartButtonProps) {
         )}
       </button>
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <SheetContent className="flex w-11/12 flex-col md:max-w-lg rounded-tl-xl rounded-bl-xl">
+        <SheetContent className="flex w-11/12 flex-col md:max-w-lg rounded-tl-xl rounded-bl-xl md:rounded-none">
           <SheetHeader className="border-b pb-4 text-center">
             <SheetTitle className="mx-auto">SHOPPING CART</SheetTitle>
           </SheetHeader>
