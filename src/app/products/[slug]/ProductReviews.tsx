@@ -48,7 +48,7 @@ export default function ProductReviews({ product }: ProductReviewsProps) {
   const reviewItems = data?.pages.flatMap((page) => page.items) ?? [];
 
   return (
-    <div className="space-y-5 border p-4 md:p-0 md:border-none">
+    <div className="space-y-5 p-4 md:p-0 md:border-none">
       {status === "pending" && <ProductReviewsLoadingSkeleton />}
       {status === "error" && (
         <p className="text-destructive">Error loading reviews</p>
@@ -98,7 +98,7 @@ function ReviewItem({
   review: { author, content, reply, verified },
 }: ReviewItemProps) {
   return (
-    <div className="py-4 md:py-5 first:pt-0 border-b last:border-b-0 last:pb-0 w-full">
+    <div className="py-4 md:py-5 first:pt-0 border md:border-b-0 md:last:border-b-0 md:last:pb-0 w-full">
       <div className="space-y-1.5">
         <div className="flex flex-wrap items-center gap-1 md:gap-2">
           <span className="font-bold text-sm md:text-base">{author?.authorName || "Anonymous"}</span>
