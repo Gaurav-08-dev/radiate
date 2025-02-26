@@ -196,9 +196,9 @@ function ShoppingCartItem({
       </div>
 
       <div className="flex-grow space-y-1">
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-2">
           <Link href={`/products/${slug}`} onClick={onProductLinkClicked}>
-            <p className="text-sm font-medium">
+            <p className="text-sm font-medium line-clamp-2 min-w-[100px] md:min-w-[200px]">
               {item.productName?.translated || "Item"}
             </p>
           </Link>
