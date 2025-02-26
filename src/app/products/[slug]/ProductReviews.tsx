@@ -98,7 +98,7 @@ function ReviewItem({
   review: { author, content, reply, verified },
 }: ReviewItemProps) {
   return (
-    <div className="py-4 md:py-5 first:pt-0 border md:border-b-0 md:last:border-b-0 md:last:pb-0 w-full">
+    <div className=" p-4 md:py-5 md:first:pt-0 border md:border-b-0 md:last:border-b-0 md:last:pb-0 w-full">
       <div className="space-y-1.5">
         <div className="flex flex-wrap items-center gap-1 md:gap-2">
           <span className="font-bold text-sm md:text-base">{author?.authorName || "Anonymous"}</span>
