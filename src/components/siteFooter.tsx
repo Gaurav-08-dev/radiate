@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Instagram, FacebookIcon as Facebook, MailIcon as Mail, PhoneIcon as Phone } from 'lucide-react';
+import { Instagram, FacebookIcon as Facebook, MailIcon as Mail, PhoneIcon as Phone, Youtube } from 'lucide-react';
 import { cn, playfair } from "@/lib/utils"
 
 export function SiteFooter({className}: {className?: string}) {
@@ -56,7 +56,7 @@ export function SiteFooter({className}: {className?: string}) {
         {/* Connect with Us Section - Desktop Only */}
         <div className="hidden md:block space-y-4 order-3">
           <h2 className={`${playfair.className} text-xl md:text-2xl mb-4 md:mb-6`}>Connect with us</h2>
-          <div className="flex gap-4">
+          <div className="flex gap-4 items-center">
             <a 
               href="https://instagram.com/radiatecandles" 
               target="_blank" 
@@ -65,6 +65,15 @@ export function SiteFooter({className}: {className?: string}) {
             >
               <Instagram className="h-5 w-5" />
             </a>
+            <a 
+            href="https://youtube.com/@letsradiate-in" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="hover:opacity-80"
+          >
+            <Youtube className="h-6 w-6" />
+          </a>
+            
             <a 
               href="https://www.facebook.com/people/Radiate-Candles/61562013155559/" 
               target="_blank" 
@@ -77,7 +86,7 @@ export function SiteFooter({className}: {className?: string}) {
         </div>
 
         {/* Social Media Icons - Mobile Only */}
-        <div className="flex md:hidden gap-4 order-3">
+        <div className="flex md:hidden gap-4 order-3 items-center">
           <a 
             href="https://instagram.com/radiatecandles" 
             target="_blank" 
@@ -85,6 +94,14 @@ export function SiteFooter({className}: {className?: string}) {
             className="hover:opacity-80"
           >
             <Instagram className="h-5 w-5" />
+          </a>
+          <a 
+            href="https://youtube.com/@letsradiate-in" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="hover:opacity-80"
+          >
+            <Youtube className="h-6 w-6" />
           </a>
           <a 
             href="https://www.facebook.com/people/Radiate-Candles/61562013155559/" 
