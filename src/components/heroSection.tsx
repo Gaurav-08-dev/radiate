@@ -7,7 +7,7 @@ export function HeroSection() {
   return (
     <section className="relative md:bg-[#F8D7E3]">
       <div className="flex flex-col md:grid md:grid-cols-2 md:grid-rows-1">
-        <div className="relative order-1 h-[400px] md:order-2 md:h-[500px] lg:h-[600px] overflow-hidden">
+        <div className="relative order-1 h-fit md:order-2 md:h-[500px] lg:h-fit overflow-hidden">
           <Image
             src={banner}
             alt="Radiate Fragrances Display"
