@@ -426,7 +426,7 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
                   </svg>
                 </Link>
                 <Link
-                  href="https://youtube.com"
+                  href="https://youtube.com/@letsradiate-in"
                   className="text-gray-800 hover:text-gray-600"
                 >
                   <svg
