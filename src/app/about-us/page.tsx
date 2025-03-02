@@ -87,13 +87,13 @@ export default function AboutUs() {
 
           {/* Certifications Grid */}
           <div className="px-4 grid w-full max-w-2xl grid-cols-2 gap-6 md:grid-cols-2">
-            <div className="rounded-md bg-[#E5E5E5] p-4 shadow-md">
+            <div className="rounded-md bg-[#f8f8f8] p-4 shadow-md">
               <h3 className="mb-2 font-medium text-purple-800">
                 Registered Trademark & GST Certified
               </h3>
               <p className="text-gray-600">Authenticity you can trust</p>
             </div>
-            <div className="rounded-md bg-[#E5E5E5] p-4 shadow-md">
+            <div className="rounded-md bg-[#f8f8f8] p-4 shadow-md">
               <h3 className="mb-2 font-medium text-purple-800">
                 Ancient Indian Fragrance Knowledge
               </h3>
@@ -101,13 +101,13 @@ export default function AboutUs() {
                 Blends that enhance mood & well-being
               </p>
             </div>
-            <div className="rounded-md bg-[#E5E5E5] p-4 shadow-md">
+            <div className="rounded-md bg-[#f8f8f8] p-4 shadow-md">
               <h3 className="mb-2 font-medium text-purple-800">
                 In-House Production
               </h3>
               <p className="text-gray-600">Quality control at every step</p>
             </div>
-            <div className="rounded-md bg-[#E5E5E5] p-4 shadow-md">
+            <div className="rounded-md bg-[#f8f8f8] p-4 shadow-md">
               <h3 className="mb-2 font-medium text-purple-800">
                 Community-Driven
               </h3>
@@ -116,9 +116,7 @@ export default function AboutUs() {
           </div>
 
           <div className="mb-6 mt-12 px-4">
-            <h3 className="mb-4 text-center font-serif text-xl italic">
-              Connect With Us
-            </h3>
+            
             <div className="flex justify-center space-x-8">
               {/* Instagram */}
               <a
@@ -126,7 +124,7 @@ export default function AboutUs() {
                 href="https://www.instagram.com/radiatecandles"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-purple-700 transition-colors hover:text-purple-900"
+                className="text-[#500769] transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +143,7 @@ export default function AboutUs() {
                 href="https://www.youtube.com/@letsradiate-in"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-purple-700 transition-colors hover:text-purple-900"
+                  className="text-[#500769] transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +162,7 @@ export default function AboutUs() {
                 href="https://www.facebook.com/people/Radiate-Candles/61562013155559/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-purple-700 transition-colors hover:text-purple-900"
+                className="text-[#500769] transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
