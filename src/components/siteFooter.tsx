@@ -77,7 +77,7 @@ export function SiteFooter({ className }: { className?: string }) {
           <div className="flex items-center gap-4">
             <a
               title="Instagram"
-              href="https://instagram.com/radiatecandles"
+              href="https://www.instagram.com/radiatecandles"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:opacity-80"
@@ -86,7 +86,7 @@ export function SiteFooter({ className }: { className?: string }) {
             </a>
             <a
               title="YouTube"
-              href="https://youtube.com/@letsradiate-in"
+              href="https://www.youtube.com/@letsradiate-in"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:opacity-80"
@@ -110,7 +110,7 @@ export function SiteFooter({ className }: { className?: string }) {
         <div className="order-3 flex items-center gap-4 md:hidden">
           <a
             title="Instagram"
-            href="https://instagram.com/radiatecandles"
+            href="https://www.instagram.com/radiatecandles"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:opacity-80"
@@ -119,7 +119,7 @@ export function SiteFooter({ className }: { className?: string }) {
           </a>
           <a
             title="YouTube"
-            href="https://youtube.com/@letsradiate-in"
+            href="https://www.youtube.com/@letsradiate-in"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:opacity-80"
