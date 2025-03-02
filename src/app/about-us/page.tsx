@@ -23,13 +23,13 @@ export default function AboutUs() {
           </p>
 
           {/* Image Section */}
-          <div className="mb-10 w-full max-w-2xl border border-gray-300">
+          <div className=" mb-10 w-full max-w-2xl">
             <Image
               src={AboutUsImage}
               alt="Candle making process"
               width={400}
               height={300}
-              className="w-full"
+              className="w-[400px] h-[300px] object-cover"
             />
           </div>
 

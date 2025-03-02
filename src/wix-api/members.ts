@@ -11,6 +11,7 @@ export const getLoggedInMember = cache(
     const memberData = await wixClient.members.getCurrentMember({
       fieldsets: [members.Set.FULL],
     });
+    
 
     return memberData.member || null;
   },
