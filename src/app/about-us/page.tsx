@@ -4,26 +4,26 @@ import AboutUsImage from "@/assets/right.jpg";
 
 export default function AboutUs() {
   return (
-    <main className="min-h-screen px-4 py-6">
+    <main className="min-h-screen px-0 py-6">
       <div className="mx-auto max-w-4xl">
         <div className="flex flex-col items-center">
-          <div className="mb-6 h-20 w-20">
+          <div className="mb-6 h-20 w-20 px-4">
             <Image src={logo} alt="Diamond" className="h-full w-full" />
           </div>
 
           {/* Main Heading */}
-          <h1 className="mb-4 text-center font-serif text-3xl italic md:text-4xl">
+            <h1 className="px-4 mb-4 text-center font-serif text-3xl italic md:text-4xl">
             Crafted with love, rooted in India
           </h1>
 
           {/* Subheading */}
-          <p className="mb-8 max-w-2xl text-center text-gray-700">
+            <p className="px-4 mb-8 max-w-2xl text-center text-gray-700">
             A homegrown, women-led brand creating handcrafted products inspired
             by Indian traditions and self-care rituals
           </p>
 
           {/* Image Section */}
-          <div className=" mb-10 w-full max-w-2xl">
+          <div className="px-4 mb-10 w-full max-w-2xl">
             <Image
               src={AboutUsImage}
               alt="Candle making process"
@@ -34,18 +34,18 @@ export default function AboutUs() {
           </div>
 
           {/* Experience Section */}
-          <h2 className="mb-4 text-center font-serif text-2xl italic">
+          <h2 className="px-4 mb-4 text-center font-serif text-2xl italic">
             More than just products, we create experiences
           </h2>
-          <p className="mb-10 max-w-2xl text-center text-gray-700">
+          <p className="px-4 mb-10 max-w-2xl text-center text-gray-700">
             Every fragrance, every product is designed to bring warmth, love,
             and meaning into your everyday moments.
           </p>
 
           {/* Values Section */}
-          <div className="mb-10 flex w-full justify-center gap-8">
+          <div className="p-2 text-xs mb-10 flex w-full justify-center gap-4 bg-[#500769] text-white">
             <div className="flex items-center gap-2">
-              <div className="text-purple-700">
+              <div className="text-white">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -55,10 +55,10 @@ export default function AboutUs() {
                   <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
                 </svg>
               </div>
-              <span className="font-medium">Handcrafted with care</span>
+              <span className=" font-medium">Handcrafted with care</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="text-purple-700">
+              <div className="text-white">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -77,16 +77,16 @@ export default function AboutUs() {
           </div>
 
           {/* Built for India Section */}
-          <h2 className="mb-4 text-center font-serif text-2xl italic">
+          <h2 className="px-4 mb-4 text-center font-serif text-2xl italic">
             Built for India, by India
           </h2>
-          <p className="mb-10 max-w-2xl text-center text-gray-700">
+          <p className="px-4 mb-10 max-w-2xl text-center text-gray-700">
             Unlike mass-produced imports, our products are designed keeping in
             mind Indian culture, traditions, and preferences.
           </p>
 
           {/* Certifications Grid */}
-          <div className="grid w-full max-w-2xl grid-cols-2 gap-6 md:grid-cols-2">
+          <div className="px-4 grid w-full max-w-2xl grid-cols-2 gap-6 md:grid-cols-2">
             <div className="rounded-md bg-[#E5E5E5] p-4 shadow-md">
               <h3 className="mb-2 font-medium text-purple-800">
                 Registered Trademark & GST Certified
@@ -115,7 +115,7 @@ export default function AboutUs() {
             </div>
           </div>
 
-          <div className="mb-6 mt-12">
+          <div className="mb-6 mt-12 px-4">
             <h3 className="mb-4 text-center font-serif text-xl italic">
               Connect With Us
             </h3>
