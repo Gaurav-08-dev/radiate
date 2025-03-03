@@ -148,7 +148,7 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent
           side="left"
-          className="w-[85%] max-w-md rounded-br-2xl rounded-tr-2xl bg-[#F7F2FA] shadow-xl outline-none"
+          className="w-[85%] max-w-md rounded-none bg-[#F7F2FA] shadow-xl outline-none overflow-y-auto"
         >
           <SheetHeader className="relative flex w-full items-start">
             <div className="relative min-w-[95%]">
