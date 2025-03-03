@@ -88,30 +88,30 @@ export default function AboutUs() {
           {/* Certifications Grid */}
           <div className="px-4 grid w-full max-w-2xl grid-cols-2 gap-6 md:grid-cols-2">
             <div className="rounded-md bg-[#f8f8f8] p-4 shadow-md">
-              <h3 className="mb-2 font-medium text-purple-800">
+              <h3 className="text-center text-xs mb-2 font-medium text-purple-800">
                 Registered Trademark & GST Certified
               </h3>
-              <p className="text-gray-600">Authenticity you can trust</p>
+              <p className="text-gray-600 text-center text-xs">Authenticity you can trust</p>
             </div>
             <div className="rounded-md bg-[#f8f8f8] p-4 shadow-md">
-              <h3 className="mb-2 font-medium text-purple-800">
+              <h3 className="text-center text-xs mb-2 font-medium text-purple-800">
                 Ancient Indian Fragrance Knowledge
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 text-center text-xs">
                 Blends that enhance mood & well-being
               </p>
             </div>
             <div className="rounded-md bg-[#f8f8f8] p-4 shadow-md">
-              <h3 className="mb-2 font-medium text-purple-800">
+              <h3 className="text-center text-xs mb-2 font-medium text-purple-800">
                 In-House Production
               </h3>
-              <p className="text-gray-600">Quality control at every step</p>
+              <p className="text-gray-600 text-center text-xs">Quality control at every step</p>
             </div>
             <div className="rounded-md bg-[#f8f8f8] p-4 shadow-md">
-              <h3 className="mb-2 font-medium text-purple-800">
+              <h3 className="text-center text-xs mb-2 font-medium text-purple-800">
                 Community-Driven
               </h3>
-              <p className="text-gray-600">Following sustainable practices</p>
+              <p className="text-gray-600 text-center text-xs">Following sustainable practices</p>
             </div>
           </div>
 
