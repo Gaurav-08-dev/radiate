@@ -19,12 +19,16 @@ export const getLoggedInMember = cache(
 
 export interface UpdateMemberInfoProps {
   firstName: string;
-  lastName: string;
+  lastName: string; 
+  // birthdate: string | '';
+  phones: string | '';
 }
 
 export async function updateMemberInfo(
   wixClient: WixClient,
-  { firstName, lastName }: UpdateMemberInfoProps,
+  { firstName, lastName, 
+    // birthdate, 
+    phones }: UpdateMemberInfoProps,
 ) {
   const loggedInMember = await getLoggedInMember(wixClient);
   
@@ -36,6 +40,8 @@ export async function updateMemberInfo(
     contact: {
       firstName,
       lastName,
+      // birthdate: birthdate ? birthdate : new Date().toLocaleDateString(),
+      phones: phones ? [phones] : [],
     },
   });
 }

@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import { getLoggedInMember } from "@/wix-api/members";
 import { getWixServerClient } from "@/lib/wix-client.server";
 import { notFound } from "next/navigation";
-import MemberInfoForm from "./MemberInfoForm";
-import Orders from "./Orders";
+import ProfileContent from "./ProfileContent";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -11,15 +10,15 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  
   const member = await getLoggedInMember(getWixServerClient());
   if (!member) notFound();
+  
 
   return (
-    <main className="mx-auto max-w-7xl space-y-10 px-4 py-10">
-      <h1 className="text-2xl font-bold">Your Profile</h1>
-      <MemberInfoForm member={member} />
-      <Orders /> 
+    <main className="mx-auto max-w-7xl px-4 py-10">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <ProfileContent member={member} />
+      </div>
     </main>
   );
 }
