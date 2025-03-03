@@ -71,7 +71,7 @@ export function ShoppingCartButton({ initialData }: ShoppingCartButtonProps) {
           <SheetHeader className="border-b pb-4 text-center">
             <SheetTitle className="mx-auto">SHOPPING CART</SheetTitle>
           </SheetHeader>
-          <div className="mt-4 flex grow flex-col space-y-5 overflow-y-auto scroll-smooth pt-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar]:w-2">
+          <div className="mt-4 flex grow flex-col space-y-5 overflow-y-auto scroll-smooth pt-1 px-4 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar]:w-2">
             <ul className="space-y-5">
               {cart?.data?.lineItems?.map((item) => (
                 <ShoppingCartItem
@@ -228,6 +228,7 @@ function ShoppingCartItem({
         <div className="mt-2 flex items-center justify-between">
           <div className="flex items-center rounded-md border">
             <button
+              type="button"
               className="px-3 py-1 text-gray-500"
               disabled={item.quantity === 1}
               onClick={() =>
