@@ -271,7 +271,7 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
                 onValueChange={setOpenAccordions}
                 className="w-full"
               >
-                <AccordionItem value="shop">
+                <AccordionItem value="shop" className="border-b-0">
                   <AccordionTrigger
                     className={cn(
                       playfair.className,
@@ -351,7 +351,7 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
                   </Link>
                 </div>
 
-                <AccordionItem value="scent">
+                <AccordionItem value="scent" className="border-b-0">
                   <AccordionTrigger
                     className={cn(
                       playfair.className,

@@ -19,21 +19,24 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
     product?.additionalInfoSections?.find(
       (section) => section.title?.toLowerCase() === "landing page title",
     )?.description || product.name;
+  
+  // Add state to track if description is expanded
+  const [isExpanded, setIsExpanded] = React.useState(false);
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-8 overflow-hidden md:gap-12">
       <div className="w-full flex items-center justify-between md:justify-center mt-8 md:mt-0">
-        <div className="block h-[0.5px] w-[20%] bg-gray-200 md:hidden"></div>
+        <div className="block h-[0.5px] w-[10%] bg-gray-200 md:hidden" />
         <h1
           className={`${playfair.className} text-center font-serif text-[18px] font-medium tracking-tight md:py-8 md:text-5xl`}
         >
           Discover Our Signature Candle
         </h1>
-        <div className="block h-[0.5px] w-[20%] bg-gray-200 md:hidden"></div>
+        <div className="block h-[0.5px] w-[10%] bg-gray-200 md:hidden" />
       </div>
 
-      <div className="flex flex-col md:flex-row items-center justify-center bg-white md:bg-[#F8D7E3]">
-        <div className="h-full min-h-[400px] w-full md:w-1/2 overflow-hidden">
+      <div className="flex flex-col gap-8 md:flex-row items-center justify-center bg-white md:bg-[#F8D7E3]">
+        <div className="h-full min-h-fit w-full md:w-1/2 overflow-hidden">
           <WixImage
             mediaIdentifier={mainImage?.url}
             alt={mainImage?.altText}
@@ -54,26 +57,40 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
                 />
               </Link>
 
-              <div
-                className="w-full md:w-[80%] text-center md:text-justify text-zinc-600 text-sm md:text-base"
-                dangerouslySetInnerHTML={{
-                  __html: product.description || "",
-                }}
-              />
+              <div className="relative w-full md:w-[80%] text-center md:text-justify text-zinc-600 text-sm md:text-base">
+                <div
+                  className={`${isExpanded ? '' : 'line-clamp-3'}`}
+                  dangerouslySetInnerHTML={{
+                    __html: product.description || "",
+                  }}
+                />
+                
+                {product.description && product.description.length > 100 && (
+                  <button 
+                    type="button"
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    className="inline-block ml-1 text-[#500769] text-sm font-medium hover:underline"
+                  >
+                    {isExpanded ? 'Read Less' : 'Read More'}
+                  </button>
+                )}
+              </div>
 
               <div className="space-y-4 text-center md:text-left">
-                <div className="space-y-2">
-                  {productOptions?.map((variant) => (
-                    <div key={variant.name}>
-                      <span className="flex gap-1 text-xs md:text-sm font-bold justify-center md:justify-start">
+                {productOptions && productOptions.length > 0 && (
+                  <div className="space-y-2">
+                    {productOptions?.map((variant) => (
+                      <div key={variant.name}>
+                        <span className="flex gap-1 text-xs md:text-sm font-bold justify-center md:justify-start">
                         {variant.name} -
                         <span className="font-normal text-gray-500">
                           {variant.choices?.map((item) => item.value)}
                         </span>
                       </span>
                     </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
                 <div className="flex items-center justify-center md:justify-start gap-2">
                   {originalPrice && (
                     <p

@@ -33,13 +33,13 @@ export async function ProductGrid() {
   return (
     <div className="overflow-hidden px-0 md:px-4 pt-0">
       <div className="flex items-center justify-between md:justify-center">
-        <div className="h-[1px] w-[28%] bg-gray-200 block md:hidden"></div>
+        <div className="h-[1px] w-[10%] bg-gray-200 block md:hidden" />
         <h1
-          className={`${playfair.className} flex items-center justify-center gap-2 py-6 text-center font-serif text-[1.13rem] font-medium md:text-5xl lg:py-12`}
+          className={`${playfair.className} flex items-center justify-center gap-2 py-6 text-center font-serif text-3xl font-medium md:text-5xl lg:py-12`}
         >
           Customer Favorites
         </h1>
-        <div className="h-[1px] w-[28%] bg-gray-200 block md:hidden"></div>
+        <div className="h-[1px] w-[10%] bg-gray-200 block md:hidden" />
       </div>
 
       <div className="space-y-6 px-4 md:px-0">
@@ -83,7 +83,7 @@ export async function ProductGrid() {
         <div className="flex justify-center">
           <Link href="/shop">
             <Button
-              className={`${montserrat.className} h-8 w-40 rounded-none border-2 border-[#500769] bg-white px-5 py-4 text-sm text-[#500769] hover:bg-[#500769]/90 md:hidden`}
+              className={`${montserrat.className} h-8 w-40 rounded-none border-2 border-[#500769] px-5 py-4 text-sm text-[#500769] bg-transparent md:hidden`}
             >
               Explore all products
             </Button>
