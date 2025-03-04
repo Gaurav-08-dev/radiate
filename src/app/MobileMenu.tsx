@@ -55,8 +55,8 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
 
   const [isOpen, setIsOpen] = useState(false);
   const [openAccordions, setOpenAccordions] = useState<string[]>([
-    "shop",
-    "scent",
+    // "shop",
+    // "scent",
   ]);
 
   const [searchQuery, setSearchQuery] = useState("");

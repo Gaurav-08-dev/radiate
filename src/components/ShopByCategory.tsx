@@ -51,9 +51,9 @@ export async function ShopByCategory() {
           {filteredCollections?.map((collection, index) => (
             <CarouselItem
               key={index}
-              className="pl-2 md:pl-4 basis-1/2 sm:basis-1/2 md:basis-1/2 lg:basis-1/4 flex justify-center"
+              className=" pl-2 md:pl-4 basis-1/2 sm:basis-1/2 md:basis-1/2 lg:basis-1/4 flex justify-center"
             >
-              <div className="p-1">
+              <div className="p-1 overflow-x-clip">
                 <Card className="border-0 bg-transparent">
                   <CardContent className="relative aspect-square p-0">
                     <WixImage
@@ -65,7 +65,7 @@ export async function ShopByCategory() {
                       width={700}
                       height={700}
                     />
-                    <div className=" w-11/12 md:w-1/2 absolute bottom-6 left-1/2 -translate-x-1/2 translate-y-1/2 md:translate-y-0">
+                    <div className="min-w-fit w-11/12 md:w-1/2 absolute bottom-6 left-1/2 -translate-x-1/2 translate-y-1/2 md:translate-y-0">
                       <Link
                         href={`/shop?collection=${collection._id}`}
                         legacyBehavior
@@ -73,7 +73,7 @@ export async function ShopByCategory() {
                       >
                         <Button
                           variant="secondary"
-                          className="w-full rounded-none p-1 whitespace-nowrap text-sm font-medium md:text-2xl"
+                          className="w-full rounded-none p-1 whitespace-nowrap text-xs font-medium md:text-2xl"
                         >
                           {collection.name?.split("-")[0] || ""}
                         </Button>

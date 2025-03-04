@@ -33,7 +33,7 @@ export default function useAuth() {
   async function logout() {
     try {
       const logoutUrl = await getLogoutUrl(wixBrowserClient);
-
+      
       Cookies.remove(WIX_SESSION_COOKIE);
 
       window.location.href = logoutUrl;
