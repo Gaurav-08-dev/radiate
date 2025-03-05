@@ -45,7 +45,7 @@ export default async function TermsAndConditions() {
               <p className="mb-4">
                 3. The Platform is owned by SHRI BALAJI ELECTRONIC SERVICES, a
                 company incorporated under the Companies Act, 1956 with its
-                registered office at CHANDNI CHOWK CHANDNI CHOWK ,New Delhi
+                registered office at Shop No. 312, Chandni Chowk,near Fatehpuri,Delhi-110006, New Delhi
                 ,India (hereinafter referred to as 'Platform Owner', 'we', 'us',
                 'our').
               </p>
