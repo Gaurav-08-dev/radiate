@@ -35,7 +35,7 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
         <div className="block h-[0.5px] w-[10%] bg-gray-200 md:hidden" />
       </div>
 
-      <div className="flex flex-col gap-8 md:flex-row items-center justify-center bg-white md:bg-[#F8D7E3]">
+      <div className="flex flex-col gap-8 md:flex-row items-center justify-center md:bg-[#F8D7E3]">
         <div className="h-full min-h-fit w-full md:w-1/2 overflow-hidden">
           <WixImage
             mediaIdentifier={mainImage?.url}

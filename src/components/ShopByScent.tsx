@@ -18,7 +18,7 @@ export async function ShopByScent() {
   const collections = await getCollectionsByScent(wixClient);
 
   return (
-    <div className="w-full overflow-hidden bg-[#fff] md:bg-[#faf5ff]">
+    <div className="w-full overflow-hidden  md:bg-[#faf5ff]">
       <div className="flex items-center justify-between md:justify-center">
         <div className="h-[1px] w-[28%] bg-gray-200 block md:hidden"></div>
         <h1 className={`${playfair.className} py-6 text-center text-xl md:py-12 md:text-5xl`}>Shop By Scent</h1>
