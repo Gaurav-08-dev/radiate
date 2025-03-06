@@ -5,12 +5,14 @@ import { products } from "@wix/stores";
 import ProductDescription from "@/components/ProductDescription";
 import { AddToCartButton } from "@/components/AddToCartButton";
 import { Check } from "lucide-react";
+import { playfair } from "@/lib/utils";
 // import BuyNowButton from "@/components/BuyNowButton";
 // import ProductOptions from "@/components/ProductOptions";
 interface ProductDetailProps {
   product: products.Product;
 }
 export default function ProductDetails({ product }: ProductDetailProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
   const [selectedOptions] = useState<Record<string, string>>(
     product.productOptions
       ?.map((option) => ({
@@ -66,11 +68,11 @@ export default function ProductDetails({ product }: ProductDetailProps) {
   //   const inStock = checkInStock(product, selectedOptions); 3:57:57
 
   return (
-    <div className="container mx-auto px-4 md:px-40 pt-6 md:pt-20">
-      <div className="flex flex-col gap-6 md:gap-12 md:flex-row">
+    <div className="container mx-auto px-0 pt-0 md:px-40 md:pt-20">
+      <div className="flex flex-col gap-6 md:flex-row md:gap-12">
         {/* Mobile layout - Image section */}
-        <div className="w-full md:w-[40%] space-y-4">
-          <div className="relative aspect-square max-h-fit max-w-full md:max-w-fit overflow-hidden rounded-none">
+        <div className="w-full space-y-4 md:w-[40%]">
+          <div className="relative aspect-square max-h-fit max-w-full overflow-hidden rounded-none md:max-w-fit">
             <WixImage
               mediaIdentifier={currentImage?.url}
               alt={currentImage?.altText}
@@ -79,11 +81,11 @@ export default function ProductDetails({ product }: ProductDetailProps) {
               className="object-cover transition-transform duration-300 hover:scale-105"
             />
           </div>
-          <div className="flex gap-2 overflow-x-auto [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar]:w-2">
+          <div className="mx-4 flex gap-2 overflow-x-auto md:mx-0 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar]:w-2">
             {imagesList?.map((img, i) => (
               <div
                 key={i}
-                className="relative h-20 w-20 md:h-28 md:w-28 flex-shrink-0 cursor-pointer rounded-none"
+                className="relative h-20 w-20 flex-shrink-0 cursor-pointer rounded-none md:h-28 md:w-28"
                 onClick={() => handleImageClick(img)}
               >
                 <WixImage
@@ -101,22 +103,26 @@ export default function ProductDetails({ product }: ProductDetailProps) {
           </div>
         </div>
 
-        <div className="w-full md:w-[60%] space-y-4 md:space-y-6">
+        <div className="w-full space-y-4 px-4 md:w-[60%] md:space-y-6 md:px-0">
           {/* Product name */}
-          <h1 className="text-2xl md:text-4xl font-semibold">{product.name}</h1>
-          
+          <h1
+            className={`${playfair.className} text-2xl font-semibold md:text-4xl`}
+          >
+            {product.name}
+          </h1>
+
           {/* Ribbon - moved up for mobile */}
           {ribbon && (
             <span className="inline-block rounded-none bg-red-600 px-2 py-1 text-center text-sm font-medium text-white">
               {ribbon?.trim()}
             </span>
           )}
-          
+
           {/* Features list - moved up for mobile */}
           {featuresList && (
             <div className="flex flex-wrap gap-3 md:gap-4">
               {featuresList?.split(",").map((feature, i) => (
-                <span key={i} className="text-xs md:text-sm font-medium">
+                <span key={i} className="text-xs font-medium md:text-sm">
                   <span className="flex items-center gap-1">
                     <Check
                       size={16}
@@ -130,14 +136,32 @@ export default function ProductDetails({ product }: ProductDetailProps) {
               ))}
             </div>
           )}
-          
+
           {/* Description - moved up for mobile */}
-          <div
+          <div>
+            <div
+              className={`${isExpanded ? "" : "line-clamp-3"}`}
+              dangerouslySetInnerHTML={{
+                __html: product.description || "",
+              }}
+            />
+
+            {product.description && product.description.length > 100 && (
+              <button
+                type="button"
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="ml-1 inline-block text-sm font-medium text-[#500769] hover:underline"
+              >
+                {isExpanded ? "Read Less" : "Read More"}
+              </button>
+            )}
+          </div>
+          {/* <div
             className="space-y-3 md:space-y-4 text-sm md:text-base text-gray-600"
             dangerouslySetInnerHTML={{
               __html: product.description || "",
             }}
-          />
+          /> */}
 
           <div className="h-[1px] w-full bg-gray-200" />
 
@@ -151,12 +175,12 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                 </span>
               </div>
               <div className="flex flex-col gap-2 md:gap-4">
-                <span className="text-2xl md:text-4xl font-semibold">
+                <span className="text-2xl font-semibold md:text-4xl">
                   {priceData?.formatted?.discountedPrice ||
                     priceData?.formatted?.price}
                 </span>
                 {product?.discount?.value ? (
-                  <span className="text-sm md:text-base text-[#1D9C50]">{`You save ₹${product?.discount?.value}`}</span>
+                  <span className="text-sm text-[#1D9C50] md:text-base">{`You save ₹${product?.discount?.value}`}</span>
                 ) : (
                   ""
                 )}
@@ -165,10 +189,10 @@ export default function ProductDetails({ product }: ProductDetailProps) {
 
             {/* Quantity and Add to cart */}
             <div
-              className={`mt-4 md:mt-10 flex flex-col md:flex-row gap-4 md:gap-10 w-full md:w-[400px] md:max-w-fit`}
+              className={`mt-4 flex w-full flex-col gap-4 md:mt-10 md:w-[400px] md:max-w-fit md:flex-row md:gap-10`}
             >
               {isInStock ? (
-                <div className="flex rounded-none border max-w-fit">
+                <div className="flex max-w-fit rounded-none border">
                   <button
                     disabled={quantity === 1}
                     type="button"
@@ -180,7 +204,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                   <input
                     title="Quantity"
                     type="number"
-                    className="w-12 pl-0 md:pl-3 text-center"
+                    className="w-12 pl-0 text-center md:pl-3"
                     value={quantity}
                     readOnly
                   />
@@ -196,7 +220,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
 
               <div className="flex w-full">
                 <AddToCartButton
-                  className={`h-12 w-full flex-1 bg-[#500769] text-base md:text-xl text-white hover:bg-[#500769]/90`}
+                  className={`h-12 w-full flex-1 bg-[#500769] text-base text-white hover:bg-[#500769]/90 md:text-xl`}
                   product={product}
                   quantity={quantity}
                   buttonText={isInStock ? "Add to My Bag" : "Out of stock"}
@@ -206,9 +230,9 @@ export default function ProductDetails({ product }: ProductDetailProps) {
               </div>
             </div>
           </div>
-          
+
           {/* Product details sections */}
-          <div className="space-y-3 md:space-y-4 border-t pt-4 md:pt-6">
+          <div className="space-y-3 border-t pt-4 md:space-y-4 md:pt-6">
             <ProductDescription
               key={productIngredients?.title}
               title={productIngredients?.title || ""}

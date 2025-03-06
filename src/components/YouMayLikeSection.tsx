@@ -8,7 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-
+import { playfair } from "@/lib/utils";
 interface YouMayLikeSectionProps {
   productId?: string | undefined;
 }
@@ -27,7 +27,7 @@ export default async function YouMayLikeSection({
   
   return (
     <div className="px-4 md:px-44">
-      <h1 className="py-6 md:py-8 text-center text-2xl md:text-4xl font-semibold">
+      <h1 className={`${playfair.className} py-6 md:py-8 text-center text-2xl md:text-4xl font-semibold`}>
         You may also like
       </h1>
       
