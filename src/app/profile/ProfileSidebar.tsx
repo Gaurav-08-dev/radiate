@@ -29,7 +29,7 @@ export default function ProfileSidebar({
 }) {
   const firstName = member.contact?.firstName;
   const lastName = member.contact?.lastName;
-  console.log(member);
+
   return (
     <div className="rounded-lg bg-white p-4 shadow-sm sm:p-6">
       <div className="mb-6 flex flex-col items-center">

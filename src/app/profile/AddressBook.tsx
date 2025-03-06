@@ -2,46 +2,61 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-// import { Input } from "@/components/ui/input";
-// import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-// import { useForm } from "react-hook-form";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import * as z from "zod";
-// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { members } from "@wix/members";
-// const formSchema = z.object({
-//   fullName: z.string().min(2, { message: "Name is required" }),
-//   fullAddress: z.string().min(5, { message: "Address is required" }),
-//   city: z.string().min(2, { message: "City is required" }),
-//   postalCode: z.string().min(2, { message: "Postal/Zip code is required" }),
-//   country: z.string().min(2, { message: "Country is required" }),
-//   phoneNumber: z.string().min(5, { message: "Phone number is required" }),
-// });
+import { useMembersAddress } from "@/hooks/members";
+const formSchema = z.object({
+  fullName: z.string().min(2, { message: "Name is required" }),
+  fullAddress: z.string().min(5, { message: "Address is required" }),
+  city: z.string().min(2, { message: "City is required" }),
+  postalCode: z.string().min(2, { message: "Postal/Zip code is required" }),
+  country: z.string().min(2, { message: "Country is required" }),
+  phoneNumber: z.string().min(10, { message: "Phone number is required" }),
+});
 
 export default function AddressBook({ member }: { member: members.Member }) {
-//   const [isAddingAddress, setIsAddingAddress] = useState(false);
+
+  const mutation =  useMembersAddress();
+  const [isAddingAddress, setIsAddingAddress] = useState(false);
   const [addresses, setAddresses] = useState<any[]>([]);
-  
 
-//   const form = useForm({
-//     resolver: zodResolver(formSchema),
-//     defaultValues: {
-//       fullName: "",
-//       fullAddress: "",
-//       city: "",
-//       postalCode: "",
-//       country: "India",
-//       phoneNumber: "",
-//     },
-//   });
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      fullName: "",
+      fullAddress: "",
+      city: "",
+      postalCode: "",
+      country: "India",
+      phoneNumber: "",
+    },
+  });
 
-//   const onSubmit = (data: any) => {
-//     // Add the new address to the addresses array
-//     setAddresses([...addresses, data]);
-//     // Reset form
-//     form.reset();
-//     setIsAddingAddress(false);
-//   };
+  const onSubmit = (data: any) => {
+    // Add the new address to the addresses array
+   const res =  mutation.mutate({
+      addressLine2: data.fullAddress,
+      city: data.city,
+      subdivision: data.postalCode,
+      postalCode: data.postalCode,
+      country: data.country,
+    });
+    // setAddresses([...addresses, data]);
+    // Reset form
+    // form.reset();
+    // setIsAddingAddress(false);
+  };
 
   useEffect(() => {
     setAddresses(member?.contact?.addresses || []);
@@ -49,15 +64,15 @@ export default function AddressBook({ member }: { member: members.Member }) {
 
   return (
     <div id="address" className="mb-12">
-      <h2 className="text-xl font-semibold mb-6">Address book</h2>
-      
+      <h2 className="mb-6 text-xl font-semibold">Address book</h2>
+
       {addresses.length > 0 && (
         <div className="mb-6 space-y-4">
           {addresses.map((address, index) => (
-            <div key={address._id} className="p-4 border rounded-md">
-              <div className="flex justify-between items-start">
+            <div key={address._id} className="rounded-md border p-4">
+              <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">{address.addressLine}</p>
+                  <p className="text-sm text-gray-600">{address.addressLine || address.addressLine2}</p>
                   <p className="text-sm text-gray-600">
                     {address.city}, {address.subdivision}
                   </p>
@@ -90,11 +105,11 @@ export default function AddressBook({ member }: { member: members.Member }) {
           ))}
         </div>
       )}
-      
-      {/* {!isAddingAddress ? (
-        <Button 
+
+      {!isAddingAddress ? (
+        <Button
           onClick={() => setIsAddingAddress(true)}
-          className="w-full py-6 bg-white border border-gray-300 hover:bg-gray-50 text-black"
+          className="w-full border border-gray-300 bg-white py-6 text-black hover:bg-gray-50"
         >
           Add new address
         </Button>
@@ -112,7 +127,7 @@ export default function AddressBook({ member }: { member: members.Member }) {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="fullAddress"
@@ -124,7 +139,7 @@ export default function AddressBook({ member }: { member: members.Member }) {
                 </FormItem>
               )}
             />
-            
+
             <div className="grid grid-cols-2 gap-4">
               <FormField
                 control={form.control}
@@ -137,7 +152,7 @@ export default function AddressBook({ member }: { member: members.Member }) {
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="postalCode"
@@ -150,14 +165,14 @@ export default function AddressBook({ member }: { member: members.Member }) {
                 )}
               />
             </div>
-            
+
             <FormField
               control={form.control}
               name="country"
               render={({ field }) => (
                 <FormItem>
-                  <Select 
-                    onValueChange={field.onChange} 
+                  <Select
+                    onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
@@ -167,8 +182,12 @@ export default function AddressBook({ member }: { member: members.Member }) {
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="India">India</SelectItem>
-                      <SelectItem value="United States">United States</SelectItem>
-                      <SelectItem value="United Kingdom">United Kingdom</SelectItem>
+                      <SelectItem value="United States">
+                        United States
+                      </SelectItem>
+                      <SelectItem value="United Kingdom">
+                        United Kingdom
+                      </SelectItem>
                       <SelectItem value="Canada">Canada</SelectItem>
                       <SelectItem value="Australia">Australia</SelectItem>
                     </SelectContent>
@@ -176,33 +195,50 @@ export default function AddressBook({ member }: { member: members.Member }) {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <div className="flex items-center border rounded-md focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
-                      <div className="px-3 flex items-center gap-1">
-                        <img src="/flags/in.svg" alt="India" className="w-5 h-5" />
-                        <span>+</span>
+                    <div className="flex items-center rounded-md border focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
+                      <div className="flex items-center gap-1 px-3">
+                        {/* <img src="/flags/in.svg" alt="India" className="w-5 h-5" /> */}
+                        <span>+91</span>
                       </div>
-                      <Input 
-                        placeholder="Phone Number" 
-                        {...field} 
-                        className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0" 
+                      <Input
+                        placeholder="Phone Number"
+                        {...field}
+                        className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
                       />
                     </div>
                   </FormControl>
                 </FormItem>
               )}
             />
-            
-            <Button type="submit" className="w-32 bg-gray-300 hover:bg-gray-400 text-black">Save</Button>
+
+            <Button
+              type="submit"
+              className="w-32 bg-gray-300 text-black hover:bg-gray-400"
+              disabled={!form.formState.isValid}
+            >
+              Save
+            </Button>
+            <Button
+              onClick={() => {
+                setIsAddingAddress(false);
+                form.reset();
+              }}
+              type="button"
+              variant="outline"
+              className="ml-5 w-32 bg-gray-300 text-black hover:bg-gray-400"
+            >
+              Cancel
+            </Button>
           </form>
         </Form>
-      )} */}
+      )}
     </div>
   );
 }

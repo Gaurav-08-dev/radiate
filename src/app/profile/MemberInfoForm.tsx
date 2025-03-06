@@ -40,6 +40,7 @@ interface MemberInfoFormProps {
   member: members.Member;
 }
 export default function MemberInfoForm({ member }: MemberInfoFormProps) {
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {

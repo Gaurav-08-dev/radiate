@@ -1,4 +1,4 @@
-import { updateMemberInfo, UpdateMemberInfoProps } from "@/wix-api/members";
+import { AddressProps, updateMemberAddress, updateMemberInfo, UpdateMemberInfoProps } from "@/wix-api/members";
 import { useToast } from "./use-toast";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
@@ -28,3 +28,30 @@ export function useMembersUpdate() {
     },
   });
 }
+
+export function useMembersAddress() {
+  const { toast } = useToast();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: (variables: AddressProps) =>
+      updateMemberAddress(wixBrowserClient, variables),
+    onSuccess: () => {
+      toast({
+        description: "Address updated",
+      });
+      setTimeout(() => {
+        router.refresh();
+      }, 2000);
+    },
+    onError: (error) => {
+      console.error(error);
+      toast({
+        variant: "destructive",
+        description: "Failed to update address",
+      });
+    },
+  });
+}
+
+
