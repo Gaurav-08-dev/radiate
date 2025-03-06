@@ -33,13 +33,13 @@ export async function ProductGrid() {
   return (
     <div className="overflow-hidden px-0 md:px-4 pt-0">
       <div className="flex items-center justify-between md:justify-center">
-        <div className="h-[1px] w-[10%] bg-gray-200 block md:hidden" />
+        <div className="h-[1px] w-[20%] bg-gray-200 block md:hidden" />
         <h1
-          className={`${playfair.className} flex items-center justify-center gap-2 py-6 text-center font-serif text-3xl font-medium md:text-5xl lg:py-12`}
+          className={`${playfair.className} flex items-center justify-center gap-2 py-6 text-center font-serif text-2xl font-medium md:text-5xl lg:py-12`}
         >
           Customer Favorites
         </h1>
-        <div className="h-[1px] w-[10%] bg-gray-200 block md:hidden" />
+        <div className="h-[1px] w-[20%] bg-gray-200 block md:hidden" />
       </div>
 
       <div className="space-y-6 px-4 md:px-0">

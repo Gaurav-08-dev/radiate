@@ -26,13 +26,13 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-8 overflow-hidden md:gap-12">
       <div className="w-full flex items-center justify-between md:justify-center mt-8 md:mt-0">
-        <div className="block h-[0.5px] w-[10%] bg-gray-200 md:hidden" />
+        <div className="block h-[0.5px] w-[8%] bg-gray-200 md:hidden" />
         <h1
-          className={`${playfair.className} text-center font-serif text-[18px] font-medium tracking-tight md:py-8 md:text-5xl`}
+          className={`${playfair.className} text-center font-serif text-2xl font-medium tracking-tight md:py-8 md:text-5xl`}
         >
           Discover Our Signature Candle
         </h1>
-        <div className="block h-[0.5px] w-[10%] bg-gray-200 md:hidden" />
+        <div className="block h-[0.5px] w-[8%] bg-gray-200 md:hidden" />
       </div>
 
       <div className="flex flex-col gap-8 md:flex-row items-center justify-center md:bg-[#F8D7E3]">
