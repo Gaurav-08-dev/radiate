@@ -1,7 +1,7 @@
 "use client";
-import { UserCircle,  History, MapPin } from "lucide-react";
+import { UserCircle, History, MapPin } from "lucide-react";
 import { members } from "@wix/members";
-
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 type NavItem = {
   id: string;
   label: string;
@@ -9,54 +9,65 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-  { id: "info", label: "MY INFORMATION", icon: <UserCircle className={`mr-3`} /> },
-  { id: "orders", label: "MY ORDERS", icon: <History  className={`mr-3`}/> },
-  { id: "address", label: "ADDRESS BOOK", icon: <MapPin  className={`mr-3`}/> },
+  {
+    id: "info",
+    label: "MY INFORMATION",
+    icon: <UserCircle className={`mr-3`} />,
+  },
+  { id: "orders", label: "MY ORDERS", icon: <History className={`mr-3`} /> },
+  { id: "address", label: "ADDRESS BOOK", icon: <MapPin className={`mr-3`} /> },
 ];
 
-export default function ProfileSidebar({ 
+export default function ProfileSidebar({
   member,
-  activeSection, 
-  setActiveSection 
-}: { 
-  member: members.Member, 
-  activeSection: string, 
-  setActiveSection: (section: string) => void }) {
-  
-
+  activeSection,
+  setActiveSection,
+}: {
+  member: members.Member;
+  activeSection: string;
+  setActiveSection: (section: string) => void;
+}) {
+  const firstName = member.contact?.firstName;
+  const lastName = member.contact?.lastName;
+  console.log(member);
   return (
-    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
-      <div className="flex flex-col items-center mb-6">
-        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 mb-3">
+    <div className="rounded-lg bg-white p-4 shadow-sm sm:p-6">
+      <div className="mb-6 flex flex-col items-center">
+        <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-gray-200 text-gray-500 sm:h-20 sm:w-20">
           {member.profile?.photo?.url ? (
-            <img 
-              src={member.profile.photo.url} 
-              alt={member.profile?.nickname || "Profile"} 
-              className="w-full h-full rounded-full object-cover"
+            <img
+              src={member.profile?.photo?.url}
+              alt={member.profile?.nickname || "Profile"}
+              className="h-full w-full rounded-full object-cover"
             />
           ) : (
-            <UserCircle size={32} className="sm:size-40" />
+            <Avatar>
+              <AvatarFallback>{firstName?.charAt(0) || ""}{lastName?.charAt(0) || ""}</AvatarFallback>
+            </Avatar>
           )}
         </div>
-        <h2 className="text-base sm:text-lg font-semibold text-center">{member.profile?.nickname || "Member"}</h2>
-        <p className="text-xs sm:text-sm text-gray-500 text-center truncate max-w-full">{member.loginEmail}</p>
+        <h2 className="text-center text-base font-semibold sm:text-lg">
+          {member.profile?.nickname || "Member"}
+        </h2>
+        <p className="max-w-full truncate text-center text-xs text-gray-500 sm:text-sm">
+          {member.loginEmail}
+        </p>
       </div>
-      
+
       <nav>
         <ul className="space-y-1">
           {navItems.map((item) => {
-            
             const isActive = activeSection === item.id;
-            
+
             return (
               <li key={item.id}>
-                <button 
+                <button
                   type="button"
                   onClick={() => setActiveSection(item.id)}
-                  className={`w-full flex items-center p-2 rounded-md transition-colors ${
-                    isActive 
-                      ? 'bg-blue-50 text-blue-700' 
-                      : 'hover:bg-gray-50 text-gray-700'
+                  className={`flex w-full items-center rounded-md p-2 transition-colors ${
+                    isActive
+                      ? "bg-blue-50 text-blue-700"
+                      : "text-gray-700 hover:bg-gray-50"
                   }`}
                 >
                   {item.icon}

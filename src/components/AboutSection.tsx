@@ -4,7 +4,7 @@ import rightCandle from "@/assets/right.jpg";
 import logo from "@/assets/logo.svg";
 export function AboutSection() {
   return (
-    <div className=" w-full py-5 md:py-24  md:bg-[#faf5ff] " id="about">
+    <div className=" w-full py-5 md:py-24  md:bg-white " id="about">
         <div className="relative mx-auto flex w-full items-center justify-center text-center overflow-clip">            
           <div className="hidden lg:block absolute aspect-square w-[400px] h-[300px] rotate-[10deg] top-10 left-[-35px]">
             <Image

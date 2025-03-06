@@ -39,8 +39,9 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
         <div className="block h-[0.5px] w-[8%] bg-gray-200 md:hidden" />
       </div>
 
-      <div className="flex flex-col gap-8 md:flex-row items-center justify-center md:bg-[#F8D7E3]">
+      <div className="flex flex-col gap-8 md:flex-row items-center justify-center md:bg-white">
         <div className="h-full min-h-fit w-full md:w-1/2 overflow-hidden">
+        <Link href={`/products/${product.slug}`} legacyBehavior passHref>
           <WixImage
             mediaIdentifier={mainImage?.url}
             alt={mainImage?.altText}
@@ -48,6 +49,7 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
             height={600}
             className="object-fill transition-transform duration-300 hover:scale-105"
           />
+          </Link>
         </div>
         <div className="mx-auto flex w-full md:w-1/2 flex-col items-center gap-8 px-4">
           <div className="flex w-full items-center justify-center md:flex-row">
@@ -83,13 +85,13 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
               <div className="hidden md:block relative w-full md:w-[80%] text-center md:text-justify text-zinc-600 text-sm md:text-base">
                 
                 <div
-                  className={`${isExpanded ? '' : 'line-clamp-3'}`}
+                  // className={`${isExpanded ? '' : ''}`}
                   dangerouslySetInnerHTML={{
                     __html: description,
                   }}
                 />
                 
-                {description && description.length > 100 && (
+                {/* {description && description.length > 100 && (
                   <button 
                     type="button"
                     onClick={() => setIsExpanded(!isExpanded)}
@@ -97,7 +99,7 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
                   >
                     {isExpanded ? 'Read Less' : 'Read More'}
                   </button>
-                )}
+                )} */}
               </div>
 
               <div className="space-y-4 text-center md:text-left">

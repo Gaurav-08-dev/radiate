@@ -68,7 +68,7 @@ const ProductGridUnit = ({
             className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
           />
         </div>
-        <div className="w-full lg:w-full no-scrollbar mb-2 line-clamp-2 h-10 overflow-y-hidden text-ellipsis text-[0.75rem] font-semibold sm:h-12 sm:text-[0.850rem]">
+        <div className={`${playfair.className} w-full lg:w-full no-scrollbar mb-2 line-clamp-2 h-10 overflow-y-hidden text-ellipsis text-[0.75rem] font-semibold sm:h-12 sm:text-[0.850rem]`}>
           {product.name}
         </div>
       </Link>

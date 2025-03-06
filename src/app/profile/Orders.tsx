@@ -34,8 +34,14 @@ export default function Orders() {
       )}
       
       {status === "success" && !orders.length && !hasNextPage && (
-        <div className="bg-gray-50 rounded-md p-4 text-center">
-          <p className="text-gray-600 text-sm">No orders found</p>
+        <div className="rounded-md p-1 text-center flex flex-col items-start">
+          <p className="text-gray-600 text-sm">You have not yet placed an order. Would you like some recommendations?</p>
+          <a 
+            href="/shop" 
+            className="mt-3 inline-block px-4 py-2 bg-primary text-primary-foreground rounded-none text-sm font-medium hover:bg-primary/90 transition-colors"
+          >
+            Explore Shop
+          </a>
         </div>
       )}
       

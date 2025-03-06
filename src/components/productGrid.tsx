@@ -31,7 +31,7 @@ export async function ProductGrid() {
   if (!featuredProducts.items.length) return null;
 
   return (
-    <div className="overflow-hidden px-0 md:px-4 pt-0">
+    <div className="overflow-hidden px-0 md:px-4 pt-0 ">
       <div className="flex items-center justify-between md:justify-center">
         <div className="h-[1px] w-[20%] bg-gray-200 block md:hidden" />
         <h1

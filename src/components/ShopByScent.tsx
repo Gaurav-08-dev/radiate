@@ -18,24 +18,29 @@ export async function ShopByScent() {
   const collections = await getCollectionsByScent(wixClient);
 
   return (
-    <div className="w-full overflow-hidden  md:bg-[#faf5ff] mt-5 md:mt-0">
+    <div className="mt-5 w-full overflow-hidden md:mt-0 md:bg-white">
       <div className="flex items-center justify-between md:justify-center">
-        <div className="h-[1px] w-[28%] bg-gray-200 block md:hidden"></div>
-        <h1 className={`${playfair.className} py-6 text-center text-2xl md:py-12 md:text-5xl`}>Shop By Scent</h1>
-        <div className="h-[1px] w-[28%] bg-gray-200 block md:hidden"></div>
+        <div className="block h-[1px] w-[28%] bg-gray-200 md:hidden"></div>
+        <h1
+          className={`${playfair.className} py-6 text-center text-2xl md:py-12 md:text-5xl`}
+        >
+          Shop By Scent
+        </h1>
+        <div className="block h-[1px] w-[28%] bg-gray-200 md:hidden"></div>
       </div>
-      <Carousel className="mx-auto w-full max-w-7xl px-4 md:px-0"
+      <Carousel
+        className="mx-auto w-full max-w-7xl px-4 md:px-0"
         opts={{
           slidesToScroll: 2,
           loop: true,
           breakpoints: {
-            '(min-width: 640px)': {
+            "(min-width: 640px)": {
               slidesToScroll: 2,
             },
-            '(min-width: 768px)': {
+            "(min-width: 768px)": {
               slidesToScroll: 2,
             },
-            '(min-width: 1024px)': {
+            "(min-width: 1024px)": {
               slidesToScroll: 4,
             },
           },
@@ -45,35 +50,35 @@ export async function ShopByScent() {
           {collections?.map((collection, index) => (
             <CarouselItem
               key={index}
-              className="pl-2 md:pl-4 basis-1/2 sm:basis-1/2 md:basis-1/2 lg:basis-1/4 flex justify-center"
+              className="flex basis-1/2 justify-center pl-2 sm:basis-1/2 md:basis-1/2 md:pl-4 lg:basis-1/4"
             >
               <div className="p-1">
                 <Card className="border-0 bg-transparent">
-                  <CardContent className="relative aspect-square p-0">
-                    <WixImage
-                      mediaIdentifier={
-                        collection.media?.mainMedia?.image?.url || ""
-                      }
-                      alt={collection.name?.split("-")[0] || ""}
-                      className="rounded-none object-cover"
-                      width={700}
-                      height={700}
-                    />
-                    <div className=" w-5/6 md:w-fit absolute bottom-6 left-1/2 -translate-x-1/2 translate-y-1/2 md:translate-y-0">
-                      <Link
-                        href={`/shop?collection=${collection._id}`}
-                        legacyBehavior
-                        passHref
-                      >
+                  <Link
+                    href={`/shop?collection=${collection._id}`}
+                    legacyBehavior
+                    passHref
+                  >
+                    <CardContent className="relative aspect-square p-0">
+                      <WixImage
+                        mediaIdentifier={
+                          collection.media?.mainMedia?.image?.url || ""
+                        }
+                        alt={collection.name?.split("-")[0] || ""}
+                        className="rounded-none object-cover"
+                        width={700}
+                        height={700}
+                      />
+                      <div className="absolute bottom-6 left-1/2 w-5/6 -translate-x-1/2 translate-y-1/2 md:w-fit md:translate-y-0">
                         <Button
                           variant="secondary"
-                          className="w-full rounded-none p-1 whitespace-nowrap text-sm font-medium md:text-2xl"
+                          className="w-full whitespace-nowrap rounded-none p-1 text-sm font-medium md:text-2xl"
                         >
                           {collection.name?.split("-")[0] || ""}
                         </Button>
-                      </Link>
-                    </div>
-                  </CardContent>
+                      </div>
+                    </CardContent>
+                  </Link>
                 </Card>
               </div>
             </CarouselItem>

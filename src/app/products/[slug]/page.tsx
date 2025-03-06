@@ -1,5 +1,5 @@
 import { getProductBySlug, queryProducts } from "@/wix-api/products";
-import { getCollectionBySlug } from "@/wix-api/collections";
+// import { getCollectionBySlug } from "@/wix-api/collections";
 import ProductDetails from "./ProductDetail";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";

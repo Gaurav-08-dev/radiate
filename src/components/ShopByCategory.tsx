@@ -17,31 +17,34 @@ export async function ShopByCategory() {
   const wixClient = getWixServerClient();
   const collections = await getCollections(wixClient);
 
-  const filteredCollections = collections.filter(
-    (collection) => collection.name?.toLowerCase().includes("category")
+  const filteredCollections = collections.filter((collection) =>
+    collection.name?.toLowerCase().includes("category"),
   );
 
-
-
   return (
-    <div className="w-full overflow-hidden block md:hidden  md:bg-[#faf5ff]">
+    <div className="block w-full overflow-hidden md:hidden md:bg-[#faf5ff]">
       <div className="flex items-center justify-between">
-        <div className="h-[0.5px] w-[25%] bg-gray-200 block md:hidden" />
-        <h1 className={`${playfair.className} py-6 text-center text-2xl md:py-12 md:text-5xl`}>Shop By Category</h1>
-        <div className="h-[0.5px] w-[25%] bg-gray-200 block md:hidden" />
-      </div>  
-      <Carousel className="mx-auto w-full max-w-7xl px-4 md:px-0"
+        <div className="block h-[0.5px] w-[25%] bg-gray-200 md:hidden" />
+        <h1
+          className={`${playfair.className} py-6 text-center text-2xl md:py-12 md:text-5xl`}
+        >
+          Shop By Category
+        </h1>
+        <div className="block h-[0.5px] w-[25%] bg-gray-200 md:hidden" />
+      </div>
+      <Carousel
+        className="mx-auto w-full max-w-7xl px-4 md:px-0"
         opts={{
           slidesToScroll: 2,
           loop: true,
           breakpoints: {
-            '(min-width: 640px)': {
+            "(min-width: 640px)": {
               slidesToScroll: 2,
             },
-            '(min-width: 768px)': {
+            "(min-width: 768px)": {
               slidesToScroll: 2,
             },
-            '(min-width: 1024px)': {
+            "(min-width: 1024px)": {
               slidesToScroll: 4,
             },
           },
@@ -51,35 +54,35 @@ export async function ShopByCategory() {
           {filteredCollections?.map((collection, index) => (
             <CarouselItem
               key={index}
-              className=" pl-2 md:pl-4 basis-1/2 sm:basis-1/2 md:basis-1/2 lg:basis-1/4 flex justify-center"
+              className="flex basis-1/2 justify-center pl-2 sm:basis-1/2 md:basis-1/2 md:pl-4 lg:basis-1/4"
             >
-              <div className="p-1 overflow-x-clip">
+              <div className="overflow-x-clip p-1">
                 <Card className="border-0 bg-transparent">
-                  <CardContent className="relative aspect-square p-0">
-                    <WixImage
-                      mediaIdentifier={
-                        collection.media?.mainMedia?.image?.url || ""
-                      }
-                      alt={collection.name?.split("-")[0] || ""}
-                      className="rounded-none object-cover"
-                      width={700}
-                      height={700}
-                    />
-                    <div className="min-w-fit w-11/12 md:w-1/2 absolute bottom-6 left-1/2 -translate-x-1/2 translate-y-1/2 md:translate-y-0">
-                      <Link
-                        href={`/shop?collection=${collection._id}`}
-                        legacyBehavior
-                        passHref
-                      >
+                  <Link
+                    href={`/shop?collection=${collection._id}`}
+                    legacyBehavior
+                    passHref
+                  >
+                    <CardContent className="relative aspect-square p-0">
+                      <WixImage
+                        mediaIdentifier={
+                          collection.media?.mainMedia?.image?.url || ""
+                        }
+                        alt={collection.name?.split("-")[0] || ""}
+                        className="rounded-none object-cover"
+                        width={700}
+                        height={700}
+                      />
+                      <div className="absolute bottom-6 left-1/2 w-11/12 min-w-fit -translate-x-1/2 translate-y-1/2 md:w-1/2 md:translate-y-0">
                         <Button
                           variant="secondary"
-                          className="w-full rounded-none p-1 whitespace-nowrap text-xs font-medium md:text-2xl"
+                          className="w-full whitespace-nowrap rounded-none p-1 text-xs font-medium md:text-2xl"
                         >
                           {collection.name?.split("-")[0] || ""}
                         </Button>
-                      </Link>
-                    </div>
-                  </CardContent>
+                      </div>
+                    </CardContent>
+                  </Link>
                 </Card>
               </div>
             </CarouselItem>

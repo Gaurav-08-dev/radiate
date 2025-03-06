@@ -101,7 +101,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
               opts={{
                 slidesToScroll: 1,
                 loop: true,
-              }}
+              }} 
             >
               <CarouselContent>
                 {imagesList?.map((img) => (
