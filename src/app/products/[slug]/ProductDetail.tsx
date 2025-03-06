@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import WixImage from "@/components/WixImage";
 import { products } from "@wix/stores";
 import ProductDescription from "@/components/ProductDescription";
@@ -8,10 +8,19 @@ import { Check } from "lucide-react";
 import { playfair } from "@/lib/utils";
 // import BuyNowButton from "@/components/BuyNowButton";
 // import ProductOptions from "@/components/ProductOptions";
+import { EmblaCarouselType } from "embla-carousel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 interface ProductDetailProps {
   product: products.Product;
 }
 export default function ProductDetails({ product }: ProductDetailProps) {
+  const [api, setApi] = useState<CarouselApi>();
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedOptions] = useState<Record<string, string>>(
     product.productOptions
@@ -22,9 +31,6 @@ export default function ProductDetails({ product }: ProductDetailProps) {
   );
 
   const [quantity, setQuantity] = useState(1);
-  const [currentImage, setCurrentImage] = useState(
-    product.media?.mainMedia?.image,
-  );
 
   const imagesList = product.media?.items;
   const priceData = product.priceData;
@@ -55,17 +61,33 @@ export default function ProductDetails({ product }: ProductDetailProps) {
   const productIdealFor = productAdditionalDetails?.find(
     (detail) => detail.title?.toLowerCase() === "ideal for",
   );
-  const handleImageClick = (image: products.MediaItem) => {
-    setCurrentImage(image.image);
+  const handleImageClick = (index:number) => {
+    
+    api?.scrollTo(index);
+    setCurrentIndex(index);
   };
 
   const ribbon = product.ribbon;
-
   const isInStock = product?.stock?.quantity && product?.stock?.quantity > 0;
 
   //   const availableQuantity = product.stock?.quantity;
   //   const availableQuantityExceeded = !!availableQuantity && quantity > availableQuantity;
   //   const inStock = checkInStock(product, selectedOptions); 3:57:57
+
+  const handleScroll = useCallback((emblaApi:EmblaCarouselType) => {
+    setCurrentIndex(emblaApi.selectedScrollSnap())
+    api?.off("scroll",handleScroll)
+  },[])
+
+  useEffect(() => {
+    if (!api) return;
+    
+    if(api){ 
+      setCurrentIndex(api.selectedScrollSnap())
+      api.on("scroll", handleScroll)
+    }
+
+  }, [api]);
 
   return (
     <div className="container mx-auto px-0 pt-0 md:px-40 md:pt-20">
@@ -73,20 +95,36 @@ export default function ProductDetails({ product }: ProductDetailProps) {
         {/* Mobile layout - Image section */}
         <div className="w-full space-y-4 md:w-[40%]">
           <div className="relative aspect-square max-h-fit max-w-full overflow-hidden rounded-none md:max-w-fit">
-            <WixImage
-              mediaIdentifier={currentImage?.url}
-              alt={currentImage?.altText}
-              width={500}
-              height={500}
-              className="object-cover transition-transform duration-300 hover:scale-105"
-            />
+            <Carousel
+              setApi={setApi}
+              className="w-full"
+              opts={{
+                slidesToScroll: 1,
+                loop: true,
+              }}
+            >
+              <CarouselContent>
+                {imagesList?.map((img) => (
+                  <CarouselItem key={img?.image?.url}>
+                    <WixImage
+                      mediaIdentifier={img?.image?.url}
+                      alt={img?.image?.altText}
+                      width={500}
+                      height={500}
+                      className="object-cover transition-transform duration-300 hover:scale-105"
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
           </div>
           <div className="mx-4 flex gap-2 overflow-x-auto md:mx-0 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar]:w-2">
             {imagesList?.map((img, i) => (
               <div
                 key={i}
                 className="relative h-20 w-20 flex-shrink-0 cursor-pointer rounded-none md:h-28 md:w-28"
-                onClick={() => handleImageClick(img)}
+                ref={currentIndex === i ? (el) => el?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }) : undefined}
+                onClick={() => handleImageClick(i)}
               >
                 <WixImage
                   mediaIdentifier={img?.image?.url}
@@ -95,7 +133,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                   height={112}
                   className="rounded-none object-cover"
                 />
-                {img?.image?.url === currentImage?.url && (
+                {currentIndex === i && (
                   <div className="absolute inset-0 rounded-none bg-black/50" />
                 )}
               </div>
