@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import WixImage from "./WixImage";
-import { playfair } from "@/lib/utils";
+import { playfair, playfairItalic } from "@/lib/utils";
 import { products } from "@wix/stores";
 import Link from "next/link";
 import { AddToCartButton } from "./AddToCartButton";
+
 interface SignatureSectionUnitProps {
   product: products.Product;
 }
@@ -23,8 +24,11 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
   // Add state to track if description is expanded
   const [isExpanded, setIsExpanded] = React.useState(false);
 
+  const subtitle = product?.additionalInfoSections?.find(section => section.title?.toLowerCase() === "subtitle")?.description || "";
+  const description = product?.description || "";
+
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-8 overflow-hidden md:gap-12">
+    <div className="flex w-full flex-col items-center justify-center gap-8 overflow-hidden md:gap-12 mt-5 md:mt-0">
       <div className="w-full flex items-center justify-between md:justify-center mt-8 md:mt-0">
         <div className="block h-[0.5px] w-[8%] bg-gray-200 md:hidden" />
         <h1
@@ -47,25 +51,45 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
         </div>
         <div className="mx-auto flex w-full md:w-1/2 flex-col items-center gap-8 px-4">
           <div className="flex w-full items-center justify-center md:flex-row">
-            <div className="flex flex-col items-center md:items-start gap-6 w-full">
+            <div className="flex flex-col items-center md:items-start gap-3 w-full">
               <Link href={`/products/${product.slug}`}>
                 <div
-                  className="font-serif text-2xl md:text-5xl font-medium text-center md:text-left"
+                  className={`${playfairItalic.className} text-2xl md:text-5xl font-medium text-center md:text-left`}
                   dangerouslySetInnerHTML={{
                     __html: title || "",
                   }}
                 />
               </Link>
 
-              <div className="relative w-full md:w-[80%] text-center md:text-justify text-zinc-600 text-sm md:text-base">
+              <div className="line-clamp-1 relative md:hidden w-full md:w-[80%] text-center md:text-justify text-zinc-600 text-sm md:text-base">
                 <div
                   className={`${isExpanded ? '' : 'line-clamp-3'}`}
                   dangerouslySetInnerHTML={{
-                    __html: product.description || "",
+                    __html: subtitle,
                   }}
                 />
                 
-                {product.description && product.description.length > 100 && (
+                {subtitle && subtitle.length > 100 && (
+                  <button 
+                    type="button"
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    className="inline-block ml-1 text-[#500769] text-sm font-medium hover:underline"
+                  >
+                    {isExpanded ? 'Read Less' : 'Read More'}
+                  </button>
+                )}
+              </div>
+
+              <div className="hidden md:block relative w-full md:w-[80%] text-center md:text-justify text-zinc-600 text-sm md:text-base">
+                
+                <div
+                  className={`${isExpanded ? '' : 'line-clamp-3'}`}
+                  dangerouslySetInnerHTML={{
+                    __html: description,
+                  }}
+                />
+                
+                {description && description.length > 100 && (
                   <button 
                     type="button"
                     onClick={() => setIsExpanded(!isExpanded)}

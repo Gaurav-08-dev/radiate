@@ -10,6 +10,11 @@ export const playfair = Playfair_Display({
   subsets: ["latin"],
 });
 
+export const playfairItalic = Playfair_Display({
+  subsets: ["latin"],
+  style: "italic",
+});
+
 export const montserrat = Montserrat({
   subsets: ["latin"],
 });

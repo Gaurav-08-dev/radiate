@@ -54,7 +54,7 @@ async function Products({ page, collectionIds, sort }: ProductProps) {
 
   return (
     <>
-      <h1 className="mb-6 font-serif text-2xl text-gray-600">
+      <h1 className="mb-6 font-serif  text-xl md:text-2xl text-gray-600 absolute md:static top-5 left-8">
         {collectionIds?.length
           ? `${products.totalCount} ${products.totalCount === 1 ? "product" : "products"} in collection`
           : `Showing all products`}

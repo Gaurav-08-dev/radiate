@@ -39,6 +39,9 @@ export function SiteFooter({ className }: { className?: string }) {
             <Link href="/terms&conditions" className="block hover:opacity-80">
               Terms & Conditions
             </Link>
+            <Link href="/about-us" className="block hover:opacity-80">
+              About Us
+            </Link>
           </div>
         </div>
 
@@ -62,7 +65,7 @@ export function SiteFooter({ className }: { className?: string }) {
               className="flex items-center gap-2 hover:opacity-80"
             >
               <Phone className="h-4 w-4 md:h-5 md:w-5" />
-              +91 7011145443
+              +91 7011456324
             </a>
           </div>
         </div>

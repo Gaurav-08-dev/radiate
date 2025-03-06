@@ -342,7 +342,7 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
                   </AccordionContent>
                 </AccordionItem>
 
-                <div className="py-4">
+                <div className="py-0">
                   <Link
                     href="/shop?collection=2398b8e1-88a1-93c4-2323-9a74d09770f8"
                     className={cn(playfair.className, "text-sm font-medium")}

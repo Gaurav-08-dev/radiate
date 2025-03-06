@@ -16,11 +16,13 @@ import {
 } from "@/components/ui/sheet";
 import CheckoutButton from "./CheckoutButton";
 import WixImage from "./WixImage";
-import { Button } from "./ui/button";
+
+
 interface ShoppingCartButtonProps {
   initialData: currentCart.Cart | null;
 }
 export function ShoppingCartButton({ initialData }: ShoppingCartButtonProps) {
+  
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const cart = useCart(initialData);
   const totalQuantity =
@@ -97,6 +99,7 @@ export function ShoppingCartButton({ initialData }: ShoppingCartButtonProps) {
                     Start shopping now
                   </Link>
                 </div>
+                
               </div>
             )}
           </div>

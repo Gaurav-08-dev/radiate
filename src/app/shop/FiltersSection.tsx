@@ -67,9 +67,9 @@ export default function FiltersSectionComponent({
   }
 
   return (
-    <main className="flex flex-col md:flex-row gap-4 md:gap-8 p-4 md:p-10 relative">
+    <main className="flex flex-col md:flex-row gap-4 md:gap-8 px-4 py-5 md:p-10 relative">
       {/* Mobile filter toggle button - smaller and right-aligned */}
-      <div className="flex justify-end md:hidden mb-4">
+      <div className="flex justify-end md:hidden mb-4 mr-4">
         <button 
           title="Open Filters"
           type="button"

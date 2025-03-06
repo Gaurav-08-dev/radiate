@@ -83,7 +83,7 @@ export async function ProductGrid() {
         <div className="flex justify-center">
           <Link href="/shop">
             <Button
-              className={`${montserrat.className} h-8 w-40 rounded-none border-2 border-[#500769] px-5 py-4 text-sm text-[#500769] bg-transparent md:hidden`}
+              className={`${montserrat.className} h-8 w-40 rounded-none border-2 border-[#500769] px-5 py-4 hover:bg-transparent text-sm text-[#500769] bg-transparent md:hidden`}
             >
               Explore all products
             </Button>

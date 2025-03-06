@@ -21,13 +21,13 @@ export async function ShopByCategory() {
     (collection) => collection.name?.toLowerCase().includes("category")
   );
 
-  
+
 
   return (
     <div className="w-full overflow-hidden block md:hidden  md:bg-[#faf5ff]">
       <div className="flex items-center justify-between">
         <div className="h-[0.5px] w-[25%] bg-gray-200 block md:hidden" />
-        <h1 className={`${playfair.className} py-6 text-center text-xl md:py-12 md:text-5xl`}>Shop By Category</h1>
+        <h1 className={`${playfair.className} py-6 text-center text-2xl md:py-12 md:text-5xl`}>Shop By Category</h1>
         <div className="h-[0.5px] w-[25%] bg-gray-200 block md:hidden" />
       </div>  
       <Carousel className="mx-auto w-full max-w-7xl px-4 md:px-0"
