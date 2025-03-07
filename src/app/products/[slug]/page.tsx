@@ -47,7 +47,6 @@ export default async function Page({ params: { slug } }: PageProps) {
 
   const product = await getProductBySlug(getWixServerClient(), slug);
   
-  
   if (!product?._id) {
     return notFound();
   }

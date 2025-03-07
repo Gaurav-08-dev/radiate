@@ -109,8 +109,8 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                     <WixImage
                       mediaIdentifier={img?.image?.url}
                       alt={img?.image?.altText}
-                      width={500}
-                      height={500}
+                      width={1000}
+                      height={1000}
                       className="object-cover transition-transform duration-300 hover:scale-105"
                     />
                   </CarouselItem>
