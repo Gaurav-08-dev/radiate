@@ -45,7 +45,7 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
           <WixImage
             mediaIdentifier={mainImage?.url}
             alt={mainImage?.altText}
-            width={700}
+            width={800}
             height={600}
             className="object-fill transition-transform duration-300 hover:scale-105"
           />
@@ -53,7 +53,7 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
         </div>
         <div className="mx-auto flex w-full md:w-1/2 flex-col items-center gap-8 px-4">
           <div className="flex w-full items-center justify-center md:flex-row">
-            <div className="flex flex-col items-center md:items-start gap-5 w-full">
+            <div className="flex flex-col items-center md:items-start gap-5 md:gap-10 w-full">
               <Link href={`/products/${product.slug}`}>
                 <div
                   className={`${playfairItalic.className} text-2xl md:text-5xl font-medium text-center md:text-left`}
@@ -82,7 +82,7 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
                 )}
               </div> */}
 
-              <div className="block relative w-full md:w-[80%] text-center md:text-justify text-zinc-600 text-sm md:text-base">
+              <div className="block relative w-full md:w-[80%] space-y-2 text-center md:text-justify text-zinc-600 text-sm md:text-xl">
                 <div
                   className={`${isExpanded ? '' : 'line-clamp-3 md:line-clamp-none'}`}
                   dangerouslySetInnerHTML={{
@@ -94,7 +94,7 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
                   <button 
                     type="button"
                     onClick={() => setIsExpanded(!isExpanded)}
-                    className="inline-block ml-1 text-[#500769] text-sm font-medium hover:underline md:hidden"
+                    className="inline-block ml-1 text-[#500769]  text-sm font-medium hover:underline md:hidden"
                   >
                     {isExpanded ? 'Read Less' : 'Read More'}
                   </button>

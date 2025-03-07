@@ -53,7 +53,7 @@ export async function SiteHeader() {
             <span
               className={`text-xl font-semibold text-white lg:text-3xl lg:font-normal ${playfairDisplayt.className}`}
             >
-              RADIATE
+              RADIATE &reg;
             </span>
           </Link>
           <div className="hidden lg:block">
