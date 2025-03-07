@@ -20,6 +20,7 @@ export async function ShopByCategory() {
   const filteredCollections = collections.filter((collection) =>
     collection.name?.toLowerCase().includes("category"),
   );
+  console.log(filteredCollections);
 
   return (
     <div className="block w-full overflow-hidden md:hidden md:bg-[#faf5ff]">

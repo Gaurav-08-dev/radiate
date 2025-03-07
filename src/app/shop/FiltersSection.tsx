@@ -94,7 +94,7 @@ export default function FiltersSectionComponent({
         data-pending={isPending ? "" : undefined}
         className={`fixed md:static top-0 right-0 h-full md:h-auto z-50 bg-white md:bg-transparent
                    w-4/5 max-w-xs md:w-1/5 md:max-w-none overflow-auto
-                   transition-transform duration-300 ease-in-out rounded-l-2xl
+                   transition-transform duration-300 ease-in-out rounded-none
                    ${isFilterOpen ? 'translate-x-0' : 'translate-x-full md:translate-x-0'}
                    md:sticky md:left-0 md:top-10`}
       >

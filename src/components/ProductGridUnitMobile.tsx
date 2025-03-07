@@ -19,7 +19,7 @@ interface ProductGridUnitProps {
   className?: string;
 }
 
-const ProductGridUnit = ({
+const ProductGridUnitMobile = ({
   product,
   showAddToCart = true,
   showOptions = true,
@@ -59,7 +59,8 @@ const ProductGridUnit = ({
         prefetch={true}
         className={`${playfair.className} lg:w-full`}
       >
-        <div className=" relative mb-3 sm:mb-4 h-[170px] w-[190px] sm:h-[250px] sm:w-[280px] overflow-hidden">
+        
+        <div className="relative mb-3 sm:mb-4 h-[369px] w-full sm:h-[250px] sm:w-[280px] overflow-hidden">
           <WixImage
             mediaIdentifier={mainImage?.url}
             alt={mainImage?.altText}
@@ -68,17 +69,7 @@ const ProductGridUnit = ({
             className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
           />
         </div>
-
-        {/* <div className="block md:hidden relative mb-3 sm:mb-4 h-[369px] w-full sm:h-[250px] sm:w-[280px] overflow-hidden">
-          <WixImage
-            mediaIdentifier={mainImage?.url}
-            alt={mainImage?.altText}
-            width={width}
-            height={height}
-            className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
-          />
-        </div> */}
-        <div className={`${playfair.className} w-full lg:w-full no-scrollbar mb-2 line-clamp-2 h-10 overflow-y-hidden text-ellipsis text-[0.75rem] font-semibold sm:h-12 sm:text-[0.850rem]`}>
+        <div className={`${playfair.className} w-full lg:w-full no-scrollbar mb-2 line-clamp-2 h-6 overflow-y-hidden text-ellipsis text-[0.75rem] font-semibold sm:h-12 sm:text-[0.850rem]`}>
           {product.name}
         </div>
       </Link>
@@ -149,4 +140,4 @@ const ProductGridUnit = ({
   );
 };
 
-export default ProductGridUnit;
+export default ProductGridUnitMobile;

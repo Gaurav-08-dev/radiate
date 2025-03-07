@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import ProductGridUnit from "@/components/ProductGridUnit";
+import ProductGridUnitMobile from "@/components/ProductGridUnitMobile";
 import {
   Carousel,
   CarouselContent,
@@ -49,7 +50,7 @@ export async function ProductGrid() {
             loop: true,
             breakpoints: {
               "(max-width: 640px)": {
-                slidesToScroll: 2,
+                slidesToScroll: 1,
               },
               "(min-width: 768px)": {
                 slidesToScroll: 2,
@@ -61,18 +62,26 @@ export async function ProductGrid() {
           }}
           className="mx-auto max-w-7xl"
         >
-          <CarouselContent className="md:-ml-4s -ml-2">
+          <CarouselContent className="md:-ml-4s -ml-1">
             {featuredProducts?.items?.map((product) => (
               <CarouselItem
                 key={product.numericId}
-                className="flex basis-1/2 justify-center sm:basis-1/2 md:basis-1/2 pl-0 md:pl-4 lg:basis-1/4"
+                className="flex basis-full justify-center sm:basis-1/2 md:basis-1/2 pl-0 md:pl-4 lg:basis-1/4"
               >
                 <ProductGridUnit
                   product={product}
                   width={300}
                   height={300}
-                  className="h-[350px] w-[190px] lg:h-[450px] lg:w-[280px]"
+                  className="hidden md:block h-[350px] w-[190px] lg:h-[450px] lg:w-[280px]"
                 />
+
+                <ProductGridUnitMobile
+                  product={product}
+                  width={500}
+                  height={500}
+                  className="block md:hidden h-[550px] w-full lg:h-[450px] lg:w-[280px]"
+                />
+
               </CarouselItem>
             ))}
           </CarouselContent>
