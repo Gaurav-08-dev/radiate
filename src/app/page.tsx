@@ -9,7 +9,7 @@ import { ShopByCategory } from "@/components/ShopByCategory";
 export default function Home() {
   return (
     <>
-      <main className="flex flex-col gap-0 md:gap-12 md:bg-white">
+      <main className="flex flex-col gap-0 md:gap-12 bg-[#F7F2FA]">
         <HeroSection />
         <Suspense fallback={<StorySkeletonSection />}>
           <ProductGrid />

@@ -39,7 +39,7 @@ const SignatureSectionUnit = ({ product }: SignatureSectionUnitProps) => {
         <div className="block h-[0.5px] w-[8%] bg-gray-200 md:hidden" />
       </div>
 
-      <div className="flex flex-col gap-8 md:flex-row items-center justify-center md:bg-white">
+      <div className="flex flex-col gap-8 md:flex-row items-center justify-center">
         <div className="h-full min-h-fit w-full md:w-1/2 overflow-hidden">
         <Link href={`/products/${product.slug}`} legacyBehavior passHref>
           <WixImage

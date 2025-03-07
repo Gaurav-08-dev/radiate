@@ -33,11 +33,11 @@ const MainNavigation = ({ className, collections, customerFavorites }: MainNavig
             onClick={() => {
               router.push("/shop");
             }}
-            className="m-0 bg-transparent p-0 text-white hover:bg-transparent hover:text-white focus:bg-transparent"
+            className="m-0 bg-transparent p-0 text-white hover:bg-transparent hover:text-white focus:bg-transparent "
           >
             Shop
           </NavigationMenuTrigger>
-          <NavigationMenuContent>
+          <NavigationMenuContent className="bg-white shadow-xl">
             <ul className="p-4">
               {collections?.map((collection) => (
                 collection.visible && <li key={collection._id}>

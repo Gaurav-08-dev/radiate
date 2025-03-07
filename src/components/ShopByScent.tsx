@@ -18,7 +18,7 @@ export async function ShopByScent() {
   const collections = await getCollectionsByScent(wixClient);
 
   return (
-    <div className="mt-5 w-full overflow-hidden md:mt-0 md:bg-white">
+    <div className="mt-5 w-full overflow-hidden md:mt-0 ">
       <div className="flex items-center justify-between md:justify-center">
         <div className="block h-[1px] w-[28%] bg-gray-200 md:hidden"></div>
         <h1
