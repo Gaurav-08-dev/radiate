@@ -65,8 +65,8 @@ async function Products({ page, collectionIds, sort }: ProductProps) {
             <ProductGridUnit
               product={product}
               key={product._id}
-              width={280}
-              height={250}
+              width={300}
+              height={300}
               className="h-auto w-full sm:h-[450px] sm:w-[280px]"
             />
           ))}
