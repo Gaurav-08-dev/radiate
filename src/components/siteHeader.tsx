@@ -51,9 +51,12 @@ export async function SiteHeader() {
               />
             </div>
             <span
-              className={`text-xl font-semibold text-white lg:text-3xl lg:font-normal ${playfairDisplayt.className}`}
+              className={`relative text-xl font-semibold text-white lg:text-3xl lg:font-normal ${playfairDisplayt.className}`}
             >
-              RADIATE &reg;
+              RADIATE 
+              <span className="absolute top-[-5px]  right-[-13px] bg-transparent text-white">
+                &reg;
+              </span>
             </span>
           </Link>
           <div className="hidden lg:block">

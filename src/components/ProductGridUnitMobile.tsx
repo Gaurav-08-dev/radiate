@@ -69,7 +69,7 @@ const ProductGridUnitMobile = ({
             className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
           />
         </div>
-        <div className={`${playfair.className} w-full lg:w-full no-scrollbar mb-2 line-clamp-2 h-6 overflow-y-hidden text-ellipsis text-[0.75rem] font-semibold sm:h-12 sm:text-[0.850rem]`}>
+        <div className={`${playfair.className} w-full lg:w-full no-scrollbar mb-2 line-clamp-2 h-6 overflow-y-hidden text-ellipsis text-sm font-semibold sm:h-12 sm:text-[0.850rem]`}>
           {product.name}
         </div>
       </Link>
@@ -80,7 +80,7 @@ const ProductGridUnitMobile = ({
         <div className="flex min-h-[36px] items-center justify-between sm:min-h-[42px]">
           {netWeight && (
             <div
-              className="text-xs text-gray-600 sm:text-sm"
+              className="text-sm text-gray-600 sm:text-sm"
               dangerouslySetInnerHTML={{ __html: netWeight || "" }}
             />
           )}
@@ -94,7 +94,7 @@ const ProductGridUnitMobile = ({
             </div>
           ) : (
             <div
-              className="text-xs text-gray-600 sm:text-sm line-clamp-2 lg:line-clamp-none"
+              className="text-sm text-gray-600 sm:text-sm line-clamp-2 lg:line-clamp-none"
               dangerouslySetInnerHTML={{
                 __html:
                   product.additionalInfoSections?.find(
@@ -108,13 +108,13 @@ const ProductGridUnitMobile = ({
         <div className="flex flex-col gap-1 sm:gap-2">
           <div className="flex items-baseline gap-1 sm:gap-2">
             {discount?.value ? (
-              <span className="text-xs text-gray-400 line-through sm:text-sm">
+              <span className="text-sm text-gray-400 line-through sm:text-sm">
                 {priceData?.formatted?.price}
               </span>
             ) : (
               ""
             )}
-            <span className="text-xs font-semibold sm:text-sm">
+            <span className="text-sm font-semibold sm:text-sm">
               {priceData?.formatted?.discountedPrice ||
                 priceData?.formatted?.price}
             </span>
@@ -125,7 +125,7 @@ const ProductGridUnitMobile = ({
               selectedOptions={selectedOptions}
               variant="default"
               size="sm"
-              className="w-1/2 lg:w-full rounded-none bg-[#500769] text-xs hover:bg-[#500769]/90 sm:text-sm"
+              className="w-1/2 lg:w-full rounded-none bg-[#500769] text-sm hover:bg-[#500769]/90 sm:text-sm"
               product={product}
               quantity={1}
               disabled={!product?.stock?.inStock}

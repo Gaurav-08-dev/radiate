@@ -43,7 +43,7 @@ export async function ProductGrid() {
         <div className="h-[1px] w-[20%] bg-gray-200 block md:hidden" />
       </div>
 
-      <div className="space-y-6 px-4 md:px-0">
+      <div className="space-y-6 px-0">
         <Carousel
           opts={{
             slidesToScroll: 2,
@@ -60,13 +60,14 @@ export async function ProductGrid() {
               },
             },
           }}
+
           className="mx-auto max-w-7xl"
         >
-          <CarouselContent className="md:-ml-4s -ml-1">
+          <CarouselContent className="md:-ml-4s gap-0 md:gap-4">
             {featuredProducts?.items?.map((product) => (
               <CarouselItem
                 key={product.numericId}
-                className="flex basis-full justify-center sm:basis-1/2 md:basis-1/2 pl-0 md:pl-4 lg:basis-1/4"
+                className="flex basis-[90%] justify-center sm:basis-[45%] md:basis-[45%] pl-0 md:pl-4 lg:basis-[23%]"
               >
                 <ProductGridUnit
                   product={product}
@@ -77,8 +78,8 @@ export async function ProductGrid() {
 
                 <ProductGridUnitMobile
                   product={product}
-                  width={500}
-                  height={500}
+                  width={400}
+                  height={400}
                   className="block md:hidden h-[550px] w-full lg:h-[450px] lg:w-[280px]"
                 />
 

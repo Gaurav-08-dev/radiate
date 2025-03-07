@@ -88,16 +88,6 @@ export async function ShopByScent() {
         <CarouselNext className="hidden lg:inline-flex" />
       </Carousel>
 
-      <div className="mt-6 flex justify-center gap-2">
-        {collections?.map((_, index) => (
-          <button
-            type="button"
-            key={index}
-            className="h-2 w-2 rounded-full bg-white opacity-50 transition-opacity hover:opacity-100"
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
     </div>
   );
 }

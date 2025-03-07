@@ -18,9 +18,9 @@ export async function ShopByCategory() {
   const collections = await getCollections(wixClient);
 
   const filteredCollections = collections.filter((collection) =>
-    collection.name?.toLowerCase().includes("category"),
-  );
-  console.log(filteredCollections);
+    collection.name?.toLowerCase().includes("product type"),
+);
+
 
   return (
     <div className="block w-full overflow-hidden md:hidden md:bg-[#faf5ff]">
@@ -92,17 +92,6 @@ export async function ShopByCategory() {
         <CarouselPrevious className="hidden lg:inline-flex" />
         <CarouselNext className="hidden lg:inline-flex" />
       </Carousel>
-
-      <div className="mt-6 flex justify-center gap-2">
-        {collections?.map((_, index) => (
-          <button
-            type="button"
-            key={index}
-            className="h-2 w-2 rounded-full bg-white opacity-50 transition-opacity hover:opacity-100"
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
     </div>
   );
 }
