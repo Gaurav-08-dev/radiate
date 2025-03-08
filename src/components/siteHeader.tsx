@@ -65,7 +65,7 @@ export async function SiteHeader() {
               className={`relative text-xl font-semibold text-white lg:text-3xl lg:font-normal ${playfairDisplayt.className}`}
             >
               RADIATE 
-              <span className="absolute top-[-5px]  right-[-13px] bg-transparent text-white">
+              <span className="absolute top-[-4px]  right-[-13px] md:top-[-7px] md:right-[-18px] bg-transparent text-white">
                 &reg;
               </span>
             </span>
