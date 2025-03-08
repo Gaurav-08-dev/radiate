@@ -15,9 +15,12 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import { toast } from "@/hooks/use-toast";
+import { Share2 } from "lucide-react";
 interface ProductDetailProps {
   product: products.Product;
 }
+
 export default function ProductDetails({ product }: ProductDetailProps) {
   const [api, setApi] = useState<CarouselApi>();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -89,6 +92,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
 
   }, [api]);
 
+  console.log(product)
   return (
     <div className="container mx-auto px-0 pt-0 md:px-40 md:pt-20">
       <div className="flex flex-col gap-6 md:flex-row md:gap-12">
@@ -225,9 +229,9 @@ export default function ProductDetails({ product }: ProductDetailProps) {
               </div>
             </div>
 
-            {/* Quantity and Add to cart */}
+            {/* Quantity , Add to cart , Sharebutton*/}
             <div
-              className={`mt-4 flex w-full flex-col gap-4 md:mt-10 md:w-[400px] md:max-w-fit md:flex-row md:gap-10`}
+              className={`mt-4 flex w-full gap-4 md:mt-10 md:w-[400px] md:max-w-fit md:flex-row md:gap-10`}
             >
               {isInStock ? (
                 <div className="flex max-w-fit rounded-none border">
@@ -266,6 +270,27 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                   selectedOptions={selectedOptions}
                 />
               </div>
+                
+              <button
+                type="button"
+                className="flex h-12 items-center justify-center rounded-none"
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                  toast({
+                    title: "Product Link Copied",
+                    duration: 1000,
+                  });
+                  
+                }}
+                aria-label="Share product"
+              >
+                <Share2
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-8 w-8"
+                />
+              </button>
             </div>
           </div>
 
