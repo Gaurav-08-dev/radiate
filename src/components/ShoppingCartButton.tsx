@@ -70,7 +70,7 @@ export function ShoppingCartButton({ initialData, featuredProducts }: ShoppingCa
           </span>
         )}
       </button>
-      <Sheet open={true} onOpenChange={setIsSheetOpen}>
+      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <SheetContent className="flex w-11/12 flex-col md:max-w-lg rounded-none">
           <SheetHeader className="border-b pb-4 text-center">
             <SheetTitle className="mx-auto text-center text-[#25291C]">SHOPPING CART</SheetTitle>
