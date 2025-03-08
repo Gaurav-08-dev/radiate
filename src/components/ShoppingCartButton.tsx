@@ -18,7 +18,7 @@ import CheckoutButton from "./CheckoutButton";
 import WixImage from "./WixImage";
 import { products } from "@wix/stores";
 import { AddToCartButton } from "./AddToCartButton";
-import { playfair } from "@/lib/utils";
+import { playfair,montserrat } from "@/lib/utils";
 
 interface ShoppingCartButtonProps {
   initialData: currentCart.Cart | null;
@@ -92,7 +92,7 @@ export function ShoppingCartButton({ initialData, featuredProducts }: ShoppingCa
             {!cart?.isPending && !cart?.data?.lineItems?.length && (
               <div className="flex flex-col gap-10 grow items-center justify-center text-center">
                 {/* <div className="space-y-2"> */}
-                  <p className="text-lg font-semibold">Your cart is empty</p>
+                  <p className={`${montserrat.className} text-lg font-semibold text-gray-400`}>Your cart is empty</p>
                   <Link
                     href="/shop"
                     className="text-white w-full p-2 bg-primary border font-medium"
@@ -105,7 +105,7 @@ export function ShoppingCartButton({ initialData, featuredProducts }: ShoppingCa
             )}
             {!cart?.isPending && !cart?.data?.lineItems?.length && featuredProducts && featuredProducts.length > 0 && (
               <div className="mt-8 flex flex-col gap-4">
-                <h3 className={`${playfair.className} mb-4 text-center text-sm font-medium uppercase`}>
+                <h3 className={`${playfair.className} mb-4 text-center text-sm md:text-xl font-medium uppercase`}>
                   You may like
                 </h3>
                 <div className="grid grid-cols-1 gap-4">
@@ -142,7 +142,7 @@ export function ShoppingCartButton({ initialData, featuredProducts }: ShoppingCa
                         <AddToCartButton
                           variant="default"
                           size="sm"
-                          className="w-full rounded-none bg-[#500769] px-2 text-xs hover:bg-[#500769]/90"
+                          className="w-[100px] rounded-none bg-[#500769] px-2 text-xs hover:bg-[#500769]/90"
                           product={product}
                           quantity={1}
                           disabled={!product?.stock?.inStock}

@@ -23,7 +23,7 @@ export default function AboutUs() {
           </p>
 
           {/* Image Section */}
-          <div className="px-4 mb-10 w-full max-w-2xl">
+          <div className="px-4 mb-10 w-full max-w-2xl flex justify-center">
             <Image
               src={AboutUsImage}
               alt="Candle making process"
