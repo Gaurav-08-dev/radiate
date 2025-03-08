@@ -35,13 +35,16 @@ import { products } from "@wix/stores";
 import WixImage from "@/components/WixImage";
 import { AddToCartButton } from "@/components/AddToCartButton";
 
+
 interface MobileMenuProps {
   className?: string;
   collections?: collections.Collection[];
   loggedInMember?: members.Member | null;
+  featuredProducts?: products.Product[];
 }
 
-export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
+export function MobileMenu({ collections, loggedInMember, featuredProducts }: MobileMenuProps) {
+
   const scentEmoji = {
     "floral&aromatic": floralAromaticIcon,
     "sweet&gourmand": sweetGourmandIcon,
@@ -64,6 +67,7 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
 
+  console.log("featuredProducts", featuredProducts);
   // Create a debounced search function
   const debouncedSearch = useCallback(
     debounce(async (query: string) => {
@@ -191,13 +195,66 @@ export function MobileMenu({ collections, loggedInMember }: MobileMenuProps) {
                   <>
                     <div className="grid auto-rows-auto grid-cols-1 gap-4">
                       {searchResults.length === 0 && hasSearched ? (
-                        <div className="text-center text-gray-500">
-                          No products found
+                        <div className="flex flex-col gap-4">
+                          <div className="text-center text-gray-500">
+                            No products found
+                          </div>
+                          
+                          {featuredProducts && featuredProducts.length > 0 && (
+                            <div className="mt-4">
+                              <h3 className={cn(playfair.className, "text-center uppercase text-sm font-medium mb-4")}>
+                                Trending Now
+                              </h3>
+                              <div className="grid grid-cols-1 gap-4">
+                                {featuredProducts.slice(0, 4).map((product) => (
+                                  <div key={product?._id} className="flex gap-4 border-b pb-3">
+                                    <WixImage
+                                      mediaIdentifier={product?.media?.mainMedia?.image?.url}
+                                      alt={product?.name}
+                                      width={80}
+                                      height={80}
+                                      className="h-auto w-[100px] rounded-none object-cover"
+                                    />
+                                    <div className="flex flex-col justify-between gap-2">
+                                      <div className="flex flex-col gap-2">
+                                      <Link
+                                        href={`/products/${product?.slug}`}
+                                        className={`${playfair.className} line-clamp-2 text-xs font-medium`}
+                                        onClick={resetSearch}
+                                      >
+                                        {product?.name}
+                                      </Link>
+                                      <div className="text-xs font-normal text-[#5F5F5F]" 
+                                      dangerouslySetInnerHTML={{
+                                        __html: product?.additionalInfoSections?.find((section) => section?.title?.toLowerCase() === "subtitle")?.description || ""
+                                      }}
+                                      />
+                                      
+                                      
+                                      </div>
+                                      <div className="text-xs font-medium">
+                                       {product?.price?.formatted?.price}
+                                      </div>
+                                      <AddToCartButton
+                                        variant="default"
+                                        size="sm"
+                                        className="w-[10%] rounded-none px-2 bg-[#500769] text-xs hover:bg-[#500769]/90"
+                                        product={product}
+                                        quantity={1}
+                                        disabled={!product?.stock?.inStock}
+                                        buttonText={product?.stock?.inStock ? "Add to my bag" : "Out of stock"}
+                                      />
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                         </div>
                       ) : (
                         searchResults?.map((result: any, index) => (
                           <div
-                            key={result.id + index}
+                            key={result?._id + index}
                             className="cursor-pointer rounded-md p-2 hover:bg-accent"
                           >
                             <div className="flex gap-4">

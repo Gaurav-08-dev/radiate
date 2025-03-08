@@ -16,17 +16,28 @@ import {
 import { MobileMenu } from "@/app/MobileMenu";
 import { Suspense } from "react";
 import { playfairDisplayt } from "@/app/layout";
+import { getCollectionBySlug } from "@/wix-api/collections";
+import { queryProducts } from "@/wix-api/products";
 
 export async function SiteHeader() {
   const wixClient = getWixServerClient();
-  const [cart, loggedInMember, collections, customerFavorites, collectionsByScent] =
-    await Promise.all([
-      getCart(wixClient),
-      getLoggedInMember(wixClient),
-      getCollectionsForHeader(wixClient),
-      getCustomerFavorites(wixClient),
+  const [cart, loggedInMember, collections, customerFavorites, collectionsByScent, customerFavoritesCollection] =
+  await Promise.all([
+    getCart(wixClient),
+    getLoggedInMember(wixClient),
+    getCollectionsForHeader(wixClient),
+    getCustomerFavorites(wixClient),
       getCollectionsByScent(wixClient),
+      getCollectionBySlug(
+        wixClient,
+        "customer-favourites",
+      ),
     ]);
+    
+    const featuredProducts = await queryProducts(wixClient, {
+      collectionIds: customerFavoritesCollection?._id ? customerFavoritesCollection?._id : undefined,
+    });
+
 
   return (
     <>
@@ -36,6 +47,7 @@ export async function SiteHeader() {
             <Suspense>
               <MobileMenu
                 collections={collectionsByScent}
+                featuredProducts={featuredProducts.items}
                 loggedInMember={loggedInMember}
               />
             </Suspense>
