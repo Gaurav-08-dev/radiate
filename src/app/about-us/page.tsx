@@ -1,6 +1,8 @@
 import Image from "next/image";
 import logo from "@/assets/logo.svg";
 import AboutUsImage from "@/assets/right.jpg";
+import safe from "@/assets/sustainably-sourced.png";
+import madeInIndia from "@/assets/made-in-india.png";
 
 export default function AboutUs() {
   return (
@@ -43,36 +45,114 @@ export default function AboutUs() {
           </p>
 
           {/* Values Section */}
-          <div className="p-2 text-xs mb-10 flex w-full justify-center gap-4 bg-[#500769] text-white">
-            <div className="flex items-center gap-2">
-              <div className="text-white">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="h-6 w-6"
-                >
-                  <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
-                </svg>
+          
+          <div className="py-2 px-0 text-xs mb-10 flex w-full justify-center gap-4 bg-[#500769] text-white md:flex-row flex-col items-center md:items-start overflow-hidden relative">
+            {/* Mobile carousel animation wrapper */}
+            <div className="flex md:hidden w-full overflow-hidden">
+              <div className="animate-carousel flex gap-4 items-center">
+                <div className="flex items-center gap-2 min-w-max px-4">
+                  <div className="text-white">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="h-6 w-6"
+                    >
+                      <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                    </svg>
+                  </div>
+                  <span className="font-medium">Handcrafted with care</span>
+                </div>
+                <div className="flex items-center gap-2 min-w-max px-4">
+                  <div className="text-white">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="h-6 w-6"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <span className="font-medium">Sustainably sourced</span>
+                </div>
+                <div className="flex items-center gap-2 min-w-max px-4">
+                  <div className="text-white font-bold">
+                    <Image src={safe} alt="Safe" className="h-6 w-6" />
+                  </div>
+                  <span className="font-medium">Safe & toxin-free</span>
+                </div>
+                <div className="flex items-center gap-2 min-w-max px-4">
+                  <div className="text-white">
+                    <Image src={madeInIndia} alt="Made for India" className="h-6 w-6" />
+                  </div>
+                  <span className="font-medium">Made for Indian preferences</span>
+                </div>
+                {/* Duplicate items for seamless looping */}
+                <div className="flex items-center gap-2 min-w-max px-4">
+                  <div className="text-white">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="h-6 w-6"
+                    >
+                      <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                    </svg>
+                  </div>
+                  <span className="font-medium">Handcrafted with care</span>
+                </div>
               </div>
-              <span className=" font-medium">Handcrafted with care</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="text-white">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="h-6 w-6"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+            
+            {/* Desktop static display */}
+            <div className="hidden md:flex md:gap-4">
+              <div className="flex items-center gap-2">
+                <div className="text-white">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-6 w-6"
+                  >
+                    <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                  </svg>
+                </div>
+                <span className="font-medium">Handcrafted with care</span>
               </div>
-              <span className="font-medium">Sustainably sourced</span>
+              <div className="flex items-center gap-2">
+                <div className="text-white">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-6 w-6"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <span className="font-medium">Sustainably sourced</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="text-white font-bold">
+                  <Image src={safe} alt="Safe" className="h-6 w-6" />
+                </div>
+                <span className="font-medium">Safe & toxin-free</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="text-white">
+                  <Image src={madeInIndia} alt="Made for India" className="h-6 w-6" />
+                </div>
+                <span className="font-medium">Made for Indian preferences</span>
+              </div>
             </div>
           </div>
 
