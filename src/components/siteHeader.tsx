@@ -48,7 +48,6 @@ export async function SiteHeader() {
               <MobileMenu
                 collections={collectionsByScent}
                 featuredProducts={featuredProducts.items}
-                loggedInMember={loggedInMember}
               />
             </Suspense>
             <SearchField className="w-auto" />

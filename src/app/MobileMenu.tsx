@@ -35,16 +35,13 @@ import { products } from "@wix/stores";
 import WixImage from "@/components/WixImage";
 import { AddToCartButton } from "@/components/AddToCartButton";
 
-
 interface MobileMenuProps {
   className?: string;
   collections?: collections.Collection[];
-  loggedInMember?: members.Member | null;
   featuredProducts?: products.Product[];
 }
 
-export function MobileMenu({ collections, loggedInMember, featuredProducts }: MobileMenuProps) {
-
+export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
   const scentEmoji = {
     "floral&aromatic": floralAromaticIcon,
     "sweet&gourmand": sweetGourmandIcon,
@@ -67,8 +64,6 @@ export function MobileMenu({ collections, loggedInMember, featuredProducts }: Mo
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
 
-  console.log("featuredProducts", featuredProducts);
-  // Create a debounced search function
   const debouncedSearch = useCallback(
     debounce(async (query: string) => {
       if (!query.trim()) {
@@ -152,7 +147,7 @@ export function MobileMenu({ collections, loggedInMember, featuredProducts }: Mo
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent
           side="left"
-          className="w-[85%] max-w-md rounded-none bg-[#F7F2FA] shadow-xl outline-none overflow-y-auto"
+          className="w-[85%] max-w-md overflow-y-auto rounded-none bg-[#F7F2FA] shadow-xl outline-none"
         >
           <SheetHeader className="relative flex w-full items-start">
             <div className="relative min-w-[95%]">
@@ -199,55 +194,83 @@ export function MobileMenu({ collections, loggedInMember, featuredProducts }: Mo
                           <div className="text-center text-gray-500">
                             No products found
                           </div>
-                          
+
                           {featuredProducts && featuredProducts.length > 0 && (
-                            <div className="mt-4">
-                              <h3 className={cn(playfair.className, "text-center uppercase text-sm font-medium mb-4")}>
+                            <div className="mt-4 flex flex-col gap-4">
+                              <h3
+                                className={cn(
+                                  playfair.className,
+                                  "mb-4 text-center text-sm font-medium uppercase",
+                                )}
+                              >
                                 Trending Now
                               </h3>
                               <div className="grid grid-cols-1 gap-4">
-                                {featuredProducts.slice(0, 4).map((product) => (
-                                  <div key={product?._id} className="flex gap-4 border-b pb-3">
-                                    <WixImage
-                                      mediaIdentifier={product?.media?.mainMedia?.image?.url}
-                                      alt={product?.name}
-                                      width={80}
-                                      height={80}
-                                      className="h-auto w-[100px] rounded-none object-cover"
-                                    />
-                                    <div className="flex flex-col justify-between gap-2">
-                                      <div className="flex flex-col gap-2">
-                                      <Link
-                                        href={`/products/${product?.slug}`}
-                                        className={`${playfair.className} line-clamp-2 text-xs font-medium`}
-                                        onClick={resetSearch}
-                                      >
-                                        {product?.name}
-                                      </Link>
-                                      <div className="text-xs font-normal text-[#5F5F5F]" 
-                                      dangerouslySetInnerHTML={{
-                                        __html: product?.additionalInfoSections?.find((section) => section?.title?.toLowerCase() === "subtitle")?.description || ""
-                                      }}
+                                {featuredProducts
+                                  .slice(0, 4)
+                                  .map((product: products.Product) => (
+                                    <div
+                                      key={product?._id}
+                                      className="flex gap-4 border-b pb-3"
+                                    >
+                                      <WixImage
+                                        mediaIdentifier={
+                                          product?.media?.mainMedia?.image?.url
+                                        }
+                                        alt={product?.name}
+                                        width={80}
+                                        height={80}
+                                        className="h-auto w-[100px] rounded-none object-cover"
                                       />
-                                      
-                                      
+
+                                      <div className="flex flex-col justify-between gap-2">
+                                        <div className="flex flex-col gap-2">
+                                          <Link
+                                            href={`/products/${product?.slug}`}
+                                            className={`${playfair.className} line-clamp-2 text-xs font-medium`}
+                                            onClick={resetSearch}
+                                          >
+                                            {product?.name}
+                                          </Link>
+                                          <div
+                                            className="text-xs font-normal text-[#5F5F5F]"
+                                            dangerouslySetInnerHTML={{
+                                              __html:
+                                                product?.additionalInfoSections?.find(
+                                                  (section) =>
+                                                    section?.title?.toLowerCase() ===
+                                                    "subtitle",
+                                                )?.description || "",
+                                            }}
+                                          />
+                                        </div>
+                                        <div className="text-xs font-medium">
+                                          {product?.price?.formatted?.price}
+                                        </div>
+                                        <AddToCartButton
+                                          variant="default"
+                                          size="sm"
+                                          className="w-[10%] rounded-none bg-[#500769] px-2 text-xs hover:bg-[#500769]/90"
+                                          product={product}
+                                          quantity={1}
+                                          disabled={!product?.stock?.inStock}
+                                          buttonText={
+                                            product?.stock?.inStock
+                                              ? "Add to my bag"
+                                              : "Out of stock"
+                                          }
+                                        />
                                       </div>
-                                      <div className="text-xs font-medium">
-                                       {product?.price?.formatted?.price}
-                                      </div>
-                                      <AddToCartButton
-                                        variant="default"
-                                        size="sm"
-                                        className="w-[10%] rounded-none px-2 bg-[#500769] text-xs hover:bg-[#500769]/90"
-                                        product={product}
-                                        quantity={1}
-                                        disabled={!product?.stock?.inStock}
-                                        buttonText={product?.stock?.inStock ? "Add to my bag" : "Out of stock"}
-                                      />
                                     </div>
-                                  </div>
-                                ))}
+                                  ))}
                               </div>
+                              <Link
+                                href="/shop"
+                                className="w-fit p-2 text-sm mt-4 ml-[27%] border border-purple-600 font-medium text-purple-600 hover:text-purple-800"
+                                onClick={resetSearch}
+                              >
+                                Explore all products
+                              </Link>
                             </div>
                           )}
                         </div>
@@ -281,22 +304,22 @@ export function MobileMenu({ collections, loggedInMember, featuredProducts }: Mo
                                     {result.productOptions?.length > 0 && 
                                       `${result.productOptions[0]?.choices?.length || 0} variants`}
                                   </div> */}
-                                  <div className="flex flex-col gap-2">
-                                    <div className="font-medium">
-                                      Rs {result.price?.price}
-                                    </div>
-                                <AddToCartButton
-                                  // selectedOptions={selectedOptions}
-                                  variant="default"
-                                  size="sm"
-                                  className="w-[20%] rounded-none px-2 bg-[#500769] text-xs hover:bg-[#500769]/90 sm:text-xs lg:w-full"
-                                  product={result}
-                                  quantity={1}
-                                  disabled={!result?.stock?.inStock}
-                                  buttonText={
-                                    result?.stock?.inStock
-                                      ? "Add to my bag"
-                                      : "Out of stock"
+                                <div className="flex flex-col gap-2">
+                                  <div className="font-medium">
+                                    Rs {result.price?.price}
+                                  </div>
+                                  <AddToCartButton
+                                    // selectedOptions={selectedOptions}
+                                    variant="default"
+                                    size="sm"
+                                    className="w-[20%] rounded-none bg-[#500769] px-2 text-xs hover:bg-[#500769]/90 sm:text-xs lg:w-full"
+                                    product={result}
+                                    quantity={1}
+                                    disabled={!result?.stock?.inStock}
+                                    buttonText={
+                                      result?.stock?.inStock
+                                        ? "Add to my bag"
+                                        : "Out of stock"
                                     }
                                   />
                                 </div>
