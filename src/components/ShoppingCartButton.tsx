@@ -16,17 +16,19 @@ import {
 } from "@/components/ui/sheet";
 import CheckoutButton from "./CheckoutButton";
 import WixImage from "./WixImage";
-
+import { products } from "@wix/stores";
+import { AddToCartButton } from "./AddToCartButton";
+import { playfair } from "@/lib/utils";
 
 interface ShoppingCartButtonProps {
   initialData: currentCart.Cart | null;
+  featuredProducts: products.Product[];
 }
-export function ShoppingCartButton({ initialData }: ShoppingCartButtonProps) {
+export function ShoppingCartButton({ initialData, featuredProducts }: ShoppingCartButtonProps) {
   
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const cart = useCart(initialData);
-  const totalQuantity =
-    cart?.data?.lineItems?.reduce(
+  const totalQuantity = cart?.data?.lineItems?.reduce(
       (acc, item) => acc + (item.quantity || 0),
       0,
     ) || 0;
@@ -68,13 +70,13 @@ export function ShoppingCartButton({ initialData }: ShoppingCartButtonProps) {
           </span>
         )}
       </button>
-      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+      <Sheet open={true} onOpenChange={setIsSheetOpen}>
         <SheetContent className="flex w-11/12 flex-col md:max-w-lg rounded-none">
           <SheetHeader className="border-b pb-4 text-center">
-            <SheetTitle className="mx-auto">SHOPPING CART</SheetTitle>
+            <SheetTitle className="mx-auto text-center text-[#25291C]">SHOPPING CART</SheetTitle>
           </SheetHeader>
           <div className="mt-4 flex grow flex-col space-y-5 overflow-y-auto scroll-smooth pt-1 px-4 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar]:w-2">
-            <ul className="space-y-5">
+            {cart?.data?.lineItems && cart?.data?.lineItems?.length > 0 && <ul className="space-y-5">
               {cart?.data?.lineItems?.map((item) => (
                 <ShoppingCartItem
                   key={item._id}
@@ -82,24 +84,81 @@ export function ShoppingCartButton({ initialData }: ShoppingCartButtonProps) {
                   onProductLinkClicked={() => setIsSheetOpen(false)}
                 />
               ))}
-            </ul>
+            </ul>}
             {cart?.isPending && <Loader2 className="mx-auto animate-spin" />}
             {cart?.error && (
               <p className="text-destructive">{cart?.error.message}</p>
             )}
             {!cart?.isPending && !cart?.data?.lineItems?.length && (
-              <div className="flex grow items-center justify-center text-center">
-                <div className="space-y-1.5">
+              <div className="flex flex-col gap-10 grow items-center justify-center text-center">
+                {/* <div className="space-y-2"> */}
                   <p className="text-lg font-semibold">Your cart is empty</p>
                   <Link
                     href="/shop"
-                    className="text-primary hover:underline"
+                    className="text-white w-full p-2 bg-primary border font-medium"
                     onClick={() => setIsSheetOpen(false)}
                   >
-                    Start shopping now
+                    Continue shopping
                   </Link>
+                {/* </div> */}
+              </div>
+            )}
+            {!cart?.isPending && !cart?.data?.lineItems?.length && featuredProducts && featuredProducts.length > 0 && (
+              <div className="mt-8 flex flex-col gap-4">
+                <h3 className={`${playfair.className} mb-4 text-center text-sm font-medium uppercase`}>
+                  You may like
+                </h3>
+                <div className="grid grid-cols-1 gap-4">
+                  {featuredProducts.slice(0, 4).map((product) => (
+                    <div key={product?._id} className="flex gap-4 border-b pb-3">
+                      <WixImage
+                        mediaIdentifier={product?.media?.mainMedia?.image?.url}
+                        alt={product?.name}
+                        width={80}
+                        height={80}
+                        className="h-auto w-[100px] rounded-none object-cover"
+                      />
+                      <div className="flex flex-col justify-between gap-2">
+                        <div className="flex flex-col gap-2">
+                          <Link
+                            href={`/products/${product?.slug}`}
+                            className="line-clamp-2 text-xs font-medium"
+                            onClick={() => setIsSheetOpen(false)}
+                          >
+                            {product?.name}
+                          </Link>
+                          <div
+                            className="text-xs font-normal text-[#5F5F5F]"
+                            dangerouslySetInnerHTML={{
+                              __html: product?.additionalInfoSections?.find(
+                                (section) => section?.title?.toLowerCase() === "subtitle"
+                              )?.description || "",
+                            }}
+                          />
+                        </div>
+                        <div className="text-xs font-medium">
+                          {product?.price?.formatted?.price}
+                        </div>
+                        <AddToCartButton
+                          variant="default"
+                          size="sm"
+                          className="w-full rounded-none bg-[#500769] px-2 text-xs hover:bg-[#500769]/90"
+                          product={product}
+                          quantity={1}
+                          disabled={!product?.stock?.inStock}
+                          buttonText={product?.stock?.inStock ? "Add to my bag" : "Out of stock"}
+                        />
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                
+                <Link
+                  href="/shop"
+                  className="mx-auto mt-4 w-fit border border-purple-600 p-2 text-sm font-medium text-purple-600 hover:text-purple-800"
+                  onClick={() => setIsSheetOpen(false)}
+                >
+                  Explore all products
+                </Link>
               </div>
             )}
           </div>

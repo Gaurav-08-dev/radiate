@@ -82,7 +82,9 @@ export async function SiteHeader() {
               className="pt-[3px] text-white outline-none"
               loggedInMember={loggedInMember}
             />
-            <ShoppingCartButton initialData={cart} />
+            <ShoppingCartButton initialData={cart} 
+            featuredProducts={featuredProducts.items}
+            />
           </div>
         </div>
       </header>
