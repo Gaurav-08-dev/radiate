@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import WixImage from "@/components/WixImage";
 import { products } from "@wix/stores";
 import ProductDescription from "@/components/ProductDescription";
@@ -17,6 +17,15 @@ import {
 } from "@/components/ui/carousel";
 import { toast } from "@/hooks/use-toast";
 import { Share2 } from "lucide-react";
+import {
+  EmailShareButton,
+  EmailIcon,
+  FacebookShareButton,
+  FacebookIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+  InstagramIcon,
+} from 'next-share'
 interface ProductDetailProps {
   product: products.Product;
 }
@@ -25,6 +34,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
   const [api, setApi] = useState<CarouselApi>();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [showShareMenu, setShowShareMenu] = useState(false);
   const [selectedOptions] = useState<Record<string, string>>(
     product.productOptions
       ?.map((option) => ({
@@ -42,8 +52,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
     (detail) => detail.title?.toLowerCase() === "features",
   );
 
-  const featuresList = features?.description
-    ?.replace(/&amp;/g, "&")
+  const featuresList = features?.description?.replace(/&amp;/g, "&")
     ?.replace(/&lt;/g, "<")
     ?.replace(/&gt;/g, ">")
     ?.replace(/&quot;/g, '"')
@@ -92,7 +101,33 @@ export default function ProductDetails({ product }: ProductDetailProps) {
 
   }, [api]);
 
-  console.log(product)
+  const shareMenuRef = useRef<HTMLDivElement>(null);
+  const shareButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Add this function to handle share button click
+  const handleShareClick = () => {
+    setShowShareMenu(!showShareMenu);
+  };
+  
+  // Add this effect to handle outside clicks
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        shareMenuRef.current && 
+        !shareMenuRef.current.contains(event.target as Node) &&
+        shareButtonRef.current && 
+        !shareButtonRef.current.contains(event.target as Node)
+      ) {
+        setShowShareMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+  
   return (
     <div className="container mx-auto px-0 pt-0 md:px-40 md:pt-20">
       <div className="flex flex-col gap-6 md:flex-row md:gap-12">
@@ -271,26 +306,77 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                 />
               </div>
                 
-              <button
-                type="button"
-                className="flex h-12 items-center justify-center rounded-none"
-                onClick={() => {
-                  navigator.clipboard.writeText(window.location.href);
-                  toast({
-                    title: "Product Link Copied",
-                    duration: 1000,
-                  });
-                  
-                }}
-                aria-label="Share product"
-              >
-                <Share2
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-8 w-8"
-                />
-              </button>
+              <div className="relative">
+                <button
+                  ref={shareButtonRef}
+                  type="button"
+                  className="flex h-12 items-center justify-center rounded-none"
+                  onClick={handleShareClick}
+                  aria-label="Share product"
+                >
+                  <Share2
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-8 w-8"
+                  />
+                </button>
+                
+                {showShareMenu && (
+                  <div 
+                    ref={shareMenuRef}
+                    className="absolute right-0 top-14 z-10 flex w-56 flex-col rounded-md bg-[#F7F2FA] p-3 shadow-2xl"
+                  >
+                    <div className="grid grid-cols-3 gap-3 md:grid-cols-4">
+                      <WhatsappShareButton url={window.location.href} 
+                      // title={product.name || ''} 
+                      >
+                        <div className="flex flex-col items-center">
+                          <WhatsappIcon size={40} round />
+                        </div>
+                      </WhatsappShareButton>
+                      
+                      <FacebookShareButton url={window.location.href} 
+                      // title={product.name || ''}
+                      >
+                        <div className="flex flex-col items-center">
+                          <FacebookIcon size={40} round />
+                        </div>
+                      </FacebookShareButton>
+                      
+                      <EmailShareButton url={window.location.href} 
+                      // subject={product.name || ''} 
+                      // body={product.description?.replace(/<[^>]*>/g, '') || ''}
+                      >
+                        <div className="flex flex-col items-center">
+                          <EmailIcon size={40} round />
+                        </div>
+                      </EmailShareButton>
+                      
+                      <button 
+                        type="button"
+                        title="Copy Link"
+                        className="flex flex-col items-center"
+                        onClick={() => {
+                          navigator.clipboard.writeText(window.location.href);
+                          toast({
+                            title: "Link Copied",
+                            duration: 1000,
+                          });
+                          setShowShareMenu(false);
+                        }}
+                      >
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
