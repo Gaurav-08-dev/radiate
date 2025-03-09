@@ -33,7 +33,7 @@ const formSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
   phones: z.string().optional(),
-  birthdate: z.string().optional(),
+  birthdate: z.date().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -42,8 +42,6 @@ interface MemberInfoFormProps {
   member: members.Member;
 }
 export default function MemberInfoForm({ member }: MemberInfoFormProps) {
-
-
   
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -52,9 +50,10 @@ export default function MemberInfoForm({ member }: MemberInfoFormProps) {
       firstName: member.contact?.firstName || "",
       lastName: member.contact?.lastName || "",
       phones: member.contact?.phones?.[0] || "",
-      birthdate: member.contact?.birthdate || "",
+      birthdate: member.contact?.birthdate ? new Date(member.contact?.birthdate) : undefined,
     },
   });
+
 
   const mutation = useMembersUpdate();
 
@@ -66,6 +65,7 @@ export default function MemberInfoForm({ member }: MemberInfoFormProps) {
       phones: values.phones || "",
     });
   }
+
   return (
     <Form {...form}>
       <form
@@ -117,28 +117,8 @@ export default function MemberInfoForm({ member }: MemberInfoFormProps) {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="phones"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Phone Number</FormLabel>
-                <FormControl>
-                  <div className="flex items-center rounded-none border focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
-                    <div className="flex items-center border-r border-gray-200 px-3">
-                      <span>+91</span>
-                    </div>
-                    <Input
-                      placeholder="Phone Number"
-                      {...field}
-                      className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-                    />
-                  </div>
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <FormField
+
+<FormField
             control={form.control}
             name="birthdate"
             render={({ field }) => (
@@ -178,6 +158,28 @@ export default function MemberInfoForm({ member }: MemberInfoFormProps) {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="phones"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Phone Number</FormLabel>
+                <FormControl>
+                  <div className="flex items-center rounded-none border focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
+                    <div className="flex items-center border-r border-gray-200 px-3">
+                      <span>+91</span>
+                    </div>
+                    <Input
+                      placeholder="Phone Number"
+                      {...field}
+                      className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                    />
+                  </div>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          
         </div>
         <LoadingButton
           className=""
