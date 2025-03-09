@@ -57,11 +57,13 @@ export default function ProductReviews({ product }: ProductReviewsProps) {
         <p className="text-muted-foreground text-center text-xl">No reviews yet</p>
       )}
 
-      <div className="flex flex-col gap-5 justify-center items-center w-full">
-        {reviewItems.map((review) => (
-          <ReviewItem key={review._id} review={review} />
-        ))}
-      </div>
+      {reviewItems.length > 0 && (
+        <div className="flex flex-col gap-5 justify-center items-center w-full">
+          {reviewItems.map((review) => (
+            <ReviewItem key={review._id} review={review} />
+          ))}
+        </div>
+      )}
       
       {hasNextPage && (
         <div className="flex justify-center">
