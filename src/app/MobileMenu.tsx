@@ -121,7 +121,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
     if (isOpen && sheetContentRef.current) {
       sheetContentRef.current.focus();
     }
-  }, [isOpen]);
+  }, [isOpen,sheetContentRef.current]);
 
   return (
     <>
