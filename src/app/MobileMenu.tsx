@@ -118,10 +118,10 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
   }, [pathname, searchParams]);
 
   useEffect(() => {
-    if (isOpen && sheetContentRef.current) {
+    if (sheetContentRef.current) {
       sheetContentRef.current.focus();
     }
-  }, [isOpen,sheetContentRef.current]);
+  }, [sheetContentRef.current]);
 
   return (
     <>
@@ -151,7 +151,8 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
         </svg>
       </button>
       {/* isOpen */}
-      <Sheet open={isOpen} onOpenChange={setIsOpen}>
+      <Sheet open={isOpen} onOpenChange={setIsOpen} 
+      >
         <SheetContent
           ref={sheetContentRef}
           tabIndex={-1} // Make it focusable but not in tab order
@@ -355,6 +356,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
               </div>
             ) : (
               <Accordion
+    
                 type="multiple"
                 value={openAccordions}
                 onValueChange={setOpenAccordions}
