@@ -53,16 +53,16 @@ export default function ProductReviews({ product }: ProductReviewsProps) {
       {status === "error" && (
         <p className="text-destructive">Error loading reviews</p>
       )}
-      {/* {status === "success" && !reviewItems.length && !hasNextPage && (
-        <p className="text-muted-foreground">No reviews yet</p>
-      )} */}
+      {status === "success" && !reviewItems.length && !hasNextPage && (
+        <p className="text-muted-foreground text-center text-xl">No reviews yet</p>
+      )}
 
-      <div className="flex flex-col gap-5 justify-center items-center">
+      <div className="flex flex-col gap-5 justify-center items-center w-full">
         {reviewItems.map((review) => (
           <ReviewItem key={review._id} review={review} />
         ))}
-        
       </div>
+      
       {hasNextPage && (
         <div className="flex justify-center">
           <LoadingButton
@@ -98,7 +98,7 @@ function ReviewItem({
   review: { author, content, reply, verified },
 }: ReviewItemProps) {
   return (
-    <div className=" p-4 md:py-5 md:first:pt-0 border md:border-b-0 md:last:border-b-0 md:last:pb-0 w-full">
+    <div className="p-4 md:py-5 md:first:pt-4 border  w-full">
       <div className="space-y-1.5">
         <div className="flex flex-wrap items-center gap-1 md:gap-2">
           <span className="font-bold text-sm md:text-base">{author?.authorName || "Anonymous"}</span>
