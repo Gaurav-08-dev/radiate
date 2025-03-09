@@ -446,6 +446,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
                         <Link
                           href={`/shop?collection=${collection._id}`}
                           className="flex items-center gap-2 font-medium"
+                          key={collection._id}
                         >
                           <Image
                             src={
@@ -494,7 +495,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
 
               <div className="flex gap-4 pt-4">
                 <Link
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/letsradiate.in/#"
                   className="text-gray-800 hover:text-gray-600"
                 >
                   <svg

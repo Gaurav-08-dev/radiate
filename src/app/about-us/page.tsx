@@ -50,6 +50,7 @@ export default function AboutUs() {
             {/* Mobile carousel animation wrapper */}
             <div className="flex md:hidden w-full overflow-hidden">
               <div className="animate-carousel flex gap-4 items-center">
+                {/* First set of items */}
                 <div className="flex items-center gap-2 min-w-max px-4">
                   <div className="text-white">
                     <svg
@@ -92,7 +93,8 @@ export default function AboutUs() {
                   </div>
                   <span className="font-medium">Made for Indian preferences</span>
                 </div>
-                {/* Duplicate items for seamless looping */}
+                
+                {/* Duplicate items for seamless looping - exact copies of the above */}
                 <div className="flex items-center gap-2 min-w-max px-4">
                   <div className="text-white">
                     <svg
@@ -105,6 +107,35 @@ export default function AboutUs() {
                     </svg>
                   </div>
                   <span className="font-medium">Handcrafted with care</span>
+                </div>
+                <div className="flex items-center gap-2 min-w-max px-4">
+                  <div className="text-white">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="h-6 w-6"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <span className="font-medium">Sustainably sourced</span>
+                </div>
+                <div className="flex items-center gap-2 min-w-max px-4">
+                  <div className="text-white font-bold">
+                    <Image src={safe} alt="Safe" className="h-6 w-6" />
+                  </div>
+                  <span className="font-medium">Safe & toxin-free</span>
+                </div>
+                <div className="flex items-center gap-2 min-w-max px-4">
+                  <div className="text-white">
+                    <Image src={madeInIndia} alt="Made for India" className="h-6 w-6" />
+                  </div>
+                  <span className="font-medium">Made for Indian preferences</span>
                 </div>
               </div>
             </div>
@@ -201,7 +232,7 @@ export default function AboutUs() {
               {/* Instagram */}
               <a
                 title="Instagram"
-                href="https://www.instagram.com/radiatecandles"
+                href="https://www.instagram.com/letsradiate.in/#"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#500769] transition-colors"

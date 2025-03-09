@@ -29,7 +29,7 @@ export const getLoggedInMember = cache(
 export interface UpdateMemberInfoProps {
   firstName: string;
   lastName: string;
-  // birthdate: string | '';
+  birthdate: string | '';
   phones: string | "";
 }
 
@@ -38,7 +38,7 @@ export async function updateMemberInfo(
   {
     firstName,
     lastName,
-    // birthdate,
+      birthdate,
     phones,
   }: UpdateMemberInfoProps,
 ) {

@@ -80,7 +80,7 @@ export function SiteFooter({ className }: { className?: string }) {
           <div className="flex items-center gap-4">
             <a
               title="Instagram"
-              href="https://www.instagram.com/radiatecandles"
+              href="https://www.instagram.com/letsradiate.in/#"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:opacity-80"
@@ -113,7 +113,7 @@ export function SiteFooter({ className }: { className?: string }) {
         <div className="order-3 flex items-center gap-4 md:hidden">
           <a
             title="Instagram"
-            href="https://www.instagram.com/radiatecandles"
+            href="https://www.instagram.com/letsradiate.in/#"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:opacity-80"

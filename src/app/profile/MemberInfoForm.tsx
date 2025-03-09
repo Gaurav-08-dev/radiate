@@ -14,24 +14,26 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-// import { Calendar } from "@/components/ui/calendar";
-// import {
-//   Popover,
-//   PopoverContent,
-//   PopoverTrigger,
-// } from "@/components/ui/popover";
-// import { format } from "date-fns";
-// import { CalendarIcon } from "lucide-react";
-// import { cn } from "@/lib/utils";
-// import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import LoadingButton from "@/components/LoadingButton";
+
+
 const formSchema = z.object({
   loginEmail: requiredString,
   firstName: z.string(),
   lastName: z.string(),
   phones: z.string().optional(),
-  // birthdate: z.string().optional(),
+  birthdate: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -41,6 +43,8 @@ interface MemberInfoFormProps {
 }
 export default function MemberInfoForm({ member }: MemberInfoFormProps) {
 
+
+  
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,18 +52,17 @@ export default function MemberInfoForm({ member }: MemberInfoFormProps) {
       firstName: member.contact?.firstName || "",
       lastName: member.contact?.lastName || "",
       phones: member.contact?.phones?.[0] || "",
-      // birthdate: member.contact?.birthdate || "",
+      birthdate: member.contact?.birthdate || "",
     },
   });
 
   const mutation = useMembersUpdate();
 
   async function onSubmit(values: FormValues) {
-    
     mutation.mutate({
       firstName: values.firstName,
       lastName: values.lastName,
-      // birthdate: values.birthdate || "",
+      birthdate: values?.birthdate ? format(values?.birthdate, "yyyy-MM-dd") : "",
       phones: values.phones || "",
     });
   }
@@ -135,7 +138,7 @@ export default function MemberInfoForm({ member }: MemberInfoFormProps) {
               </FormItem>
             )}
           />
-          {/* <FormField
+          <FormField
             control={form.control}
             name="birthdate"
             render={({ field }) => (
@@ -174,7 +177,7 @@ export default function MemberInfoForm({ member }: MemberInfoFormProps) {
                 </Popover>
               </FormItem>
             )}
-          /> */}
+          />
         </div>
         <LoadingButton
           className=""
