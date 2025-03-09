@@ -12,6 +12,12 @@ export function useCreateProductReview() {
   return useMutation({
     mutationFn: (values: CreateProductReviewValues) =>
       createProductReview(wixBrowserClient, values),
+    onSuccess: () => {
+      toast({
+        title: "Thank you for your review! It’ll be visible shortly 😊",
+        duration: 2000,
+      });
+    },
 
     onError: (error) => {
       toast({
