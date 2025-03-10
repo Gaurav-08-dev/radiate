@@ -6,6 +6,7 @@ import { ShopByScent } from "@/components/ShopByScent";
 import { AboutSection } from "@/components/AboutSection";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ShopByCategory } from "@/components/ShopByCategory";
+import { ReviewSection } from "@/components/ReviewSection";
 export default function Home() {
   return (
     <>
@@ -18,6 +19,9 @@ export default function Home() {
         <ShopByScent />
         <ShopByCategory />
         <AboutSection />
+        <ReviewSection
+          headersText="WHAT OUR CUSTOMERS SAY"
+        />
       </main>
     </>
   );

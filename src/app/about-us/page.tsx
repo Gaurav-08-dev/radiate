@@ -3,6 +3,7 @@ import logo from "@/assets/logo.svg";
 import AboutUsImage from "@/assets/right.jpg";
 import safe from "@/assets/sustainably-sourced.png";
 import madeInIndia from "@/assets/made-in-india.png";
+import { ReviewSection } from "@/components/ReviewSection";
 
 export default function AboutUs() {
   return (
@@ -287,6 +288,10 @@ export default function AboutUs() {
               </a>
             </div>
           </div>
+
+          <ReviewSection 
+            headersText="Join those who love Radiate"
+          />
         </div>
       </div>
     </main>

@@ -55,3 +55,8 @@ export async function getProductReviews(
 
   return query.find();
 }
+
+export async function getAllReviews(wixClient: WixClient) {
+  const reviews = await wixClient.reviews.queryReviews().limit(10).find();
+  return reviews.items;
+}
