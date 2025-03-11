@@ -77,42 +77,43 @@ interface CategoryGroup {
 export function organizeCollections(
   collections: collections.Collection[],
 ): CategoryGroup[] {
+  const orderMap = new Map([
+    ['product type', 0],
+    ['scent family', 1],
+    ['shop by scent', 1],
+    ['mood', 3],
+    ['room', 2],
+    ['scent', 4], // alternative name for 'shop by scent'
+  ]);
+  
   const groups = new Map<string, collections.Collection[]>();
-  const ungrouped: collections.Collection[] = [];
-
+  
   collections.forEach((collection) => {
-    if(collection.visible){
-    const collectionName = collection.name;
-    const nameParts = collectionName?.split(/[-–]/);
-    if (nameParts && nameParts.length > 1) {
-      const header = nameParts[1].trim().toLowerCase();
-      if (!groups.has(header)) {
-        groups.set(header, []);
+    if (collection.visible) {
+      const collectionName = collection.name;
+      const nameParts = collectionName?.split(/[-–]/);
+      if (nameParts && nameParts.length > 1) {
+        const header = nameParts[1].trim().toLowerCase();
+        if (!groups.has(header)) {
+          groups.set(header, []);
+        }
+        groups.get(header)?.push(collection);
       }
-      groups.get(header)?.push(collection);
-    } else {
-      groups.set(collection?.name || "", []);
-      groups.get(collection?.name || "")?.push(collection);
-    }}
+    }
   });
 
-  const result: CategoryGroup[] = [];
-
-  // Add grouped collections
-  groups.forEach((collections, header) => {
-    result.push({
+  // Convert to array and sort based on the orderMap
+  const result: CategoryGroup[] = Array.from(groups.entries())
+    .map(([header, collections]) => ({
       header: header.charAt(0).toUpperCase() + header.slice(1),
       collections,
+    }))
+    .sort((a, b) => {
+      const orderA = orderMap.get(a.header.toLowerCase()) ?? 999;
+      const orderB = orderMap.get(b.header.toLowerCase()) ?? 999;
+      return orderA - orderB;
     });
-  });
 
-  // Add ungrouped collections if any
-  if (ungrouped.length > 0) {
-    result.push({
-      header: "Other",
-      collections: ungrouped,
-    });
-  }
   return result;
 }
 

@@ -67,7 +67,7 @@ export default function FiltersSectionComponent({
   }
 
   return (
-    <main className="flex flex-col md:flex-row gap-4 md:gap-8 px-4 py-5 md:p-10 relative z-10">
+    <main className="flex flex-col md:flex-row gap-4 md:gap-8 px-4 py-5 md:p-10 relative z-10 bg-[#F7F2FA]">
       {/* Mobile filter toggle button - smaller and right-aligned */}
       <div className="flex justify-end md:hidden mb-4 mr-4">
         <button 
@@ -82,8 +82,7 @@ export default function FiltersSectionComponent({
       </div>
 
       {/* Mobile filter overlay */}
-      <div 
-        className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 md:hidden ${
+      <div className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 md:hidden ${
           isFilterOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setIsFilterOpen(false)}
@@ -146,14 +145,14 @@ function CollectionsFilter({
   updateCollectionIds,
 }: CollectionsFilterProps) {
   return (
-    <div className="flex flex-col gap-4 md:gap-4">
+    <div className="px-4 md:px-0 flex flex-col gap-4 md:gap-4">
       <div className="space-y-3 md:space-y-3">
-        <div className="flex items-center gap-3 md:gap-4">
+        {/* <div className="flex items-center gap-3 md:gap-4">
           <div className="text-base md:text-lg font-medium">Collections</div>
-        </div>
+        </div> */}
         {collections.map((group) => (
           <div key={group.header} className="space-y-2 md:space-y-2">
-            <h3 className="text-xs md:text-sm font-medium text-gray-500">
+            <h3 className="text-lg md:text-sm font-medium ">
               {formatCategoryTitle(group.header)}
             </h3>
             <ul className="space-y-2 md:space-y-1.5" key={group?.header}>
@@ -197,7 +196,7 @@ interface SortFilterProps {
 }
 function SortFilter({ selectedSortOption, updateSortOption }: SortFilterProps) {
   return (
-    <div className="flex flex-col gap-4 md:gap-5">
+    <div className="flex flex-col gap-4 md:gap-5 pt-4">
       <div className="flex items-center gap-3 text-base md:text-lg">
         <SlidersHorizontal className="h-4 w-4 md:h-5 md:w-5" strokeWidth={2} />
         <span className="font-medium">Sort By</span>
