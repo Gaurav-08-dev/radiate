@@ -152,7 +152,7 @@ function CollectionsFilter({
         </div> */}
         {collections.map((group) => (
           <div key={group.header} className="space-y-2 md:space-y-2">
-            <h3 className="text-lg md:text-sm font-medium ">
+            <h3 className="text-sm font-medium ">
               {formatCategoryTitle(group.header)}
             </h3>
             <ul className="space-y-2 md:space-y-1.5" key={group?.header}>
