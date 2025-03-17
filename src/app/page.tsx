@@ -20,7 +20,7 @@ export default function Home() {
         <ShopByCategory />
         <AboutSection />
         <ReviewSection
-          headersText="WHAT OUR CUSTOMERS SAY"
+          headersText="What Our Customers Say"
         />
       </main>
     </>

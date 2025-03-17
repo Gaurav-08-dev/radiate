@@ -254,7 +254,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
                                           />
                                         </div>
                                         <div className="text-xs font-medium">
-                                          {product?.price?.formatted?.price}
+                                          {product?.priceData?.formatted?.discountedPrice || product?.price?.formatted?.price}
                                         </div>
                                         <AddToCartButton
                                           variant="default"
