@@ -102,9 +102,11 @@ function ReviewItem({
   return (
     <div className="p-4 md:py-5 md:first:pt-4 border  w-full">
       <div className="space-y-1.5">
-        <div className="flex flex-wrap items-center gap-1 md:gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-1 md:gap-2">
+          <div className="flex items-center gap-1 md:gap-2">
           <span className="font-bold text-sm md:text-base">{author?.authorName || "Anonymous"}</span>
           {verified && <VerifiedIcon className="size-4 md:size-5 text-green-700" />}
+          </div>
           <div className="flex">
             {Array.from({ length: 5 }).map((_, i) => (
               <StarIcon
