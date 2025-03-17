@@ -123,6 +123,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
     }
   }, [isOpen,sheetContentRef.current]);
 
+
   return (
     <>
       <button
@@ -238,6 +239,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
                                             href={`/products/${product?.slug}`}
                                             className={`${playfair.className} line-clamp-2 text-xs font-medium`}
                                             onClick={resetSearch}
+                                            
                                           >
                                             {product?.name}
                                           </Link>
@@ -315,7 +317,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
                                   </div> */}
                                 <div className="flex flex-col gap-2">
                                   <div className="font-medium">
-                                    Rs {result.price?.price}
+                                    {result.priceData?.formatted?.discountedPrice || result.price?.formatted?.price}
                                   </div>
                                   <AddToCartButton
                                     // selectedOptions={selectedOptions}
