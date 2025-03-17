@@ -1,7 +1,7 @@
 "use client";
 
 import { collections } from "@wix/stores";
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback,  } from "react";
 import Link from "next/link";
 import { cn, twConfig } from "@/lib/utils";
 import { Sheet, SheetContent, SheetHeader } from "@/components/ui/sheet";
@@ -99,7 +99,6 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
     setIsOpen(false);
   };
 
-  const sheetContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -116,12 +115,6 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
   useEffect(() => {
     setIsOpen(false);
   }, [pathname, searchParams]);
-
-  useEffect(() => {
-    if (isOpen && sheetContentRef.current) {
-      sheetContentRef.current.focus();
-    }
-  }, [isOpen,sheetContentRef.current]);
 
   return (
     <>
@@ -153,7 +146,6 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
       {/* isOpen */}
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent
-          ref={sheetContentRef}
           tabIndex={-1} // Make it focusable but not in tab order
           side="left"
           className="w-[85%] max-w-md overflow-y-auto rounded-none bg-[#F7F2FA] shadow-xl outline-none"

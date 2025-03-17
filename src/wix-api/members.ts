@@ -83,3 +83,26 @@ export async function updateMemberAddress(
     },
   });
 }
+
+export interface RegisterMemberProps {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+}
+export async function registerMember(wixClient: WixClient, { email, password, firstName, lastName, phone }: RegisterMemberProps) {
+  const response = await wixClient.auth.register({
+    email: email,
+    password: password,
+    profile: {
+      firstName: firstName,
+      lastName: lastName,
+      phones: [phone],
+    },
+  }).then((res) => {
+    console.log(res);
+  })
+  return response;
+
+}

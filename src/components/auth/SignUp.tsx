@@ -14,8 +14,9 @@ import { CalendarIcon, Eye, EyeOff } from "lucide-react";
 import { playfair } from "@/lib/utils";
 import { useState } from "react";
 // import { useMembersRegister } from "@/hooks/members";
-import { registerMember } from "@/wix-api/members";
+
 import { wixBrowserClient } from "@/lib/wix-client.browser";
+import { registerMember } from "@/wix-api/members";
 
 type FormData = {
   firstName: string;
@@ -39,9 +40,7 @@ export default function SignUp() {
           lastName: data.lastName,
           phone: data.phone,
         });
-        console.log(mutation);
     };
-
 
   return (
     <div className="flex min-h-screen">
