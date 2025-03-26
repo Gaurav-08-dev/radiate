@@ -47,12 +47,12 @@ export async function ReviewSection({headersText}: {headersText: string}) {
                 className="pl-2 md:pl-4 basis-1/2 md:basis-1/3 "
               >
                 <Card className="border border-[#E1E1E1] h-[250px]">
-                  <CardContent className="p-6 h-full">
-                    <div className="space-y-4 h-full flex flex-col">
+                  <CardContent className="p-4 h-full">
+                    <div className="space-y-4 h-full flex flex-col overflow-y-auto scrollbar-hide">
                         <div className="flex justify-between items-center flex-wrap gap-2 md:gap-4 md:flex-none">
                       <div className="flex items-center gap-2">
-                        {review?.verified && <BadgeCheck className="h-4 w-4 text-[#1D9C50]" />}
                         <span className="font-medium capitalize">{review?.author?.authorName}</span>
+                        {review?.verified && <BadgeCheck className="h-4 w-4 text-[#1D9C50]" />}
                       </div>
                       <div className="flex gap-1">
                         {Array(Number(review?.content?.rating ?? 0)).fill(0).map((_, i) => (
@@ -65,7 +65,7 @@ export async function ReviewSection({headersText}: {headersText: string}) {
                       </div>
                       <div className="space-y-2 flex-grow">
                         <h3 className="font-medium">{review?.content?.title}</h3>
-                        <p className="text-sm text-gray-600 line-clamp-3">{review?.content?.body}</p>
+                        <p className="text-sm text-gray-600">{review?.content?.body}</p>
                         {/* <p className="text-sm italic text-gray-500 mt-auto">{review.productName}</p> */}
                       </div>
                     </div>

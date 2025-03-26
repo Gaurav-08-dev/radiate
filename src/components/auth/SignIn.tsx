@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
@@ -11,13 +11,15 @@ import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import useAuth from "@/hooks/auth";
+import {
+  getDirectLoginMemberToken,
+  setTokensAndCookiesClient,
+} from "@/wix-api/members";
 // import { FcGoogle } from "react-icons/fc";
-
-
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  password: z.string().min(4, "Password must be at least 6 characters"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -27,7 +29,9 @@ export default function SignIn() {
 
   const { toast } = useToast();
   const router = useRouter();
-  const [loginStatus, setLoginStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [loginStatus, setLoginStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -39,37 +43,27 @@ export default function SignIn() {
 
   async function onSubmit(values: FormValues) {
     try {
-      setLoginStatus('loading');
+      setLoginStatus("loading");
 
       const response = await wixBrowserClient.auth.login({
         email: values.email,
         password: values.password,
       });
 
-
       switch (response.loginState) {
         case "SUCCESS":
-          setLoginStatus('success');
+          // Get the direct login token and set cookies
+          const loginResponse = await getDirectLoginMemberToken(
+            wixBrowserClient,
+            response.data.sessionToken,
+          );
+          setTokensAndCookiesClient(wixBrowserClient, loginResponse);
+          setLoginStatus("success");
           toast({
             description: "Successfully logged in!",
           });
-          router.push("/");
+          router.replace("/");
           router.refresh();
-          break;
-
-        case "EMAIL_VERIFICATION_REQUIRED":
-          toast({
-            description: "Please check your email for a verification code.",
-            duration: 5000,
-          });
-          router.push("/verify-email"); // Create this route to handle verification
-          break;
-
-        case "OWNER_APPROVAL_REQUIRED":
-          toast({
-            description: "Your membership is pending approval from the site owner.",
-            duration: 5000,
-          });
           break;
 
         case "FAILURE":
@@ -91,25 +85,24 @@ export default function SignIn() {
             default:
               errorMessage = "Invalid email or password";
           }
-          setLoginStatus('error');
+          setLoginStatus("error");
           toast({
             variant: "destructive",
             description: errorMessage,
+            duration: 3000,
           });
           break;
       }
-      
     } catch (error) {
-      setLoginStatus('error');
+      setLoginStatus("error");
       console.error(error);
-      
       toast({
         variant: "destructive",
         description: "An error occurred during login. Please try again.",
       });
     } finally {
-      if (loginStatus !== 'success') {
-        setLoginStatus('idle');
+      if (loginStatus !== "success") {
+        setLoginStatus("idle");
       }
     }
   }
@@ -120,15 +113,23 @@ export default function SignIn() {
       <div className="hidden w-1/2 bg-[url('/auth-bg.jpg')] bg-cover bg-center md:block" />
 
       {/* Right side - Form */}
-      <div className="flex w-full flex-col justify-start  md:justify-center  px-6 py-6 md:w-1/2 lg:px-8">
+      <div className="flex w-full flex-col justify-start px-6 py-6 md:w-1/2 md:justify-center lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className={`${playfair.className} text-center text-2xl font-bold leading-9 tracking-tight`}>
+          <h2
+            className={`${playfair.className} text-center text-2xl font-bold leading-9 tracking-tight`}
+          >
             Sign In
           </h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              form.handleSubmit(onSubmit)(e);
+            }}
+            className="space-y-6"
+          >
             <Input
               type="email"
               placeholder="Email address"
@@ -136,7 +137,9 @@ export default function SignIn() {
               {...form.register("email")}
             />
             {form.formState.errors.email && (
-              <p className="text-sm text-red-500">{form.formState.errors.email.message}</p>
+              <p className="text-sm text-red-500">
+                {form.formState.errors.email.message}
+              </p>
             )}
 
             <div>
@@ -147,7 +150,9 @@ export default function SignIn() {
                 {...form.register("password")}
               />
               {form.formState.errors.password && (
-                <p className="text-sm text-red-500">{form.formState.errors.password.message}</p>
+                <p className="text-sm text-red-500">
+                  {form.formState.errors.password.message}
+                </p>
               )}
               <div className="mt-2 text-right">
                 <Link
@@ -159,17 +164,19 @@ export default function SignIn() {
               </div>
             </div>
 
-            <Button 
+            <Button
               type="submit"
               className="w-full rounded-none bg-[#500769] text-white hover:bg-[#500769]/90"
-              disabled={loginStatus === 'loading'}
+              disabled={loginStatus === "loading"}
             >
-              {loginStatus === 'loading' ? (
+              {loginStatus === "loading" ? (
                 <div className="flex items-center justify-center">
                   <span className="mr-2">Signing in...</span>
                   {/* Optional: Add a loading spinner here */}
                 </div>
-              ) : "Sign In"}
+              ) : (
+                "Sign In"
+              )}
             </Button>
 
             <div className="relative">
@@ -184,16 +191,49 @@ export default function SignIn() {
             <Button
               variant="outline"
               className="w-full rounded-none"
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.preventDefault();
-                login();
+                try {
+                  setLoginStatus("loading");
+                  // Call login without parameters for Google authentication
+                  const response = await login();
+
+                  // @ts-ignore
+                  if (response && response.status === "SUCCESS") {
+                    // Get the direct login token and set cookies
+                    const loginResponse = await getDirectLoginMemberToken(
+                      wixBrowserClient,
+                      // @ts-ignore
+                      response?.tokens?.sessionToken,
+                    );
+                    setTokensAndCookiesClient(wixBrowserClient, loginResponse);
+                    setLoginStatus("success");
+                    toast({
+                      description: "Successfully logged in with Google!",
+                    });
+                    router.replace("/");
+                  } else {
+                    throw new Error("Google login failed");
+                  }
+                } catch (error) {
+                  setLoginStatus("error");
+                  console.error(error);
+                  toast({
+                    variant: "destructive",
+                    description:
+                      "An error occurred during Google login. Please try again.",
+                  });
+                } finally {
+                  if (loginStatus !== "success") {
+                    setLoginStatus("idle");
+                  }
+                }
               }}
-              disabled={loginStatus === 'loading'}
+              disabled={loginStatus === "loading"}
             >
               {/* <FcGoogle className="mr-2 h-5 w-5" /> */}
               Continue with Google
             </Button>
-
 
             <p className="text-center text-sm text-gray-500">
               New user?{" "}
@@ -209,4 +249,4 @@ export default function SignIn() {
       </div>
     </div>
   );
-} 
+}

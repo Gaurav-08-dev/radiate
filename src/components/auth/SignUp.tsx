@@ -3,20 +3,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { format } from "date-fns";
-import { CalendarIcon, Eye, EyeOff } from "lucide-react";
+// import { Calendar } from "@/components/ui/calendar";
+// import {
+//   Popover,
+//   PopoverContent,
+//   PopoverTrigger,
+// } from "@/components/ui/popover";
+// import { format } from "date-fns";
+import { 
+  // CalendarIcon, 
+  Eye, EyeOff } from "lucide-react";
 import { playfair } from "@/lib/utils";
 import { useState } from "react";
 // import { useMembersRegister } from "@/hooks/members";
 
 import { wixBrowserClient } from "@/lib/wix-client.browser";
-import { registerMember } from "@/wix-api/members";
+import { getDirectLoginMemberToken, registerMember, 
+  // setTokensAndCookies, 
+  setTokensAndCookiesClient } from "@/wix-api/members";
+import { useRouter } from "next/navigation";
 
 type FormData = {
   firstName: string;
@@ -28,19 +33,42 @@ type FormData = {
 };
 
 export default function SignUp() {
-  const { register, handleSubmit, setValue, watch } = useForm<FormData>();
+  const router = useRouter();
+  const { register, handleSubmit, 
+    // setValue, watch 
+  } = useForm<FormData>();
   const [showPassword, setShowPassword] = useState(false);
-  const dob = watch("dob");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  // const dob = watch("dob");
 
-  const onSubmit = (data: FormData) => {
-      const mutation = registerMember(wixBrowserClient, {
-          email: data.email,
-          password: data.password,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          phone: data.phone,
-        });
-    };
+  const onSubmit = async (data: FormData) => {
+    try {
+      setIsSubmitting(true);
+      
+      const result = await registerMember(wixBrowserClient, {
+        email: data.email,
+        password: data.password,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        phone: data.phone,
+      });
+      
+      if(result?.loginState === 'SUCCESS') {
+        const loginResponse = await getDirectLoginMemberToken(wixBrowserClient, result.data.sessionToken);
+        // Use the client-specific function to set tokens and cookies
+        setTokensAndCookiesClient(wixBrowserClient, loginResponse);
+        // Navigate to home page and refresh to ensure middleware picks up the new cookie
+        router.replace('/'); // Using replace instead of push to avoid having the URL in history
+      } else {
+        throw new Error('Registration did not complete successfully');
+      }
+    } catch (error) {
+      console.error("Registration or login failed", error);
+      // Here you could add UI feedback for the error
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="flex min-h-screen">
@@ -122,7 +150,7 @@ export default function SignUp() {
               />
             </div>
 
-            <div>
+            {/* <div>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -143,13 +171,14 @@ export default function SignUp() {
                   />
                 </PopoverContent>
               </Popover>
-            </div>
+            </div> */}
 
             <Button
               type="submit"
               className="w-full rounded-none bg-[#500769] text-white hover:bg-[#500769]/90"
+              disabled={isSubmitting}
             >
-              Create Account
+              {isSubmitting ? "Creating Account..." : "Create Account"}
             </Button>
 
             {/* <div className="relative">

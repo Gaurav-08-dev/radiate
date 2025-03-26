@@ -13,6 +13,7 @@ import {
 import { LogInIcon, LogOutIcon, User, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 interface UserButtonProps {
   loggedInMember: members.Member | null;
@@ -23,7 +24,8 @@ export default function UserButton({
   loggedInMember,
   className,
 }: UserButtonProps) {
-  const { login, logout } = useAuth();
+  const { logout } = useAuth();
+  const router = useRouter();
 
   return (
     <div className={cn("", className)}>
@@ -57,7 +59,7 @@ export default function UserButton({
             Logout
           </DropdownMenuItem>
         ) : (
-          <DropdownMenuItem className="" onClick={() => login()}>
+          <DropdownMenuItem className="" onClick={() => router.push("/signin")}>
             <LogInIcon />
             Login
           </DropdownMenuItem>
