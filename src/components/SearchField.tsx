@@ -16,11 +16,13 @@ import { cn } from "@/lib/utils";
 interface SearchFieldProps {
   className?: string;
   limit?: number;
+  featuredProducts?: products.Product[];
 }
 
 export default function SearchField({
   limit = 6,
   className,
+  featuredProducts,
 }: SearchFieldProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchResults, setSearchResults] = useState<products.Product[]>([]);
@@ -76,7 +78,7 @@ export default function SearchField({
       </PopoverTrigger>
       <PopoverContent
         className={`rounded-none p-0 ${
-          searchResults.length > 0 
+          searchResults.length > 0 || (searchResults.length === 0 && hasSearched)
             ? 'w-[300px] md:w-[600px] lg:w-[900px] min-h-[200px]' 
             : 'w-[300px] min-h-[100px]'
         }`}
@@ -96,7 +98,7 @@ export default function SearchField({
           </div>
 
           <div className={`mt-4 ${
-            searchResults.length > 0 
+            searchResults.length > 0 || (searchResults.length === 0 && hasSearched)
               ? 'max-h-[400px] md:max-h-[600px]' 
               : 'max-h-[100px]'
             } overflow-y-auto [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar]:w-2`}>
@@ -116,8 +118,73 @@ export default function SearchField({
                     : ''
                 }`}>
                   {searchResults.length === 0 && hasSearched ? (
-                    <div className="text-center text-gray-500">
-                      No products found
+                    <div className="flex flex-col gap-4">
+                      <div className="text-center text-gray-500">
+                        No products found
+                      </div>
+
+                      {featuredProducts && featuredProducts.length > 0 && (
+                        <div className="mt-4 flex flex-col gap-4">
+                          <h3 className="mb-4 text-center text-sm font-medium uppercase">
+                            Trending Now
+                          </h3>
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {featuredProducts
+                              .slice(0, 6)
+                              .map((product: products.Product) => (
+                                <div
+                                  key={product._id}
+                                  className="flex gap-4 border-b pb-3"
+                                >
+                                  <WixImage
+                                    mediaIdentifier={
+                                      product?.media?.mainMedia?.image?.url
+                                    }
+                                    alt={product?.name}
+                                    width={80}
+                                    height={80}
+                                    className="h-auto w-[100px] rounded-none object-cover"
+                                  />
+
+                                  <div className="flex flex-col justify-between gap-2">
+                                    <div className="flex flex-col gap-2">
+                                      <Link
+                                        href={`/products/${product?.slug}`}
+                                        className="line-clamp-2 text-xs font-medium"
+                                        onClick={resetSearch}
+                                      >
+                                        {product?.name}
+                                      </Link>
+                                      <div
+                                        className="text-xs font-normal text-[#5F5F5F]"
+                                        dangerouslySetInnerHTML={{
+                                          __html:
+                                            product?.additionalInfoSections?.find(
+                                              (section) =>
+                                                section?.title?.toLowerCase() ===
+                                                "subtitle",
+                                            )?.description || "",
+                                        }}
+                                      />
+                                    </div>
+                                    <div className="text-xs font-medium">
+                                      {product?.priceData?.formatted
+                                        ?.discountedPrice ||
+                                        product?.price?.formatted?.price}
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                          </div>
+                          <Link
+                            href="/shop"
+                            className="mx-auto mt-4 w-fit border border-purple-600 p-2 text-sm font-medium text-purple-600 hover:text-purple-800"
+                            onClick={resetSearch}
+                          >
+                            Explore all products
+                          </Link>
+                        </div>
+                      )}
                     </div>
                   ) : (
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any

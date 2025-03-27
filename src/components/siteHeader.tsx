@@ -50,7 +50,7 @@ export async function SiteHeader() {
                 featuredProducts={featuredProducts.items}
               />
             </Suspense>
-            <SearchField className="w-auto" />
+            <SearchField className="w-auto" featuredProducts={featuredProducts.items} />
           </div>
           <Link href="/" className="flex items-center space-x-2">
             <div className="relative h-8 w-8 lg:h-12 lg:w-12">
