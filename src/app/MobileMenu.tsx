@@ -374,7 +374,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
                     Shop
                   </AccordionTrigger>
                   <AccordionContent className={cn(montserrat.className)}>
-                    <div className="flex flex-col space-y-4 text-[#5F5F5F]">
+                    <div className="flex flex-col pt-2 space-y-4 text-[#5F5F5F]">
                       <Link
                         href="/shop?collection=79f1e1c4-9d44-8a1a-ebcc-3c840d3b4d37"
                         className="flex items-center gap-2"
@@ -454,7 +454,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
                     Shop by scent
                   </AccordionTrigger>
                   <AccordionContent className={cn(montserrat.className)}>
-                    <div className="flex flex-col space-y-4 text-[#5F5F5F]">
+                    <div className="flex flex-col pt-2 space-y-4 text-[#5F5F5F]">
                       {collections?.map((collection) => (
                         <Link
                           href={`/shop?collection=${collection._id}`}
