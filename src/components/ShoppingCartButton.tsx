@@ -37,23 +37,21 @@ export function ShoppingCartButton({ initialData, featuredProducts }: ShoppingCa
   const totaldiscount = cart?.data?.lineItems?.reduce(
     (acc, item) =>
       acc +
-      (Number(item?.fullPrice?.amount) || 0) -
-      (Number(item.price?.amount) || 0),
+      ((Number(item?.fullPrice?.amount) || 0) * (item.quantity || 1)) -
+      ((Number(item.price?.amount) || 0) * (item.quantity || 1)),
     0,
   );
   const totalPriceBeforeDiscount = cart?.data?.lineItems?.reduce(
-    (acc, item) => acc + (Number(item?.fullPrice?.amount) || 0),
+    (acc, item) => acc + ((Number(item?.fullPrice?.amount) || 0) * (item.quantity || 1)),
     0,
   );
   const totalPriceAfterDiscount = cart?.data?.lineItems?.reduce(
-    (acc, item) => acc + (Number(item.price?.amount) || 0),
+    (acc, item) => acc + ((Number(item.price?.amount) || 0) * (item.quantity || 1)),
     0,
   ) ;
 
-  // @ts-expect-error
-  const totalPriceAfterDiscountWithGST = totalPriceAfterDiscount + totalPriceAfterDiscount * 0.12;
-  // @ts-expect-error
-  const totalGst = totalPriceAfterDiscount * 0.12;
+  // @ts-ignore
+  const totalPriceAfterDiscountWithGST = totalPriceAfterDiscount  + (totalPriceAfterDiscount > 648 ? 0 : 80);
 
   return (
     <>
@@ -175,7 +173,7 @@ export function ShoppingCartButton({ initialData, featuredProducts }: ShoppingCa
               <div className="space-y-2">
                 <h3 className="text-lg font-semibold">Bill details</h3>
                 <div className="flex justify-between text-sm">
-                  <span>Items total</span>
+                  <span>Items total (incl. GST)</span>
                   <div>
                     <span className="mr-2 text-xs text-gray-400 line-through">
                       {rupeeSymbol} {totalPriceBeforeDiscount}
@@ -189,21 +187,21 @@ export function ShoppingCartButton({ initialData, featuredProducts }: ShoppingCa
                   <span>Delivery charges</span>
                   <span className="font-medium text-green-600">
                     {/* @ts-expect-error */}
-                    {totalPriceAfterDiscount >= 999
+                    {totalPriceAfterDiscount >= 648
                       ? "FREE"
-                      : `${rupeeSymbol} 999`}
+                      : `${rupeeSymbol} 80`}
                   </span>
                 </div>
-                <div className="flex justify-between text-sm">
+                {/* <div className="flex justify-between text-sm">
                   <span>Tax- GST @12%</span>
                   <span className="font-medium">
                     {rupeeSymbol} {totalGst.toFixed(2)}
                   </span>
-                </div>
+                </div> */}
                 <div className="flex justify-between border-t pt-2 font-bold">
                   <span>Order total</span>
                   <span>
-                    {rupeeSymbol} {totalPriceAfterDiscountWithGST}
+                    {rupeeSymbol} {totalPriceAfterDiscountWithGST.toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -238,8 +236,7 @@ function ShoppingCartItem({
 
   const slug = item.url?.split("/").pop();
 
-  const quantityLimitReached =
-    !!item.quantity &&
+  const quantityLimitReached =!!item.quantity &&
     !!item.availability?.quantityAvailable &&
     item.quantity >= item.availability.quantityAvailable;
 

@@ -357,7 +357,6 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
               </div>
             ) : (
               <Accordion
-              
                 type="multiple"
                 value={openAccordions}
                 onValueChange={setOpenAccordions}
