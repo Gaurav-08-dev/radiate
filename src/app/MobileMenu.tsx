@@ -368,7 +368,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
                   <AccordionTrigger
                     className={cn(
                       playfair.className,
-                      "py-0 text-sm hover:no-underline",
+                      "py-0 text-md hover:no-underline",
                     )}
                   >
                     Shop
@@ -438,7 +438,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
                 <div className="py-0 mt-0">
                   <Link
                     href="/shop?collection=2398b8e1-88a1-93c4-2323-9a74d09770f8"
-                    className={cn(playfair.className, "mt-0 text-sm font-medium")}
+                    className={cn(playfair.className, "mt-0 text-md font-medium")}
                   >
                     Best-sellers
                   </Link>
@@ -448,7 +448,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
                   <AccordionTrigger
                     className={cn(
                       playfair.className,
-                      "py-0 text-sm hover:no-underline",
+                      "py-0 text-md hover:no-underline",
                     )}
                   >
                     Shop by scent
@@ -490,11 +490,11 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
               </Accordion>
             )}
             {!searchQuery.trim() && (
-              <div className="flex flex-col items-start space-y-3 text-sm font-medium">
+              <div className="flex flex-col items-start space-y-3 text-md font-medium">
                 <div
                   className={cn(
                     playfair.className,
-                    "flex flex-col space-y-3 text-sm font-medium",
+                    "flex flex-col space-y-3 text-md font-medium",
                   )}
                 >
                   <Link href="/faq">FAQs</Link>
