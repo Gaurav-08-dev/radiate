@@ -60,7 +60,7 @@ async function Products({ page, collectionIds, sort }: ProductProps) {
           : `Showing all products`}
       </h1>
       <div className="flex h-full flex-col items-center justify-between gap-10">
-        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-1 sm:gap-6 md:gap-8 lg:gap-10 md:grid-cols-2 lg:grid-cols-4">
           {products?.items?.map((product) => (
             <ProductGridUnit
               product={product}
