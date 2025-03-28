@@ -65,7 +65,7 @@ const ProductGridUnit = ({
             alt={mainImage?.altText}
             width={width}
             height={height}
-            className="object-scale-down md:object-cover w-full h-full transition-transform duration-300 hover:scale-105"
+            className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
           />
         </div>
 
