@@ -13,13 +13,16 @@ import { useState } from "react";
 import useAuth from "@/hooks/auth";
 import {
   getDirectLoginMemberToken,
+  resetPassword,
   setTokensAndCookiesClient,
 } from "@/wix-api/members";
-// import { FcGoogle } from "react-icons/fc";
+import { Loader2 } from "lucide-react";
+import Image from "next/image";
+import authBg from "@/assets/login page image.jpeg";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
-  password: z.string().min(4, "Password must be at least 6 characters"),
+  password: z.string(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -110,7 +113,15 @@ export default function SignIn() {
   return (
     <div className="flex min-h-screen">
       {/* Left side - Image */}
-      <div className="hidden w-1/2 bg-[url('/auth-bg.jpg')] bg-cover bg-center md:block" />
+      <div className="hidden w-1/2 relative md:block">
+        <Image 
+          src={authBg}
+          alt="Authentication background"
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
 
       {/* Right side - Form */}
       <div className="flex w-full flex-col justify-start px-6 py-6 md:w-1/2 md:justify-center lg:px-8">
@@ -155,12 +166,19 @@ export default function SignIn() {
                 </p>
               )}
               <div className="mt-2 text-right">
-                <Link
-                  href="/forgot-password"
+                <Button
+                  type="button"
+                  variant="link"
                   className="text-sm text-[#500769] hover:text-[#500769]/80"
+                  onClick={(e) => {
+                    // e.stopPropagation();
+                    e.preventDefault();
+                    const email = 'g8111997@gmail.com';
+                    resetPassword(wixBrowserClient, email);
+                  }}
                 >
                   Forgot password?
-                </Link>
+                </Button>
               </div>
             </div>
 
@@ -172,6 +190,7 @@ export default function SignIn() {
               {loginStatus === "loading" ? (
                 <div className="flex items-center justify-center">
                   <span className="mr-2">Signing in...</span>
+                  <Loader2 className="h-4 w-4 animate-spin" />
                   {/* Optional: Add a loading spinner here */}
                 </div>
               ) : (

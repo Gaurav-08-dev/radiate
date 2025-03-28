@@ -13,7 +13,7 @@ import { redirects } from "@wix/redirects";
 import { reviews } from "@wix/reviews";
 import { createClient, OAuthStrategy, Tokens } from "@wix/sdk";
 import { collections, products } from "@wix/stores";
-
+import { recovery } from "@wix/identity";
 export function getWixClient(tokens: Tokens | undefined) {
   return createClient({
     modules: {
@@ -28,7 +28,8 @@ export function getWixClient(tokens: Tokens | undefined) {
       reviews,
       members,
       files,
-      checkoutSettings
+      checkoutSettings,
+      recovery
     },
     auth: OAuthStrategy({
       clientId: env.NEXT_PUBLIC_WIX_CLIENT_ID,

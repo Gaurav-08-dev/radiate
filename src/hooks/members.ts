@@ -1,4 +1,4 @@
-import { AddressProps, updateMemberAddress, updateMemberInfo, UpdateMemberInfoProps } from "@/wix-api/members";
+import { AddressProps, resetPassword, updateMemberAddress, updateMemberInfo, UpdateMemberInfoProps } from "@/wix-api/members";
 import { useToast } from "./use-toast";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
@@ -55,3 +55,17 @@ export function useMembersAddress() {
 }
 
 
+export function useMembersResetPassword() {
+  const { toast } = useToast();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: (variables: string) =>
+      resetPassword(wixBrowserClient, variables),
+    onSuccess: () => {
+      toast({
+        description: "Password reset email sent",
+      });
+    },
+  });
+}

@@ -45,7 +45,7 @@ export default function AddressBook({ member }: { member: members.Member }) {
 
   const onSubmit = (data: any) => {
     // Add the new address to the addresses array
-   const res =  mutation.mutate({
+    mutation.mutate({
       addressLine2: data.fullAddress,
       city: data.city,
       subdivision: data.postalCode,
@@ -54,7 +54,7 @@ export default function AddressBook({ member }: { member: members.Member }) {
     });
     // setAddresses([...addresses, data]);
     // Reset form
-    // form.reset();
+    form.reset();
     // setIsAddingAddress(false);
   };
 

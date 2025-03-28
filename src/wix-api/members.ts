@@ -3,6 +3,8 @@ import { members } from "@wix/members";
 import { cache } from "react";
 // import { cookies } from "next/headers";
 import { WIX_SESSION_COOKIE } from "@/lib/constants";
+import { recovery } from "@wix/identity";
+import { redirect } from "next/dist/server/api-utils";
 
 export interface AddressProps {
   addressLine2: string;
@@ -72,6 +74,7 @@ export async function updateMemberAddress(
 
   return wixClient.members.updateMember(loggedInMember._id, {
     contact: {
+
       addresses: [
         ...address,
         {
@@ -139,6 +142,19 @@ export async function setTokensAndCookies(wixClient: WixClient, res: any) {
     document.cookie = `${WIX_SESSION_COOKIE}=${JSON.stringify(res)}; path=/; max-age=${60 * 60 * 24 * 14}; ${process.env.NODE_ENV === "production" ? "secure;" : ""}`;
   }
   // The server-side part would need to be called separately
+}
+
+export async function resetPassword(wixClient: WixClient, email: string) {
+  const res = await wixClient.recovery.sendRecoveryEmail(email,
+    {
+      redirect:{
+        url:'http://localhost:3000',
+        clientId:`${process.env.NEXT_PUBLIC_WIX_CLIENT_ID}`
+      }
+    }
+  )
+  console.log(res)
+  return res;
 }
 
 

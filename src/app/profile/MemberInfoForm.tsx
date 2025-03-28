@@ -31,7 +31,7 @@ import LoadingButton from "@/components/LoadingButton";
 const formSchema = z.object({
   loginEmail: requiredString,
   firstName: z.string(),
-  lastName: z.string(),
+  lastName: z.string().optional(),
   phones: z.string().optional(),
   birthdate: z.date().optional(),
 });
@@ -60,7 +60,7 @@ export default function MemberInfoForm({ member }: MemberInfoFormProps) {
   async function onSubmit(values: FormValues) {
     mutation.mutate({
       firstName: values.firstName,
-      lastName: values.lastName,
+      lastName: values.lastName || "",
       birthdate: values?.birthdate ? format(values?.birthdate, "yyyy-MM-dd") : "",
       phones: values.phones || "",
     });

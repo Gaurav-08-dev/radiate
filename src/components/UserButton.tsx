@@ -24,7 +24,7 @@ export default function UserButton({
   loggedInMember,
   className,
 }: UserButtonProps) {
-  const { logout } = useAuth();
+  const { logout, login } = useAuth();
   const router = useRouter();
 
   return (
@@ -59,7 +59,7 @@ export default function UserButton({
             Logout
           </DropdownMenuItem>
         ) : (
-          <DropdownMenuItem className="" onClick={() => router.push("/signin")}>
+          <DropdownMenuItem className="" onClick={() => login()}>
             <LogInIcon />
             Login
           </DropdownMenuItem>
