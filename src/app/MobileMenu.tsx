@@ -159,7 +159,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
           className="w-[85%] max-w-md overflow-y-auto rounded-none bg-[#F7F2FA] shadow-xl outline-none"
         >
           <SheetHeader className="relative flex w-full items-start">
-            <div className="relative min-w-[95%]">
+            {/* <div className="relative min-w-[95%]">
               <input
                 type="search"
                 placeholder="Search"
@@ -182,7 +182,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
               </svg>
-            </div>
+            </div> */}
           </SheetHeader>
           <div className="scrollbar-hide mt-4 flex max-h-[90%] flex-col items-start space-y-3 overflow-y-auto [&::-webkit-scrollbar]:hidden">
             {searchQuery.trim() ? (
@@ -362,7 +362,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
                 type="multiple"
                 value={openAccordions}
                 onValueChange={setOpenAccordions}
-                className="w-full space-y-3"
+                className="w-full space-y-3 mt-5"
               >
                 <AccordionItem value="shop" className="border-b-0">
                   <AccordionTrigger

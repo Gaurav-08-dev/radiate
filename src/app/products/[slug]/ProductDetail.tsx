@@ -31,6 +31,7 @@ interface ProductDetailProps {
 }
 
 export default function ProductDetails({ product }: ProductDetailProps) {
+  
   const [api, setApi] = useState<CarouselApi>();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -74,7 +75,6 @@ export default function ProductDetails({ product }: ProductDetailProps) {
     (detail) => detail.title?.toLowerCase() === "ideal for",
   );
   const handleImageClick = (index:number) => {
-    
     api?.scrollTo(index);
     setCurrentIndex(index);
   };

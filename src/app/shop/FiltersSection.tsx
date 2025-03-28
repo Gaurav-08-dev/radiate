@@ -144,13 +144,50 @@ function CollectionsFilter({
   selectedCollectionIds,
   updateCollectionIds,
 }: CollectionsFilterProps) {
+  // Define the desired order for Product Type collections
+  const productTypeOrder = [
+    "Customer Favourites",
+    "Scented Candles",
+    "Designer Pillar Candles",
+    "Signature Candle",
+    "Floating Candles",
+    "Gifting combos"
+  ];
+
+  // Sort collections within each group based on the desired order
+  const sortedCollections = collections.map(group => {
+    if (group.header.toLowerCase() === "product type") {
+      // Create a new array with sorted collections
+      const sortedProductTypes = [...group.collections].sort((a, b) => {
+        const nameA = a.name?.split(/[-]/)?.[0]?.trim() || "";
+        const nameB = b.name?.split(/[-]/)?.[0]?.trim() || "";
+        
+        const indexA = productTypeOrder.indexOf(nameA);
+        const indexB = productTypeOrder.indexOf(nameB);
+        
+        // If both items are in our order list, sort by that order
+        if (indexA !== -1 && indexB !== -1) {
+          return indexA - indexB;
+        }
+        // If only one is in the list, prioritize the one in the list
+        if (indexA !== -1) return -1;
+        if (indexB !== -1) return 1;
+        // Otherwise, keep original order
+        return 0;
+      });
+      
+      return {...group, collections: sortedProductTypes};
+    }
+    return group;
+  });
+
   return (
     <div className="px-4 md:px-0 flex flex-col gap-4 md:gap-4">
       <div className="space-y-3 md:space-y-3">
         {/* <div className="flex items-center gap-3 md:gap-4">
           <div className="text-base md:text-lg font-medium">Collections</div>
         </div> */}
-        {collections.map((group) => (
+        {sortedCollections.map((group) => (
           <div key={group.header} className="space-y-2 md:space-y-2">
             <h3 className="text-sm font-medium ">
               {formatCategoryTitle(group.header)}

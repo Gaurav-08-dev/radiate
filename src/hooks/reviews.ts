@@ -15,7 +15,7 @@ export function useCreateProductReview() {
     onSuccess: () => {
       toast({
         title: "Thank you for your review! It’ll be visible shortly 😊",
-        duration: 2000,
+        duration: 4000,
       });
     },
 
