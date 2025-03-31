@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { products } from "@wix/stores";
 import Link from "next/link";
 import WixImage from "./WixImage";
-import { cn, findVariant } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { AddToCartButton } from "./AddToCartButton";
 import ProductOptions from "./ProductOptions";
 import { playfair, montserrat } from "@/lib/utils";

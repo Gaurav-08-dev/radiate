@@ -28,6 +28,7 @@ const ProductGridUnit = ({
   className,
 }: ProductGridUnitProps) => {
   
+  const [currentImage, setCurrentImage] = useState('');
   const mainImage = product.media?.mainMedia?.image;
   const discount = product.discount;
   const priceData = product?.priceData;
@@ -47,6 +48,18 @@ const ProductGridUnit = ({
 
   // const selectedVariant = findVariant(product, selectedOptions);
 
+  useEffect(() => {
+    if(!product.productOptions?.length) return;
+    const selectedVariant = product.productOptions?.find(
+      (option) => option.name === "Color",
+    );
+    const selectedOption = selectedVariant?.choices?.find(
+      (choice) => choice.description === selectedOptions.Color,
+    );
+    // @ts-ignore
+    setCurrentImage(selectedOption?.media?.mainMedia?.image || mainImage);
+  }, [selectedOptions]);
+
   return (
     <div
       className={cn(
@@ -61,7 +74,8 @@ const ProductGridUnit = ({
       >
         <div className="relative mb-3 sm:mb-4 h-[170px] w-[190px] sm:h-[250px] sm:w-[280px] overflow-hidden">
           <WixImage
-            mediaIdentifier={mainImage?.url}
+            // @ts-ignore
+            mediaIdentifier={currentImage?.url || mainImage?.url}
             alt={mainImage?.altText}
             width={width}
             height={height}
