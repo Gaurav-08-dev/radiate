@@ -141,7 +141,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
       (choice) => choice.description === selectedOptions.Color,
     );
     // @ts-ignore
-    setCurrentImage(selectedOption?.media?.mainMedia?.image || mainImage);
+    // setCurrentImage(selectedOption?.media?.mainMedia?.image || mainImage);
     
     // If a color is selected with a specific image, update the carousel
     if (selectedOption?.media?.mainMedia?.image) {
@@ -166,7 +166,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
           choice => choice.description === selectedOptions.Color
         );
         // @ts-ignore
-        setCurrentImage(initialOption?.media?.mainMedia?.image || mainImage);
+        // setCurrentImage(initialOption?.media?.mainMedia?.image || mainImage);
         
         // If a color is selected with a specific image, update the carousel
         if (initialOption?.media?.mainMedia?.image && api) {
@@ -181,11 +181,11 @@ export default function ProductDetails({ product }: ProductDetailProps) {
         }
       } else {
         // @ts-ignore
-        setCurrentImage(mainImage);
+        // setCurrentImage(mainImage);
       }
     } else {
       // @ts-ignore
-      setCurrentImage(mainImage);
+      // setCurrentImage(mainImage);
     }
   }, [api]); // Include api in dependencies so this runs after carousel is initialized
 
@@ -304,7 +304,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
           <div className="h-[1px] w-full bg-gray-200" />
 
           {/* Price section */}
-          <div className="flex flex-col md:flex-row md:items-center md:gap-20">
+          <div className="flex flex-col md:flex-row md:items-center md:gap-10">
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-4">
                 <span className="font-semibold">MRP</span>
@@ -327,14 +327,14 @@ export default function ProductDetails({ product }: ProductDetailProps) {
 
             {/* Quantity , Add to cart , Sharebutton*/}
             <div
-              className={`mt-4 flex w-full gap-4 md:mt-10 md:w-[400px] md:max-w-fit md:flex-row md:gap-10`}
+              className={`mt-4 flex w-full gap-4 md:mt-10 md:w-[400px] md:max-w-fit md:flex-row md:gap-7`}
             >
               {isInStock ? (
-                <div className="flex max-w-fit rounded-none border">
+                <div className="flex max-w-fit rounded-none border max-h-[2.4rem]">
                   <button
                     disabled={quantity === 1}
                     type="button"
-                    className="px-3 py-1"
+                    className="px-3"
                     onClick={() => setQuantity(quantity - 1)}
                   >
                     -
@@ -348,7 +348,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                   />
                   <button
                     type="button"
-                    className="px-3 py-1"
+                    className="px-3"
                     onClick={() => setQuantity(quantity + 1)}
                   >
                     +
@@ -371,7 +371,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                 <button
                   ref={shareButtonRef}
                   type="button"
-                  className="flex h-12 items-center justify-center rounded-none"
+                  className="flex h-10 items-center justify-center rounded-none"
                   onClick={handleShareClick}
                   aria-label="Share product"
                 >
