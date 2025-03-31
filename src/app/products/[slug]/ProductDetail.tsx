@@ -227,7 +227,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
               <button
                 type="button"
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="ml-1 inline-block text-sm font-medium text-[#500769] hover:underline"
+                className="ml-1 inline-block text-sm font-medium text-[#500769] hover:underline md:hidden"
               >
                 {isExpanded ? "Read Less" : "Read More"}
               </button>

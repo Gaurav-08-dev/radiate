@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/siteHeader";
 import { SiteFooter } from "@/components/siteFooter";
 import ReactQueryProvider from "./ReactQueryProvider";
 import { Toaster } from "@/components/ui/toaster";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 
 export const playfairDisplayt = Playfair_Display({
@@ -27,6 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      
       <body
         className="antialiased"
       >
@@ -40,6 +42,7 @@ export default function RootLayout({
         </ReactQueryProvider>
         <Toaster />
       </body>
+      <GoogleAnalytics gaId="G-HN0JB2Z69M" />
     </html>
   );
 }
