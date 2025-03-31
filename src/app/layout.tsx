@@ -33,8 +33,7 @@ export default function RootLayout({
         className="antialiased"
       >
         <ReactQueryProvider>
-          <div className="flex min-h-screen flex-col relative">
-            
+          <div className="flex min-h-screen flex-col relative">            
             <SiteHeader />
             <div className={`flex-grow ${montserrat.className} `}>{children}</div>
             <SiteFooter className={`${montserrat.className} `} />

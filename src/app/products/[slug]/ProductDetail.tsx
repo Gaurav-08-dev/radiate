@@ -7,6 +7,7 @@ import { AddToCartButton } from "@/components/AddToCartButton";
 import { Check } from "lucide-react";
 import { playfair } from "@/lib/utils";
 // import BuyNowButton from "@/components/BuyNowButton";
+import ProductOptions from "@/components/ProductOptions";
 // import ProductOptions from "@/components/ProductOptions";
 import { EmblaCarouselType } from "embla-carousel";
 import {
@@ -36,13 +37,15 @@ export default function ProductDetails({ product }: ProductDetailProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
   const [showShareMenu, setShowShareMenu] = useState(false);
-  const [selectedOptions] = useState<Record<string, string>>(
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(
     product.productOptions
       ?.map((option) => ({
         [option.name || ""]: option.choices?.[0]?.description || "",
       }))
       ?.reduce((acc, option) => ({ ...acc, ...option }), {}) || {},
   );
+  const [currentImage, setCurrentImage] = useState('');
+  const mainImage = product.media?.mainMedia?.image;
 
   const [quantity, setQuantity] = useState(1);
 
@@ -128,6 +131,64 @@ export default function ProductDetails({ product }: ProductDetailProps) {
     };
   }, []);
   
+  // Add effect to handle color variant image changes
+  useEffect(() => {
+    if(!product.productOptions?.length) return;
+    const selectedVariant = product.productOptions?.find(
+      (option) => option.name === "Color",
+    );
+    const selectedOption = selectedVariant?.choices?.find(
+      (choice) => choice.description === selectedOptions.Color,
+    );
+    // @ts-ignore
+    setCurrentImage(selectedOption?.media?.mainMedia?.image || mainImage);
+    
+    // If a color is selected with a specific image, update the carousel
+    if (selectedOption?.media?.mainMedia?.image) {
+      // Find the index of the image in the imagesList
+      const imageIndex = imagesList?.findIndex(
+        // @ts-ignore
+        (img) => img?.image?.url === selectedOption?.media?.mainMedia?.image?.url
+      );
+      if (imageIndex !== -1 && imageIndex !== undefined) {
+        handleImageClick(imageIndex);
+      }
+    }
+  }, [selectedOptions]);
+
+  // Add a new useEffect to set the initial image when component mounts
+  useEffect(() => {
+    // Set initial image based on the default selected option or main image
+    if (product.productOptions?.length) {
+      const colorOption = product.productOptions.find(option => option.name === "Color");
+      if (colorOption && selectedOptions.Color) {
+        const initialOption = colorOption.choices?.find(
+          choice => choice.description === selectedOptions.Color
+        );
+        // @ts-ignore
+        setCurrentImage(initialOption?.media?.mainMedia?.image || mainImage);
+        
+        // If a color is selected with a specific image, update the carousel
+        if (initialOption?.media?.mainMedia?.image && api) {
+          // Find the index of the image in the imagesList
+          const imageIndex = imagesList?.findIndex(
+            // @ts-ignore
+            (img) => img?.image?.url === initialOption?.media?.mainMedia?.image?.url
+          );
+          if (imageIndex !== -1 && imageIndex !== undefined) {
+            handleImageClick(imageIndex);
+          }
+        }
+      } else {
+        // @ts-ignore
+        setCurrentImage(mainImage);
+      }
+    } else {
+      // @ts-ignore
+      setCurrentImage(mainImage);
+    }
+  }, [api]); // Include api in dependencies so this runs after carousel is initialized
+
   return (
     <div className="container mx-auto px-0 pt-0 md:px-40 md:pt-20">
       <div className="flex flex-col gap-6 md:flex-row md:gap-12">
@@ -295,18 +356,18 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                 </div>
               ) : null}
 
-              <div className="flex w-full">
-                <AddToCartButton
-                  className={`h-12 w-full flex-1 bg-[#500769] text-base text-white hover:bg-[#500769]/90 md:text-xl`}
-                  product={product}
-                  quantity={quantity}
-                  buttonText={isInStock ? "Add to My Bag" : "Out of stock"}
-                  disabled={!isInStock}
-                  selectedOptions={selectedOptions}
-                />
-              </div>
+              {/* @ts-expect-error */}
+              {product?.productOptions?.length > 0 && (
+                <div className="flex min-h-[32px] gap-1">
+                  <ProductOptions
+                    product={product}
+                    selectedOptions={selectedOptions}
+                    setSelectedOptions={setSelectedOptions}
+                  />
+                </div>
+              )}
                 
-              <div className="relative">
+              <div className="relative flex items-center justify-center">
                 <button
                   ref={shareButtonRef}
                   type="button"
@@ -379,7 +440,16 @@ export default function ProductDetails({ product }: ProductDetailProps) {
               </div>
             </div>
           </div>
-
+          <div className="flex w-full">
+                <AddToCartButton
+                  className={`h-12 w-full flex-1 bg-[#500769] text-base text-white hover:bg-[#500769]/90 md:text-xl`}
+                  product={product}
+                  quantity={quantity}
+                  buttonText={isInStock ? "Add to My Bag" : "Out of stock"}
+                  disabled={!isInStock}
+                  selectedOptions={selectedOptions}
+                />
+              </div>
           {/* Product details sections */}
           <div className="space-y-3 border-t pt-4 md:space-y-4 md:pt-6">
             <ProductDescription

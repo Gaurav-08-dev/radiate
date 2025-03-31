@@ -18,18 +18,21 @@ import CheckoutButton from "./CheckoutButton";
 import WixImage from "./WixImage";
 import { products } from "@wix/stores";
 import { AddToCartButton } from "./AddToCartButton";
-import { playfair,montserrat } from "@/lib/utils";
+import { playfair, montserrat } from "@/lib/utils";
 import { MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING } from "@/lib/constants";
 
 interface ShoppingCartButtonProps {
   initialData: currentCart.Cart | null;
   featuredProducts: products.Product[];
 }
-export function ShoppingCartButton({ initialData, featuredProducts }: ShoppingCartButtonProps) {
-  
+export function ShoppingCartButton({
+  initialData,
+  featuredProducts,
+}: ShoppingCartButtonProps) {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const cart = useCart(initialData);
-  const totalQuantity = cart?.data?.lineItems?.reduce(
+  const totalQuantity =
+    cart?.data?.lineItems?.reduce(
       (acc, item) => acc + (item.quantity || 0),
       0,
     ) || 0;
@@ -38,21 +41,23 @@ export function ShoppingCartButton({ initialData, featuredProducts }: ShoppingCa
   const totaldiscount = cart?.data?.lineItems?.reduce(
     (acc, item) =>
       acc +
-      ((Number(item?.fullPrice?.amount) || 0) * (item.quantity || 1)) -
-      ((Number(item.price?.amount) || 0) * (item.quantity || 1)),
+      (Number(item?.fullPrice?.amount) || 0) * (item.quantity || 1) -
+      (Number(item.price?.amount) || 0) * (item.quantity || 1),
     0,
   );
   const totalPriceBeforeDiscount = cart?.data?.lineItems?.reduce(
-    (acc, item) => acc + ((Number(item?.fullPrice?.amount) || 0) * (item.quantity || 1)),
+    (acc, item) =>
+      acc + (Number(item?.fullPrice?.amount) || 0) * (item.quantity || 1),
     0,
   );
   const totalPriceAfterDiscount = cart?.data?.lineItems?.reduce(
-    (acc, item) => acc + ((Number(item.price?.amount) || 0) * (item.quantity || 1)),
+    (acc, item) =>
+      acc + (Number(item.price?.amount) || 0) * (item.quantity || 1),
     0,
-  ) ;
+  );
 
   // @ts-ignore
-  const totalPriceAfterDiscountWithGST = totalPriceAfterDiscount  + (totalPriceAfterDiscount > MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING ? 0 : 80);
+  const totalPriceAfterDiscountWithGST = totalPriceAfterDiscount + (totalPriceAfterDiscount > MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING ? 0 : 80);
 
   return (
     <>
@@ -70,102 +75,128 @@ export function ShoppingCartButton({ initialData, featuredProducts }: ShoppingCa
         )}
       </button>
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <SheetContent className="flex w-11/12 flex-col md:max-w-lg rounded-none">
+        <SheetContent className="flex w-11/12 flex-col rounded-none md:max-w-lg">
           <SheetHeader className="border-b pb-4 text-center">
-            <SheetTitle className="mx-auto text-center text-[#25291C]">SHOPPING CART</SheetTitle>
+            <SheetTitle className="mx-auto text-center text-[#25291C]">
+              SHOPPING CART
+            </SheetTitle>
           </SheetHeader>
-          <div className="mt-4 flex grow flex-col space-y-5 overflow-y-auto scroll-smooth pt-1 px-4 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar]:w-2">
-            {cart?.data?.lineItems && cart?.data?.lineItems?.length > 0 && <ul className="space-y-5">
-              {cart?.data?.lineItems?.map((item) => (
-                <ShoppingCartItem
-                  key={item._id}
-                  item={item}
-                  onProductLinkClicked={() => setIsSheetOpen(false)}
-                />
-              ))}
-            </ul>}
+          <div className="mt-4 flex grow flex-col space-y-5 overflow-y-auto scroll-smooth px-4 pt-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar]:w-2">
+            {cart?.data?.lineItems && cart?.data?.lineItems?.length > 0 && (
+              <ul className="space-y-5">
+                {cart?.data?.lineItems?.map((item) => (
+                  <ShoppingCartItem
+                    key={item._id}
+                    item={item}
+                    onProductLinkClicked={() => setIsSheetOpen(false)}
+                  />
+                ))}
+              </ul>
+            )}
             {cart?.isPending && <Loader2 className="mx-auto animate-spin" />}
             {cart?.error && (
               <p className="text-destructive">{cart?.error.message}</p>
             )}
             {!cart?.isPending && !cart?.data?.lineItems?.length && (
-              <div className="flex flex-col gap-10 grow items-center justify-center text-center">
+              <div className="flex grow flex-col items-center justify-center gap-10 text-center">
                 {/* <div className="space-y-2"> */}
-                  <p className={`${montserrat.className} text-lg font-semibold text-gray-400`}>Your cart is empty</p>
-                  <Link
-                    href="/shop"
-                    className="text-white w-full p-2 bg-primary border font-medium"
-                    onClick={() => setIsSheetOpen(false)}
-                  >
-                    Continue shopping
-                  </Link>
+                <p
+                  className={`${montserrat.className} text-lg font-semibold text-gray-400`}
+                >
+                  Your cart is empty
+                </p>
+                <Link
+                  href="/shop"
+                  className="w-full border bg-primary p-2 font-medium text-white"
+                  onClick={() => setIsSheetOpen(false)}
+                >
+                  Continue shopping
+                </Link>
                 {/* </div> */}
               </div>
             )}
-            {!cart?.isPending && !cart?.data?.lineItems?.length && featuredProducts && featuredProducts.length > 0 && (
-              <div className="mt-8 flex flex-col gap-4">
-                <h3 className={`${playfair.className} mb-4 text-center text-sm md:text-xl font-medium uppercase`}>
-                  You may like
-                </h3>
-                <div className="grid grid-cols-1 gap-4">
-                  {featuredProducts.slice(0, 4).map((product) => (
-                    <div key={product?._id} className="flex gap-4 border-b pb-3">
-                      <WixImage
-                        mediaIdentifier={product?.media?.mainMedia?.image?.url}
-                        alt={product?.name}
-                        width={80}
-                        height={80}
-                        className="h-auto w-[100px] rounded-none object-cover"
-                      />
-                      <div className="flex flex-col justify-between gap-2">
-                        <div className="flex flex-col gap-2">
-                          <Link
-                            href={`/products/${product?.slug}`}
-                            className="line-clamp-2 text-xs font-medium"
-                            onClick={() => setIsSheetOpen(false)}
-                          >
-                            {product?.name}
-                          </Link>
-                          <div
-                            className="text-xs font-normal text-[#5F5F5F]"
-                            dangerouslySetInnerHTML={{
-                              __html: product?.additionalInfoSections?.find(
-                                (section) => section?.title?.toLowerCase() === "subtitle"
-                              )?.description || "",
-                            }}
+            {!cart?.isPending &&
+              !cart?.data?.lineItems?.length &&
+              featuredProducts &&
+              featuredProducts.length > 0 && (
+                <div className="mt-8 flex flex-col gap-4">
+                  <h3
+                    className={`${playfair.className} mb-4 text-center text-sm font-medium uppercase md:text-xl`}
+                  >
+                    You may like
+                  </h3>
+                  <div className="grid grid-cols-1 gap-4">
+                    {featuredProducts.slice(0, 4).map((product) => (
+                      <div
+                        key={product?._id}
+                        className="flex gap-4 border-b pb-3"
+                      >
+                        <WixImage
+                          mediaIdentifier={
+                            product?.media?.mainMedia?.image?.url
+                          }
+                          alt={product?.name}
+                          width={80}
+                          height={80}
+                          className="h-auto w-[100px] rounded-none object-cover"
+                        />
+                        <div className="flex flex-col justify-between gap-2">
+                          <div className="flex flex-col gap-2">
+                            <Link
+                              href={`/products/${product?.slug}`}
+                              className="line-clamp-2 text-xs font-medium"
+                              onClick={() => setIsSheetOpen(false)}
+                            >
+                              {product?.name}
+                            </Link>
+                            <div
+                              className="text-xs font-normal text-[#5F5F5F]"
+                              dangerouslySetInnerHTML={{
+                                __html:
+                                  product?.additionalInfoSections?.find(
+                                    (section) =>
+                                      section?.title?.toLowerCase() ===
+                                      "subtitle",
+                                  )?.description || "",
+                              }}
+                            />
+                          </div>
+                          <div className="text-xs font-medium">
+                            {product?.priceData?.formatted?.discountedPrice ||
+                              product?.priceData?.formatted?.price}
+                          </div>
+                          <AddToCartButton
+                            variant="default"
+                            size="sm"
+                            className="w-[100px] rounded-none bg-[#500769] px-2 text-xs hover:bg-[#500769]/90"
+                            product={product}
+                            quantity={1}
+                            disabled={!product?.stock?.inStock}
+                            buttonText={
+                              product?.stock?.inStock
+                                ? "Add to my bag"
+                                : "Out of stock"
+                            }
                           />
                         </div>
-                        <div className="text-xs font-medium">
-                          {product?.price?.formatted?.price}
-                        </div>
-                        <AddToCartButton
-                          variant="default"
-                          size="sm"
-                          className="w-[100px] rounded-none bg-[#500769] px-2 text-xs hover:bg-[#500769]/90"
-                          product={product}
-                          quantity={1}
-                          disabled={!product?.stock?.inStock}
-                          buttonText={product?.stock?.inStock ? "Add to my bag" : "Out of stock"}
-                        />
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+                  <Link
+                    href="/shop"
+                    className="mx-auto mt-4 w-fit border border-purple-600 p-2 text-sm font-medium text-purple-600 hover:text-purple-800"
+                    onClick={() => setIsSheetOpen(false)}
+                  >
+                    Explore all products
+                  </Link>
                 </div>
-                <Link
-                  href="/shop"
-                  className="mx-auto mt-4 w-fit border border-purple-600 p-2 text-sm font-medium text-purple-600 hover:text-purple-800"
-                  onClick={() => setIsSheetOpen(false)}
-                >
-                  Explore all products
-                </Link>
-              </div>
-            )}
+              )}
           </div>
           {/* @ts-expect-error  */}
           {cart?.data?.lineItems?.length > 0 && (
             <div className="mt-4 space-y-4">
               <div className="flex items-center gap-2 rounded-md bg-green-100 p-3">
-                  <span className="text-md">🥳</span>
+                <span className="text-md">🥳</span>
                 <p className="text-sm text-green-800">
                   {`Woohoo! You saved ₹${totaldiscount} on your order`}
                 </p>
@@ -185,15 +216,21 @@ export function ShoppingCartButton({ initialData, featuredProducts }: ShoppingCa
                   </div>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span>Delivery charges
+                  <div className="flex flex-col gap-1">
+                    <span>Delivery charges</span>
                     {/* @ts-expect-error */}
-                    {totalPriceAfterDiscount < MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING && <span className="px-2 text-sm text-gray-400">
-                    Free shipping above ₹{MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING}
-                    </span>}
-                  </span>
+                    {totalPriceAfterDiscount <
+                      MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING && (
+                      <span className="text-sm text-gray-400">
+                        Free shipping above ₹
+                        {MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING}
+                      </span>
+                    )}
+                  </div>
                   <span className="font-medium text-green-600">
                     {/* @ts-expect-error */}
-                    {totalPriceAfterDiscount >= MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING
+                    {totalPriceAfterDiscount >=
+                    MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING
                       ? "FREE"
                       : `${rupeeSymbol} 80`}
                   </span>
@@ -242,7 +279,8 @@ function ShoppingCartItem({
 
   const slug = item.url?.split("/").pop();
 
-  const quantityLimitReached =!!item.quantity &&
+  const quantityLimitReached =
+    !!item.quantity &&
     !!item.availability?.quantityAvailable &&
     item.quantity >= item.availability.quantityAvailable;
 
@@ -263,7 +301,7 @@ function ShoppingCartItem({
       <div className="flex-grow space-y-1">
         <div className="flex justify-between gap-2">
           <Link href={`/products/${slug}`} onClick={onProductLinkClicked}>
-            <p className="text-sm font-medium line-clamp-2 min-w-[100px] md:min-w-[200px]">
+            <p className="line-clamp-2 min-w-[100px] text-sm font-medium md:min-w-[200px]">
               {item.productName?.translated || "Item"}
             </p>
           </Link>

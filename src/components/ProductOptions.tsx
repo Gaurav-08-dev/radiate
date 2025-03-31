@@ -22,7 +22,6 @@ export default function ProductOptions({
   selectedOptions,
   setSelectedOptions,
   className,
-  
 }: ProductOptionsProps) {
 
   const id = product._id;
@@ -45,7 +44,7 @@ export default function ProductOptions({
           }}
           value={selectedOptions[option.name || ""] || option.choices?.[0]?.description || ""}
         >
-          <SelectTrigger className="min-w-fit md:h-10 h-7">
+          <SelectTrigger className="min-w-fit md:h-16 h-12 rounded-none">
             <SelectValue placeholder={selectedOptions[option.name || ""] || option.choices?.[0]?.description || ""} />
           </SelectTrigger>
           <SelectContent>
