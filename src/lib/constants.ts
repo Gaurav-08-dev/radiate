@@ -4,3 +4,4 @@ export const WIX_STORE_APP_ID = "215238eb-22a5-4c36-9e7b-e7c08025e04e";
 export const WIX_SESSION_COOKIE = "wix_session";
 export const WIX_OAUTH_DATA_COOKIE = "wix_oauthdata";
 export const SUPPORT_EMAIL = "radiatecandles24@gmail.com";
+export const MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING = 499;

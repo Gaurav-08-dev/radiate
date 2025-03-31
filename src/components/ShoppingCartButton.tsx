@@ -19,6 +19,7 @@ import WixImage from "./WixImage";
 import { products } from "@wix/stores";
 import { AddToCartButton } from "./AddToCartButton";
 import { playfair,montserrat } from "@/lib/utils";
+import { MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING } from "@/lib/constants";
 
 interface ShoppingCartButtonProps {
   initialData: currentCart.Cart | null;
@@ -51,7 +52,7 @@ export function ShoppingCartButton({ initialData, featuredProducts }: ShoppingCa
   ) ;
 
   // @ts-ignore
-  const totalPriceAfterDiscountWithGST = totalPriceAfterDiscount  + (totalPriceAfterDiscount > 648 ? 0 : 80);
+  const totalPriceAfterDiscountWithGST = totalPriceAfterDiscount  + (totalPriceAfterDiscount > MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING ? 0 : 80);
 
   return (
     <>
@@ -184,10 +185,15 @@ export function ShoppingCartButton({ initialData, featuredProducts }: ShoppingCa
                   </div>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span>Delivery charges</span>
+                  <span>Delivery charges
+                    {/* @ts-expect-error */}
+                    {totalPriceAfterDiscount < MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING && <span className="px-2 text-sm text-gray-400">
+                    Free shipping above ₹{MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING}
+                    </span>}
+                  </span>
                   <span className="font-medium text-green-600">
                     {/* @ts-expect-error */}
-                    {totalPriceAfterDiscount >= 648
+                    {totalPriceAfterDiscount >= MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING
                       ? "FREE"
                       : `${rupeeSymbol} 80`}
                   </span>
