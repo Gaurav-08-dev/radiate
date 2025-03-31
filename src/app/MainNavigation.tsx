@@ -18,8 +18,7 @@ interface MainNavigationProps {
   className?: string;
   customerFavorites?: collections.Collection[];
 }
-const MainNavigation = ({ className, collections, customerFavorites }: MainNavigationProps) => {
-  
+const MainNavigation = ({ className, collections, customerFavorites }: MainNavigationProps) => {  
   const router = useRouter();
   return (
     <NavigationMenu>

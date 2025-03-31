@@ -14,6 +14,7 @@ interface ProductOptionsProps {
   selectedOptions: Record<string, string>;
   setSelectedOptions: (options: Record<string, string>) => void;
   className?: string;
+  
 }
 
 export default function ProductOptions({
@@ -21,13 +22,13 @@ export default function ProductOptions({
   selectedOptions,
   setSelectedOptions,
   className,
+  
 }: ProductOptionsProps) {
+
   const id = product._id;
   const inventoryStatus =
     product.stock?.inventoryStatus?.toLowerCase() === "out_of_stock"
-      ? true
-      : false;
-  
+      ? true: false;
   
   return (
     <div className={cn("flex flex-wrap gap-2", className)}>
@@ -40,11 +41,12 @@ export default function ProductOptions({
               ...selectedOptions,
               [option.name || ""]: value || "",
             });
+  
           }}
-        //   value={selectedOptions[option.name || ""] || option.choices?.[0]?.description || ""}
+          value={selectedOptions[option.name || ""] || option.choices?.[0]?.description || ""}
         >
-          <SelectTrigger className="md:w-[180px] w-[100px] md:h-10 h-7">
-            <SelectValue placeholder={option.name} />
+          <SelectTrigger className="min-w-fit md:h-10 h-7">
+            <SelectValue placeholder={selectedOptions[option.name || ""] || option.choices?.[0]?.description || ""} />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
