@@ -44,7 +44,7 @@ export default function ProductOptions({
           }}
           value={selectedOptions[option.name || ""] || option.choices?.[0]?.description || ""}
         >
-          <SelectTrigger className="min-w-fit md:h-16 h-12 rounded-none">
+          <SelectTrigger className="min-w-fit md:h-16 max-h-fit rounded-none">
             <SelectValue placeholder={selectedOptions[option.name || ""] || option.choices?.[0]?.description || ""} />
           </SelectTrigger>
           <SelectContent>
