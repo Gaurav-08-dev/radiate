@@ -91,7 +91,7 @@ export default function SearchField({
               name="search"
               type="text"
               placeholder="Search products..."
-              className="relative border pe-10 w-full max-w-[300px]"
+              className="relative border pe-10 max-w-[-webkit-fill-content] w-full"
               autoFocus
               onChange={handleSearchInput}
             />

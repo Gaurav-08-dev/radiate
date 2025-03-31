@@ -77,7 +77,9 @@ export async function SiteHeader() {
             />
           </div>
           <div className="flex items-center space-x-2 lg:space-x-4">
-            <SearchField className="hidden max-w-96 lg:block" />
+            <SearchField className="hidden max-w-96 lg:block" 
+            featuredProducts={featuredProducts.items}
+            />
             <UserButton
               className="pt-[3px] text-white outline-none"
               loggedInMember={loggedInMember}
