@@ -7,7 +7,7 @@ interface BadgeProps {
 
 export default function Badge({ children, className }: BadgeProps) {
   return (
-    <span className={cn("px-2 py-1 w-fit rounded-md capitalize bg-primary text-white bg-purple-700",className)}>
+    <span className={cn("px-2 py-1 w-fit rounded-md capitalize bg-primary text-white ",className)}>
       {children}
     </span>
   );
