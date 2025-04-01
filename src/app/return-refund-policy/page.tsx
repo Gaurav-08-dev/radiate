@@ -98,7 +98,7 @@ const Page = () => {
     </ul>
     <p className='mt-4'>We appreciate your patience and support, and we’re committed to delivering a seamless shopping experience! ✨</p>
     </div>
-    <div className="h-[1px] w-full bg-gray-200 my-8" />
+    {/* <div className="h-[1px] w-full bg-gray-200 my-8" /> */}
     </div>
   )
 }
