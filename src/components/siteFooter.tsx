@@ -39,6 +39,9 @@ export function SiteFooter({ className }: { className?: string }) {
             <Link href="/terms&conditions" className="block hover:opacity-80">
               Terms & Conditions
             </Link>
+            <Link href="/return-refund-policy" className="block hover:opacity-80">
+              Return & Refund Policy
+            </Link>
             <Link href="/about-us" className="block hover:opacity-80">
               About Us
             </Link>
