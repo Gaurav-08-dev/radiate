@@ -40,7 +40,7 @@ export function SiteFooter({ className }: { className?: string }) {
               Terms & Conditions
             </Link>
             <Link href="/return-refund-policy" className="block hover:opacity-80">
-              Return & Refund Policy
+              Shipping, Return & Refund Policy
             </Link>
             <Link href="/about-us" className="block hover:opacity-80">
               About Us
