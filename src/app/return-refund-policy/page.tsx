@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
+import { SUPPORT_EMAIL, PHONE_NUMBER } from "@/lib/constants";
 type PolicyItemProps = {
   title: string;
   content: React.ReactNode;
@@ -56,7 +56,7 @@ export default function ReturnRefundPolicyPage() {
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold mb-6">Shipping, Return & Refund Policy</h1>
       
-      <div className="bg-[#f9f5fa] p-6 rounded-lg mb-10 border border-[#e9d5f0]">
+      <div className=" py-3 rounded-lg">
         <p className="text-lg"> 
           At Radiate, we want your shopping experience to be smooth, hassle-free, and enjoyable. We take great care in crafting and packaging our products, ensuring they reach you in perfect condition. 
           We are fully committed to promptly resolve any issues which may arise. Please read our policy carefully to ensure a seamless experience and to help you shop with confidence.
@@ -174,15 +174,15 @@ export default function ReturnRefundPolicyPage() {
               <div className="mt-4 space-y-2">
                 <a href="mailto:radiatecandles24@gmail.com" className="flex items-center gap-2 text-[#500769] hover:underline">
                   <span className="text-xl">📧</span>
-                  <span className="break-all">radiatecandles24@gmail.com</span>
+                  <span className="break-all">{SUPPORT_EMAIL}</span>
                 </a>
                 <a href="https://www.instagram.com/letsradiate.in/" className="flex items-center gap-2 text-[#500769] hover:underline">
                   <span className="text-xl">📱</span>
                   <span>@letsradiate.in</span>
                 </a>
-                <a href="https://wa.me/917011145443" className="flex items-center gap-2 text-[#500769] hover:underline">
+                <a href={`tel:${PHONE_NUMBER}`} className="flex items-center gap-2 text-[#500769] hover:underline">
                   <span className="text-xl">💬</span>
-                  <span>+91 7011145443</span>
+                  <span>{PHONE_NUMBER}</span>
                 </a>
               </div>
               <p className='mt-4'>We appreciate your patience and support, and we're committed to delivering a seamless shopping experience! ✨</p>

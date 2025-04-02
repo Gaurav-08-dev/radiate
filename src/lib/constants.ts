@@ -5,3 +5,4 @@ export const WIX_SESSION_COOKIE = "wix_session";
 export const WIX_OAUTH_DATA_COOKIE = "wix_oauthdata";
 export const SUPPORT_EMAIL = "radiatecandles24@gmail.com";
 export const MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING = 499;
+export const PHONE_NUMBER = "+91 7011145443";

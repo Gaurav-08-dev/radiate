@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Mail, Phone } from "lucide-react";
-import { SUPPORT_EMAIL } from "@/lib/constants";
+import { SUPPORT_EMAIL, PHONE_NUMBER } from "@/lib/constants";
 
 type FAQItemProps = {
   question: string;
@@ -135,9 +135,9 @@ export default function FAQPage() {
                   <Mail className="h-4 w-4" />
                   <span className="break-all">{SUPPORT_EMAIL}</span>
                 </a>
-                <a href="tel:+917011456324" className="flex items-center gap-2 text-[#500769] hover:underline">
+                <a href={`tel:${PHONE_NUMBER}`} className="flex items-center gap-2 text-[#500769] hover:underline">
                   <Phone className="h-4 w-4" />
-                  <span>+91 7011456324</span>
+                  <span>{PHONE_NUMBER}</span>
                 </a>
               </div>
             </div>
