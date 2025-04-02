@@ -54,7 +54,7 @@ export default function ReturnRefundPolicyPage() {
 
   return (
     <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-6">Shipping, Return & Refund Policy</h1>
+      <h1 className="md:text-4xl text-2xl font-bold mb-6">Shipping, Return & Refund Policy</h1>
       
       <div className=" py-3 rounded-lg">
         <p className="text-lg"> 

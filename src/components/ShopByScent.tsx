@@ -65,7 +65,7 @@ export async function ShopByScent() {
                           collection.media?.mainMedia?.image?.url || ""
                         }
                         alt={collection.name?.split("-")[0] || ""}
-                        className="rounded-none object-cover"
+                        className="rounded-none object-cover transition-transform duration-300 hover:scale-105"
                         width={700}
                         height={700}
                       />
