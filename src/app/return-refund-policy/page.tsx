@@ -83,9 +83,9 @@ const Page = () => {
     <h2 className='text-2xl font-bold'>Not Sure About a Product? Let’s Help You Decide!</h2>
     <p className='mt-4'>Since candles are a sensory product, we encourage you to explore before purchasing:</p>
     <ul className='list-disc list-inside mt-4 ml-4'>
-        <li>1️. Live Videos & Photos – DM us on Instagram or WhatsApp for real-time product showcase.</li>
-        <li>2️. Customer Reviews & Pictures – Check out real customer feedback on our Instagram highlights.</li>
-        <li>3️. Fragrance Descriptions – Read detailed scent descriptions to find your perfect match.</li>
+        <li> Live Videos & Photos – DM us on Instagram or WhatsApp for real-time product showcase.</li>
+        <li> Customer Reviews & Pictures – Check out real customer feedback on our Instagram highlights.</li>
+        <li> Fragrance Descriptions – Read detailed scent descriptions to find your perfect match.</li>
     </ul>
     <p className='mt-4'>At Radiate Candles, we believe in honesty, transparency, and making sure you love what you buy. If you need any assistance, feel free to reach out!</p>
     
