@@ -44,8 +44,8 @@ export default function ProductDetails({ product }: ProductDetailProps) {
       }))
       ?.reduce((acc, option) => ({ ...acc, ...option }), {}) || {},
   );
-  const [currentImage, setCurrentImage] = useState('');
-  const mainImage = product.media?.mainMedia?.image;
+  // const [currentImage, setCurrentImage] = useState('');
+  // const mainImage = product.media?.mainMedia?.image;
 
   const [quantity, setQuantity] = useState(1);
 
@@ -179,14 +179,8 @@ export default function ProductDetails({ product }: ProductDetailProps) {
             handleImageClick(imageIndex);
           }
         }
-      } else {
-        // @ts-ignore
-        // setCurrentImage(mainImage);
-      }
-    } else {
-      // @ts-ignore
-      // setCurrentImage(mainImage);
-    }
+      } 
+    } 
   }, [api]); // Include api in dependencies so this runs after carousel is initialized
 
   return (
@@ -386,7 +380,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                 {showShareMenu && (
                   <div 
                     ref={shareMenuRef}
-                    className="absolute right-0 top-14 z-10 flex w-56 flex-col rounded-md bg-[#F7F2FA] p-3 shadow-2xl"
+                    className="absolute -right-16 top-14 z-10 flex w-56 flex-col rounded-md bg-[#F7F2FA] p-3 shadow-2xl"
                   >
                     <div className="grid grid-cols-3 gap-3 md:grid-cols-4">
                       <WhatsappShareButton url={window.location.href} 
