@@ -1,5 +1,5 @@
 import { Mail, Phone } from "lucide-react";
-import { SUPPORT_EMAIL } from "@/lib/constants";
+import { SUPPORT_EMAIL, PHONE_NUMBER  } from "@/lib/constants";
 export const policyFAQs = [
   {
     emoji: "🚚",
@@ -94,11 +94,11 @@ export const policyFAQs = [
           <span className="break-all">{SUPPORT_EMAIL}</span>
         </a>
         <a
-          href="tel:+917011456324"
+          href={`tel:${PHONE_NUMBER}`}
           className="flex items-center gap-2 text-[#500769] hover:underline"
         >
           <Phone className="h-4 w-4" />
-          <span>+91 7011456324</span>
+          <span>{PHONE_NUMBER}</span>
         </a>
       </div>
     ),

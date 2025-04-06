@@ -7,6 +7,7 @@ import {
   Youtube,
 } from "lucide-react";
 import { cn, playfair } from "@/lib/utils";
+import { PHONE_NUMBER } from "@/lib/constants";
 
 export function SiteFooter({ className }: { className?: string }) {
   return (
@@ -64,11 +65,11 @@ export function SiteFooter({ className }: { className?: string }) {
               radiatecandles24@gmail.com
             </a>
             <a
-              href="tel:+917011145443"
+              href={`tel:${PHONE_NUMBER}`}
               className="flex items-center gap-2 hover:opacity-80"
             >
               <Phone className="h-4 w-4 md:h-5 md:w-5" />
-              +91 7011456324
+              {PHONE_NUMBER}
             </a>
           </div>
         </div>
