@@ -10,6 +10,7 @@ export async function GET(req: NextRequest) {
   const error = req.nextUrl.searchParams.get("error");
   const error_description = req.nextUrl.searchParams.get("error_description");
 
+  
   if (error) {
     return new Response(error_description, { status: 400 });
   }

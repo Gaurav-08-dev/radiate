@@ -21,8 +21,7 @@ import { queryProducts } from "@/wix-api/products";
 
 export async function SiteHeader() {
   const wixClient = getWixServerClient();
-  const [cart, loggedInMember, collections, customerFavorites, collectionsByScent, customerFavoritesCollection] =
-  await Promise.all([
+  const [cart, loggedInMember, collections, customerFavorites, collectionsByScent, customerFavoritesCollection] = await Promise.all([
     getCart(wixClient),
     getLoggedInMember(wixClient),
     getCollectionsForHeader(wixClient),

@@ -14,6 +14,7 @@ import { reviews } from "@wix/reviews";
 import { createClient, OAuthStrategy, Tokens } from "@wix/sdk";
 import { collections, products } from "@wix/stores";
 import { recovery } from "@wix/identity";
+
 export function getWixClient(tokens: Tokens | undefined) {
   return createClient({
     modules: {

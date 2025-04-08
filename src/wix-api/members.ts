@@ -3,8 +3,6 @@ import { members } from "@wix/members";
 import { cache } from "react";
 // import { cookies } from "next/headers";
 import { WIX_SESSION_COOKIE } from "@/lib/constants";
-import { recovery } from "@wix/identity";
-import { redirect } from "next/dist/server/api-utils";
 
 export interface AddressProps {
   addressLine2: string;
@@ -145,15 +143,16 @@ export async function setTokensAndCookies(wixClient: WixClient, res: any) {
 }
 
 export async function resetPassword(wixClient: WixClient, email: string) {
+
   const res = await wixClient.recovery.sendRecoveryEmail(email,
     {
       redirect:{
-        url:'http://localhost:3000',
+        url:'https://www.letsradiate.in/',
         clientId:`${process.env.NEXT_PUBLIC_WIX_CLIENT_ID}`
       }
     }
   )
-  console.log(res)
+  
   return res;
 }
 

@@ -19,6 +19,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast, useToast } from "./use-toast";
 
 const queryKey: QueryKey = ["cart"];
+
 export function useCart(initialData?: currentCart.Cart | null) {
   return useQuery({
     queryKey,
@@ -131,3 +132,5 @@ export const useClearCart = () => {
     retry: 3,
   });
 };
+
+

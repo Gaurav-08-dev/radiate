@@ -57,7 +57,6 @@ export function useMembersAddress() {
 
 export function useMembersResetPassword() {
   const { toast } = useToast();
-  const router = useRouter();
 
   return useMutation({
     mutationFn: (variables: string) =>

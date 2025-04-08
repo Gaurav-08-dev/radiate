@@ -1,5 +1,6 @@
 "use client";
 
+import { useMembersResetPassword } from "@/hooks/members";
 import { members } from "@wix/members";
 import { z } from "zod";
 import { requiredString } from "@/lib/validation";
@@ -56,6 +57,7 @@ export default function MemberInfoForm({ member }: MemberInfoFormProps) {
 
 
   const mutation = useMembersUpdate();
+  const resetPassword = useMembersResetPassword();
 
   async function onSubmit(values: FormValues) {
     mutation.mutate({
@@ -67,10 +69,11 @@ export default function MemberInfoForm({ member }: MemberInfoFormProps) {
   }
 
   return (
+    <>
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto flex max-w-7xl flex-col items-start justify-center space-y-5"
+        className="flex max-w-7xl flex-col items-start justify-center space-y-5"
       >
         <div className="flex w-full flex-col gap-5">
           <FormField
@@ -190,5 +193,14 @@ export default function MemberInfoForm({ member }: MemberInfoFormProps) {
         </LoadingButton>
       </form>
     </Form>
+    <div className="flex flex-col gap-5 mt-5 ">
+      <Button variant="outline" className="rounded-none w-full hover:bg-primary/80 hover:text-white" 
+      onClick={() => {
+        resetPassword.mutate(member?.loginEmail || "");
+      }}
+      >Reset Password</Button>
+    </div>
+    </>
+    
   );
 }

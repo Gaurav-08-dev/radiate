@@ -13,12 +13,12 @@ import { useState } from "react";
 import useAuth from "@/hooks/auth";
 import {
   getDirectLoginMemberToken,
-  resetPassword,
   setTokensAndCookiesClient,
 } from "@/wix-api/members";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import authBg from "@/assets/login page image.jpeg";
+
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -28,7 +28,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export default function SignIn() {
-  const { login } = useAuth();
+  const { login} = useAuth();
   const { toast } = useToast();
   const router = useRouter();
   const [loginStatus, setLoginStatus] = useState<
@@ -61,11 +61,12 @@ export default function SignIn() {
           );
           setTokensAndCookiesClient(wixBrowserClient, loginResponse);
           setLoginStatus("success");
+          router.push("/");
+          router.refresh();
+
           toast({
             description: "Successfully logged in!",
           });
-          router.replace("/");
-          router.refresh();
           break;
 
         case "FAILURE":
@@ -79,7 +80,7 @@ export default function SignIn() {
               break;
             case "resetPassword":
               errorMessage = "Please reset your password.";
-              router.push("/forgot-password");
+              router.push("/forgotpassword");
               break;
             case "emailAlreadyExists":
               errorMessage = "This email is already registered.";
@@ -139,6 +140,7 @@ export default function SignIn() {
               form.handleSubmit(onSubmit)(e);
             }}
             className="space-y-6"
+            noValidate
           >
             <Input
               type="email"
@@ -170,10 +172,7 @@ export default function SignIn() {
                   variant="link"
                   className="text-sm text-[#500769] hover:text-[#500769]/80"
                   onClick={(e) => {
-                    // e.stopPropagation();
-                    e.preventDefault();
-                    const email = 'g8111997@gmail.com';
-                    resetPassword(wixBrowserClient, email);
+                    router.push("/forgotpassword");
                   }}
                 >
                   Forgot password?
@@ -196,7 +195,9 @@ export default function SignIn() {
                 "Sign In"
               )}
             </Button>
+          </form>
 
+          <div className="mt-6 space-y-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t" />
@@ -207,46 +208,10 @@ export default function SignIn() {
             </div>
 
             <Button
+              type="button"
               variant="outline"
               className="w-full rounded-none"
-              onClick={async (e) => {
-                e.preventDefault();
-                try {
-                  setLoginStatus("loading");
-                  // Call login without parameters for Google authentication
-                  const response = await login();
-
-                  // @ts-ignore
-                  if (response && response.status === "SUCCESS") {
-                    // Get the direct login token and set cookies
-                    const loginResponse = await getDirectLoginMemberToken(
-                      wixBrowserClient,
-                      // @ts-ignore
-                      response?.tokens?.sessionToken,
-                    );
-                    setTokensAndCookiesClient(wixBrowserClient, loginResponse);
-                    setLoginStatus("success");
-                    toast({
-                      description: "Successfully logged in with Google!",
-                    });
-                    router.replace("/");
-                  } else {
-                    throw new Error("Google login failed");
-                  }
-                } catch (error) {
-                  setLoginStatus("error");
-                  console.error(error);
-                  toast({
-                    variant: "destructive",
-                    description:
-                      "An error occurred during Google login. Please try again.",
-                  });
-                } finally {
-                  if (loginStatus !== "success") {
-                    setLoginStatus("idle");
-                  }
-                }
-              }}
+              onClick={() => login()}
               disabled={loginStatus === "loading"}
             >
               {/* <FcGoogle className="mr-2 h-5 w-5" /> */}
@@ -262,7 +227,7 @@ export default function SignIn() {
                 Create an account
               </Link>
             </p>
-          </form>
+          </div>
         </div>
       </div>
     </div>

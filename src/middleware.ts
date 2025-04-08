@@ -7,6 +7,7 @@ const wixClient = createClient({
   auth: OAuthStrategy({ clientId: env.NEXT_PUBLIC_WIX_CLIENT_ID }),
 });
 
+
 export async function middleware(request: NextRequest) {
   const cookies = request.cookies;
   const sessionCookie = cookies.get(WIX_SESSION_COOKIE);
@@ -24,6 +25,18 @@ export async function middleware(request: NextRequest) {
     } catch (error) {
       sessionTokens = await wixClient.auth.generateVisitorTokens();
     }
+  }
+
+  
+  // Check if user is logged in and trying to access signin or signup pages
+  const url = request.nextUrl.clone();
+  const isLoggedIn = sessionTokens.refreshToken && sessionTokens?.refreshToken?.role === "member";
+  const isAuthPage = url.pathname === '/signin' || url.pathname === '/signup';
+
+  if (isLoggedIn && isAuthPage) {
+    // Redirect to home page if logged in user tries to access auth pages
+    url.pathname = '/';
+    return NextResponse.redirect(url);
   }
 
   request.cookies.set(WIX_SESSION_COOKIE, JSON.stringify(sessionTokens));

@@ -12,8 +12,8 @@ import {
 } from "./ui/dropdown-menu";
 import { LogInIcon, LogOutIcon, User, UserIcon } from "lucide-react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 interface UserButtonProps {
   loggedInMember: members.Member | null;
@@ -24,9 +24,8 @@ export default function UserButton({
   loggedInMember,
   className,
 }: UserButtonProps) {
-  const { logout, login } = useAuth();
+  const { logout } = useAuth();
   const router = useRouter();
-
   return (
     <div className={cn("", className)}>
       <DropdownMenu>
@@ -56,12 +55,12 @@ export default function UserButton({
         {loggedInMember ? (
           <DropdownMenuItem className="" onClick={() => logout()}>
             <LogOutIcon />
-            Logout
+            Sign Out
           </DropdownMenuItem>
         ) : (
-          <DropdownMenuItem className="" onClick={() => login()}>
+          <DropdownMenuItem className="" onClick={() => router.push("/signin")}>
             <LogInIcon />
-            Login
+            Sign In
           </DropdownMenuItem>
         )}
         </DropdownMenuContent>

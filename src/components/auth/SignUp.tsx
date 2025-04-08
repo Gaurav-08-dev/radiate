@@ -5,23 +5,15 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-// import { Calendar } from "@/components/ui/calendar";
-// import {
-//   Popover,
-//   PopoverContent,
-//   PopoverTrigger,
-// } from "@/components/ui/popover";
-// import { format } from "date-fns";
+
 import { 
-  // CalendarIcon, 
-  Eye, EyeOff } from "lucide-react";
+  Eye, EyeOff 
+} from "lucide-react";
 import { playfair } from "@/lib/utils";
 import { useState } from "react";
-// import { useMembersRegister } from "@/hooks/members";
 
 import { wixBrowserClient } from "@/lib/wix-client.browser";
 import { getDirectLoginMemberToken, registerMember, 
-  // setTokensAndCookies, 
   setTokensAndCookiesClient } from "@/wix-api/members";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -45,7 +37,6 @@ const signUpSchema = z.object({
     .min(1, "Phone number is required")
     .min(10, "Phone number must be at least 10 digits")
     .regex(/^\d+$/, "Phone number must contain only digits"),
-  // dob: z.date().optional(),
 });
 
 type FormData = z.infer<typeof signUpSchema>;
@@ -55,7 +46,6 @@ export default function SignUp() {
   const { 
     register, 
     handleSubmit, 
-    // setValue, watch,
     formState: { errors }
   } = useForm<FormData>({
     resolver: zodResolver(signUpSchema),
@@ -69,7 +59,6 @@ export default function SignUp() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // const dob = watch("dob");
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -89,6 +78,7 @@ export default function SignUp() {
         setTokensAndCookiesClient(wixBrowserClient, loginResponse);
         // Navigate to home page and refresh to ensure middleware picks up the new cookie
         router.replace('/'); // Using replace instead of push to avoid having the URL in history
+        router.refresh();
       } else {
         throw new Error('Registration did not complete successfully');
       }
@@ -211,28 +201,7 @@ export default function SignUp() {
               )}
             </div>
 
-            {/* <div>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="w-full rounded-none text-left font-normal"
-                  >
-                    {dob ? format(dob, "PPP") : <span>Date of birth</span>}
-                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    fromDate={new Date(new Date().getFullYear() - 100, new Date().getMonth(),new Date().getDate())}
-                    toDate={new Date(new Date().getFullYear(), new Date().getMonth(),new Date().getDate())}
-                    mode="single"
-                    selected={dob || new Date()}
-                    onSelect={(date) => setValue("dob", date || new Date())}
-                  />
-                </PopoverContent>
-              </Popover>
-            </div> */}
+            
 
             <Button
               type="submit"
@@ -242,24 +211,6 @@ export default function SignUp() {
               {isSubmitting ? "Creating Account..." : "Create Account"}
             </Button>
 
-            {/* <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="bg-white px-2 text-gray-500">Or</span>
-              </div>
-            </div> */}
-
-            {/* <p className="text-center text-sm text-gray-500">
-              Already have an account?{" "}
-              <Link
-                href="/signin"
-                className="font-semibold leading-6 text-[#500769] hover:text-[#500769]/80"
-              >
-                Sign in
-              </Link>
-            </p> */}
           </form>
         </div>
       </div>
