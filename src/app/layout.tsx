@@ -19,6 +19,9 @@ export const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: { template: `%s`, absolute: "Radiate" },
   description: "Fragrance that speaks to your soul",
+  verification: {
+    google: "UzJRr2g4h1L24L5VCcC3aaR0k87-qWHGQbUlwh0cilc",
+  },
 };
 
 export default function RootLayout({
