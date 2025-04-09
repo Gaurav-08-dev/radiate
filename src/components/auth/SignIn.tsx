@@ -18,7 +18,7 @@ import {
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import authBg from "@/assets/login page image.jpeg";
-
+import googleLogo from "@/assets/google.png";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -203,7 +203,7 @@ export default function SignIn() {
                 <span className="w-full border-t" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="bg-white px-2 text-gray-500">Or</span>
+                <span className="bg-white px-2 text-gray-500">Or sign up using</span>
               </div>
             </div>
 
@@ -213,9 +213,15 @@ export default function SignIn() {
               className="w-full rounded-none"
               onClick={() => login()}
               disabled={loginStatus === "loading"}
-            >
-              {/* <FcGoogle className="mr-2 h-5 w-5" /> */}
-              Continue with Google
+              >
+              
+              <Image 
+                src={googleLogo} 
+                alt="Google logo" 
+                width={20} 
+                height={20} 
+                className="mr-2" 
+              />
             </Button>
 
             <p className="text-center text-sm text-gray-500">
