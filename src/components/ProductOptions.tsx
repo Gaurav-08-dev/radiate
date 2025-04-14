@@ -43,8 +43,12 @@ export default function ProductOptions({
   
           }}
           value={selectedOptions[option.name || ""] || option.choices?.[0]?.description || ""}
+          aria-label={`Select ${option.name || "option"}`}
         >
-          <SelectTrigger className="min-w-fit md:h-16 max-h-fit rounded-none">
+          <SelectTrigger 
+            className="min-w-fit md:h-16 max-h-fit rounded-none"
+            aria-label={`${option.name || "Option"} selector`}
+          >
             <SelectValue placeholder={selectedOptions[option.name || ""] || option.choices?.[0]?.description || ""} />
           </SelectTrigger>
           <SelectContent>
@@ -56,9 +60,9 @@ export default function ProductOptions({
                   value={choice.description || ""}
                 >
                   {option.name?.toLowerCase() === 'color' ? (
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2" aria-label={`Color: ${choice.description}`}>
                       {choice.description?.includes('&') ? (
-                        <div className="h-4 w-4 overflow-hidden">
+                        <div className="h-4 w-4 overflow-hidden" aria-hidden="true">
                           <div className="flex h-full">
                             <div 
                               style={{ 
@@ -85,7 +89,8 @@ export default function ProductOptions({
                           style={{ 
                             backgroundColor: choice?.description?.toLowerCase()
                           }} 
-                          className="h-4 w-4" 
+                          className="h-4 w-4"
+                          aria-hidden="true"
                         />
                       )}
                       {choice.description}

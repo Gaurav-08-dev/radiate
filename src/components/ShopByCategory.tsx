@@ -21,7 +21,6 @@ export async function ShopByCategory() {
     collection.name?.toLowerCase().includes("product type"),
 );
 
-
   return (
     <div className="block w-full overflow-hidden md:hidden md:bg-[#faf5ff]">
       <div className="flex items-center justify-between">

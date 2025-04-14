@@ -1,0 +1,45 @@
+# robots.txt for https://www.letsradiate.in/
+
+User-agent: *
+Allow: /
+
+# Disallow admin and account areas
+Disallow: /admin/
+Disallow: /account/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /my-account/
+Disallow: /login/
+Disallow: /register/
+Disallow: /signin/
+Disallow: /signup/
+
+# Prevent crawling of search results and filtered pages
+Disallow: /search
+Disallow: /*?q=*
+Disallow: /*?sort=*
+Disallow: /*?filter=*
+Disallow: /*?page=*
+
+# Prevent crawling of duplicate content
+Disallow: /*?utm_source=*
+Disallow: /*?utm_medium=*
+Disallow: /*?utm_campaign=*
+
+# Prevent crawling of temporary or development areas
+Disallow: /dev/
+Disallow: /staging/
+Disallow: /test/
+Disallow: /tmp/
+
+# Allow important pages to be indexed
+Allow: /about-us
+Allow: /faq
+Allow: /terms&conditions
+Allow: /return-refund-policy
+Allow: /shop
+Allow: /products/
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.letsradiate.in/sitemap.xml
