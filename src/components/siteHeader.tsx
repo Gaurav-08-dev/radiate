@@ -12,31 +12,60 @@ import {
   getCollectionsForHeader,
   getCustomerFavorites,
   getCollectionsByScent,
+  getCollectionBySlug
 } from "@/wix-api/collections";
 import { MobileMenu } from "@/app/MobileMenu";
 import { Suspense } from "react";
 import { playfairDisplayt } from "@/app/layout";
-import { getCollectionBySlug } from "@/wix-api/collections";
 import { queryProducts } from "@/wix-api/products";
+import { cache } from "react";
 
-export async function SiteHeader() {
+// Create a single function to fetch all header data
+const getHeaderData = cache(async () => {
   const wixClient = getWixServerClient();
-  const [cart, loggedInMember, collections, customerFavorites, collectionsByScent, customerFavoritesCollection] = await Promise.all([
+  
+  const [
+    cart, 
+    loggedInMember, 
+    collections, 
+    customerFavorites, 
+    collectionsByScent, 
+    customerFavoritesCollection
+  ] = await Promise.all([
     getCart(wixClient),
     getLoggedInMember(wixClient),
     getCollectionsForHeader(wixClient),
     getCustomerFavorites(wixClient),
-      getCollectionsByScent(wixClient),
-      getCollectionBySlug(
-        wixClient,
-        "customer-favourites",
-      ),
-    ]);
+    getCollectionsByScent(wixClient),
+    getCollectionBySlug(wixClient, "customer-favourites"),
+  ]);
+  
+  const featuredProducts = customerFavoritesCollection?._id 
+    ? await queryProducts(wixClient, {
+        collectionIds: customerFavoritesCollection._id,
+        limit: 6, // Limit to improve performance
+      })
+    : { items: [] };
     
-    const featuredProducts = await queryProducts(wixClient, {
-      collectionIds: customerFavoritesCollection?._id ? customerFavoritesCollection?._id : undefined,
-    });
+  return {
+    cart,
+    loggedInMember,
+    collections,
+    customerFavorites,
+    collectionsByScent,
+    featuredProducts: featuredProducts.items
+  };
+});
 
+export async function SiteHeader() {
+  const {
+    cart,
+    loggedInMember,
+    collections,
+    customerFavorites,
+    collectionsByScent,
+    featuredProducts
+  } = await getHeaderData();
 
   return (
     <>
@@ -46,10 +75,10 @@ export async function SiteHeader() {
             <Suspense>
               <MobileMenu
                 collections={collectionsByScent}
-                featuredProducts={featuredProducts.items}
+                featuredProducts={featuredProducts}
               />
             </Suspense>
-            <SearchField className="w-auto" featuredProducts={featuredProducts.items} />
+            <SearchField className="w-auto" featuredProducts={featuredProducts} />
           </div>
           <Link href="/" className="flex items-center space-x-2">
             <div className="relative h-8 w-8 lg:h-12 lg:w-12">
@@ -77,14 +106,14 @@ export async function SiteHeader() {
           </div>
           <div className="flex items-center space-x-2 lg:space-x-4">
             <SearchField className="hidden max-w-96 lg:block" 
-            featuredProducts={featuredProducts.items}
+            featuredProducts={featuredProducts}
             />
             <UserButton
               className="pt-[3px] text-white outline-none"
               loggedInMember={loggedInMember}
             />
             <ShoppingCartButton initialData={cart} 
-            featuredProducts={featuredProducts.items}
+            featuredProducts={featuredProducts}
             />
           </div>
         </div>

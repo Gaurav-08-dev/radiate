@@ -14,25 +14,35 @@ import { getWixServerClient } from "@/lib/wix-client.server";
 import { montserrat, playfair } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { cache } from "react";
 
-export async function ProductGrid() {
+// Cache the data fetching function
+const getFeaturedProducts = cache(async () => {
   const wixServerClient = getWixServerClient();
   const collection = await getCollectionBySlug(
     wixServerClient,
     "customer-favourites",
   );
+  
   if (!collection) {
+    return { items: [] };
+  }
+
+  return await queryProducts(wixServerClient, {
+    collectionIds: collection._id ? collection._id : undefined,
+    limit: 8, // Limit the number of products to improve performance
+  });
+});
+
+export async function ProductGrid() {
+  const featuredProducts = await getFeaturedProducts();
+
+  if (!featuredProducts.items?.length) {
     return null;
   }
 
-  const featuredProducts = await queryProducts(wixServerClient, {
-    collectionIds: collection._id ? collection._id : undefined,
-  });
-
-  if (!featuredProducts.items.length) return null;
-
   return (
-    <div className="overflow-hidden px-0 md:px-4 pt-0 ">
+    <div className="overflow-hidden px-0 md:px-4 pt-0">
       <div className="flex items-center justify-between md:justify-center">
         <div className="h-[1px] w-[20%] bg-gray-200 block md:hidden" />
         <h1

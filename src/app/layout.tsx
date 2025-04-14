@@ -10,10 +10,16 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const playfairDisplayt = Playfair_Display({
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  weight: ["400", "500", "600", "700"],
 });
 
 export const montserrat = Montserrat({
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {

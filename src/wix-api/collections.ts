@@ -63,3 +63,23 @@ export const getCustomerFavorites = cache(
     return collection.items;
   },
 );
+
+export const getShopByCollections = cache(
+  async (wixClient: WixClient) => {
+    const [scentCollections, categoryCollections] = await Promise.all([
+      wixClient.collections
+        .queryCollections()
+        .hasSome("name", ["scent"])
+        .find(),
+      wixClient.collections
+        .queryCollections()
+        .hasSome("name", ["product type"])
+        .find()
+    ]);
+
+    return {
+      scentCollections: scentCollections.items,
+      categoryCollections: categoryCollections.items
+    };
+  }
+);

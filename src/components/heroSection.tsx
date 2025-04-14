@@ -3,7 +3,9 @@ import Image from "next/image";
 import banner from "@/assets/banner.jpg";
 import Link from "next/link";
 import { playfairDisplayt } from "@/app/layout";
-export function HeroSection() {
+
+export async function HeroSection() {
+  
   return (
     <section className="relative">
       <div className="flex flex-col md:grid md:grid-cols-2 md:grid-rows-1">
@@ -12,10 +14,10 @@ export function HeroSection() {
             src={banner}
             alt="Radiate Fragrances Display"
             className="object-cover object-right"
-            priority
-            // width={1000}
-            // height={1000}
-            // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority={true}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            width={1000}
+            height={1000}
           />
         </div>
 
@@ -32,7 +34,8 @@ export function HeroSection() {
           </p>
 
           <Link href="/shop">
-            <Button className="mt-2 h-12 w-3/4 mx-auto min-w-fit rounded-none bg-[#500769] px-8 py-6 text-xl text-white hover:bg-[#500769]/90 md:w-1/2 md:text-2xl">
+            <Button 
+            className="mt-2 h-12 w-3/4 mx-auto min-w-fit rounded-none bg-[#500769] px-8 py-6 text-xl text-white hover:bg-[#500769]/90 md:w-1/2 md:text-2xl">
               Find your scent
             </Button>
           </Link>

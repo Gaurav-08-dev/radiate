@@ -7,48 +7,91 @@ import { AboutSection } from "@/components/AboutSection";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ShopByCategory } from "@/components/ShopByCategory";
 import { ReviewSection } from "@/components/ReviewSection";
+
 export default function Home() {
   return (
     <>
       <main className="flex flex-col gap-0 md:gap-12 bg-[#F7F2FA]">
         <HeroSection />
-        <Suspense fallback={<StorySkeletonSection />}>
+        <Suspense fallback={<ProductGridSkeleton />}>
           <ProductGrid />
+        </Suspense>
+        <Suspense fallback={<SignatureSectionSkeleton />}>
           <SignatureSection />
         </Suspense>
-        <ShopByScent />
-        <ShopByCategory />
+        <Suspense fallback={<ShopByScentSkeleton />}>
+          <ShopByScent />
+        </Suspense>
+        <Suspense fallback={<ShopByCategorySkeleton />}>
+          <ShopByCategory />
+        </Suspense>
         <AboutSection />
-        <ReviewSection
-          headersText="What Our Customers Say"
-        />
+        <Suspense fallback={<ReviewSectionSkeleton />}>
+          <ReviewSection headersText="What Our Customers Say" />
+        </Suspense>
       </main>
     </>
   );
 }
 
-function StorySkeletonSection() {
+// Add appropriate skeleton components for each section
+function ProductGridSkeleton() {
   return (
-    <div className="relative w-full py-8 sm:py-12 md:py-16 lg:py-24">
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-          
-          <Skeleton className="mb-4 sm:mb-6 h-8 sm:h-10 md:h-12 w-8 sm:w-10 md:w-12 animate-pulse bg-gray-200" />
+    <div className="px-0 md:px-4 pt-0">
+      <div className="flex items-center justify-between md:justify-center">
+        <div className="h-[1px] w-[20%] bg-gray-200 block md:hidden" />
+        <h1 className="flex items-center justify-center gap-2 py-6 text-center font-serif text-2xl font-medium md:text-5xl lg:py-12">
+          Customer Favorites
+        </h1>
+        <div className="h-[1px] w-[20%] bg-gray-200 block md:hidden" />
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-4">
+        {[1, 2, 3, 4].map((i) => (
+          <Skeleton key={i} className="h-[350px] w-full rounded-lg" />
+        ))}
+      </div>
+    </div>
+  );
+}
 
-          <Skeleton className="mb-4 sm:mb-6 h-8 sm:h-9 md:h-10 w-[250px] sm:w-[300px] md:w-[400px] lg:w-[500px] animate-pulse bg-gray-200" />
-          
-          <div className="mb-8 sm:mb-10 md:mb-12 w-full space-y-1.5 sm:space-y-2">
-            <Skeleton className="h-3 sm:h-4 w-full bg-gray-200" />
-            <Skeleton className="h-3 sm:h-4 w-full bg-gray-200" />
-            <Skeleton className="h-3 sm:h-4 w-full bg-gray-200" />
-            <Skeleton className="mx-auto h-3 sm:h-4 w-[90%] sm:w-[85%] md:w-[80%] animate-pulse bg-gray-200" />
-          </div>
-          
-          <div className="flex w-full flex-col gap-4 sm:gap-6 md:gap-8 md:flex-row">
-            <Skeleton className="aspect-square w-full animate-pulse rounded-lg bg-gray-200 md:w-1/2" />
-            <Skeleton className="aspect-square w-full animate-pulse rounded-lg bg-gray-200 md:w-1/2" />
-          </div>
-        </div>
+function SignatureSectionSkeleton() {
+  return <Skeleton className="h-[400px] w-full" />;
+}
+
+function ShopByScentSkeleton() {
+  return (
+    <div className="px-4 py-8">
+      <Skeleton className="h-10 w-64 mx-auto mb-6" />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {[1, 2, 3, 4].map((i) => (
+          <Skeleton key={i} className="aspect-square w-full rounded-lg" />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ShopByCategorySkeleton() {
+  return (
+    <div className="px-4 py-8">
+      <Skeleton className="h-10 w-64 mx-auto mb-6" />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {[1, 2, 3, 4].map((i) => (
+          <Skeleton key={i} className="aspect-square w-full rounded-lg" />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ReviewSectionSkeleton() {
+  return (
+    <div className="px-4 py-8">
+      <Skeleton className="h-10 w-64 mx-auto mb-6" />
+      <div className="flex justify-center gap-4 overflow-hidden">
+        {[1, 2, 3].map((i) => (
+          <Skeleton key={i} className="h-[200px] w-[300px] rounded-lg" />
+        ))}
       </div>
     </div>
   );

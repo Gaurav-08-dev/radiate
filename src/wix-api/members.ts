@@ -13,6 +13,7 @@ export interface AddressProps {
 }
 
 let address: members.Address[] | [];
+
 export const getLoggedInMember = cache(
   async (wixClient: WixClient): Promise<members.Member | null> => {
     if (!wixClient.auth.loggedIn()) {
@@ -22,7 +23,7 @@ export const getLoggedInMember = cache(
     const memberData = await wixClient.members.getCurrentMember({
       fieldsets: [members.Set.FULL],
     });
-
+    
     address = memberData?.member?.contact?.addresses || [];
     return memberData.member || null;
   },

@@ -5,7 +5,8 @@ import {
   currentCart,
   orders,
   recommendations,
-  checkoutSettings
+  checkoutSettings,
+  orderInvoices
 } from "@wix/ecom";
 import { files } from "@wix/media";
 import { members } from "@wix/members";
@@ -30,7 +31,8 @@ export function getWixClient(tokens: Tokens | undefined) {
       members,
       files,
       checkoutSettings,
-      recovery
+      recovery,
+      orderInvoices
     },
     auth: OAuthStrategy({
       clientId: env.NEXT_PUBLIC_WIX_CLIENT_ID,
