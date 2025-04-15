@@ -33,6 +33,7 @@ import { wixBrowserClient } from "@/lib/wix-client.browser";
 import { products } from "@wix/stores";
 import WixImage from "@/components/WixImage";
 import { AddToCartButton } from "@/components/AddToCartButton";
+import { Linkedin } from "lucide-react";
 
 interface MobileMenuProps {
   className?: string;
@@ -158,7 +159,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
           side="left"
           className="w-[85%] max-w-md overflow-y-auto rounded-none bg-[#F7F2FA] shadow-xl outline-none"
         >
-          <SheetHeader className="relative flex w-full items-start">
+          {/* <SheetHeader className="relative flex w-full items-start"> */}
             {/* <div className="relative min-w-[95%]">
               <input
                 type="search"
@@ -183,7 +184,7 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
                 />
               </svg>
             </div> */}
-          </SheetHeader>
+          {/* </SheetHeader> */}
           <div className="scrollbar-hide mt-4 flex max-h-[90%] flex-col items-start space-y-3 overflow-y-auto [&::-webkit-scrollbar]:hidden">
             {searchQuery.trim() ? (
               <div className="w-full">
@@ -541,6 +542,12 @@ export function MobileMenu({ collections, featuredProducts }: MobileMenuProps) {
                     >
                       <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
                     </svg>
+                  </Link>
+                  <Link
+                    href="https://www.linkedin.com/company/letsradiate/"
+                    className="text-gray-800 hover:text-gray-600"
+                  >
+                    <Linkedin className="h-6 w-6" />
                   </Link>
                 </div>
               </div>
