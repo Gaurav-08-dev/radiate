@@ -5,6 +5,7 @@ import {
   MailIcon as Mail,
   PhoneIcon as Phone,
   Youtube,
+  Linkedin,
 } from "lucide-react";
 import { cn, playfair } from "@/lib/utils";
 import { PHONE_NUMBER } from "@/lib/constants";
@@ -100,7 +101,6 @@ export function SiteFooter({ className }: { className?: string }) {
             >
               <Youtube className="h-6 w-6" />
             </a>
-
             <a
               title="Facebook"
               href="https://www.facebook.com/people/Radiate-Candles/61562013155559/"
@@ -109,6 +109,15 @@ export function SiteFooter({ className }: { className?: string }) {
               className="hover:opacity-80"
             >
               <Facebook className="h-5 w-5" />
+            </a>
+            <a
+              title="LinkedIn"
+              href="https://www.linkedin.com/company/letsradiate/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-80"
+            >
+              <Linkedin className="h-5 w-5" />
             </a>
           </div>
         </div>
@@ -141,6 +150,15 @@ export function SiteFooter({ className }: { className?: string }) {
             className="hover:opacity-80"
           >
             <Facebook className="h-5 w-5" />
+          </a>
+          <a
+            title="LinkedIn"
+            href="https://www.linkedin.com/company/letsradiate/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:opacity-80"
+          >
+            <Linkedin className="h-5 w-5" />
           </a>
         </div>
       </div>
