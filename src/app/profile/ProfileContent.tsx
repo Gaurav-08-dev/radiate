@@ -2,7 +2,7 @@
 import MemberInfoForm from "./MemberInfoForm";
 import Orders from "./Orders";
 import { members } from "@wix/members";
-import AddressBook from "./AddressBook";
+// import AddressBook from "./AddressBook";
 
 export default function ProfileContent({ member, activeSection }: { member: members.Member, activeSection: string }) {
     
@@ -14,7 +14,7 @@ export default function ProfileContent({ member, activeSection }: { member: memb
       <div className="md:col-span-3">
         {activeSection === "info" && <MemberInfoForm member={member} />}
         {activeSection === "orders" && <Orders />}
-        {activeSection === "address" && <AddressBook member={member} />}
+        {/* {activeSection === "address" && <AddressBook member={member} />} */}
       </div>
     </>
   );

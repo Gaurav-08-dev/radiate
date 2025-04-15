@@ -214,7 +214,7 @@ export default function SignIn() {
               onClick={() => login()}
               disabled={loginStatus === "loading"}
               >
-              
+              Continue with Google
               <Image 
                 src={googleLogo} 
                 alt="Google logo" 

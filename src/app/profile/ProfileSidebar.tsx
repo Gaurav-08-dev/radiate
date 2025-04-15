@@ -15,7 +15,7 @@ const navItems: NavItem[] = [
     icon: <UserCircle className={`mr-3`} />,
   },
   { id: "orders", label: "MY ORDERS", icon: <History className={`mr-3`} /> },
-  { id: "address", label: "ADDRESS BOOK", icon: <MapPin className={`mr-3`} /> },
+  // { id: "address", label: "ADDRESS BOOK", icon: <MapPin className={`mr-3`} /> },
 ];
 
 export default function ProfileSidebar({
