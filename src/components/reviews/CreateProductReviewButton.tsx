@@ -4,7 +4,6 @@ import { products } from "@wix/stores";
 import { members } from "@wix/members";
 import { Button } from "@/components/ui/button";
 import CreateProductReviewDialog from "./CreateProductReviewDialog";
-import useAuth from "@/hooks/auth";
 
 import {
   Dialog,
@@ -14,7 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { playfair } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 interface CreateProductReviewButtonProps {
   product: products.Product;
@@ -25,7 +24,7 @@ export default function CreateProductReviewButton({
   product,
   loggedInMember,
 }: CreateProductReviewButtonProps) {
-  const { login } = useAuth();
+  const router = useRouter();
 
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
@@ -34,10 +33,10 @@ export default function CreateProductReviewButton({
     <div className="flex justify-center">
       <Button
         // disabled={!loggedInMember}
-        onClick={() => loggedInMember ? setShowReviewForm(true) : login()}
+        onClick={() => loggedInMember ? setShowReviewForm(true) : router.push("/signin")}
         className="bg-[#500769] text-white rounded-none hover:bg-[#500769]/80"
       >
-        {loggedInMember ? "Write a review" : "Login to write a review"}
+        {loggedInMember ? "Write a review" : "SignIn to write a review"}
       </Button>
       <CreateProductReviewDialog
         product={product}
