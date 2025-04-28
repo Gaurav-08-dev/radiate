@@ -28,6 +28,17 @@ export const metadata: Metadata = {
   verification: {
     google: "UzJRr2g4h1L24L5VCcC3aaR0k87-qWHGQbUlwh0cilc",
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  }
 };
 
 export default function RootLayout({
