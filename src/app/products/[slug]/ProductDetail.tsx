@@ -8,7 +8,6 @@ import { Check } from "lucide-react";
 import { playfair } from "@/lib/utils";
 // import BuyNowButton from "@/components/BuyNowButton";
 import ProductOptions from "@/components/ProductOptions";
-// import ProductOptions from "@/components/ProductOptions";
 import { EmblaCarouselType } from "embla-carousel";
 import {
   Carousel,
@@ -25,7 +24,6 @@ import {
   FacebookIcon,
   WhatsappShareButton,
   WhatsappIcon,
-  InstagramIcon,
 } from 'next-share'
 interface ProductDetailProps {
   product: products.Product;
