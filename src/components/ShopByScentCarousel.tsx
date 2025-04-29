@@ -107,7 +107,7 @@ const ShopByScentCarousel = ({
               type="button"
               key={index}
               className={`h-2 w-2 rounded-full transition-colors ${
-                index === currentIndex ? "bg-gray-800" : "bg-gray-300"
+                index === currentIndex ? "bg-[#500769]" : "bg-gray-300"
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
