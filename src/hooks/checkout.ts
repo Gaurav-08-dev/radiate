@@ -20,7 +20,7 @@ export function useCartCheckout() {
       setPending(false);
       console.error(error);
       toast({
-        title: "Failed to load checkout. Please try again later.",
+        title: "Failed to load checkout. Please try again later or try clearing your browser cache",
         variant: "destructive",
       });
     }

@@ -57,7 +57,7 @@ export function ShoppingCartButton({
   );
 
   // @ts-ignore
-  const totalPriceAfterDiscountWithGST = totalPriceAfterDiscount + (totalPriceAfterDiscount > MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING ? 0 : 80);
+  const totalPriceAfterDiscountWithGST = totalPriceAfterDiscount + (totalPriceAfterDiscount >= MINIMUM_ORDER_AMOUNT_FOR_FREE_SHIPPING ? 0 : 80);
 
   return (
     <>
