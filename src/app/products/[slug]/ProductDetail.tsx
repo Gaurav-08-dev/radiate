@@ -275,12 +275,11 @@ export default function ProductDetails({ product }: ProductDetailProps) {
                 __html: product.description || "",
               }}
             />
-
             {product.description && product.description.length > 100 && (
               <button
                 type="button"
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="ml-1 inline-block text-sm font-medium text-[#500769] hover:underline md:hidden"
+                className="ml-1 inline-block text-sm font-medium text-[#500769] hover:underline"
               >
                 {isExpanded ? "Read Less" : "Read More"}
               </button>
