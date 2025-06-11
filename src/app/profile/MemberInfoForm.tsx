@@ -183,6 +183,13 @@ export default function MemberInfoForm({ member }: MemberInfoFormProps) {
                         placeholder="Phone Number"
                         {...field}
                         className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                        type="tel"
+                        pattern="[0-9]{10}"
+                        maxLength={10}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/\D/g, "");
+                          field.onChange(value);
+                        }}
                       />
                     </div>
                   </FormControl>
