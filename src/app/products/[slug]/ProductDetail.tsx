@@ -6,7 +6,6 @@ import ProductDescription from "@/components/ProductDescription";
 import { AddToCartButton } from "@/components/AddToCartButton";
 import { Check } from "lucide-react";
 import { playfair } from "@/lib/utils";
-// import BuyNowButton from "@/components/BuyNowButton";
 import ProductOptions from "@/components/ProductOptions";
 import { EmblaCarouselType } from "embla-carousel";
 import {
@@ -30,7 +29,6 @@ interface ProductDetailProps {
 }
 
 export default function ProductDetails({ product }: ProductDetailProps) {
-  
   const [api, setApi] = useState<CarouselApi>();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -42,8 +40,6 @@ export default function ProductDetails({ product }: ProductDetailProps) {
       }))
       ?.reduce((acc, option) => ({ ...acc, ...option }), {}) || {},
   );
-  // const [currentImage, setCurrentImage] = useState('');
-  // const mainImage = product.media?.mainMedia?.image;
 
   const [quantity, setQuantity] = useState(1);
 
@@ -83,10 +79,6 @@ export default function ProductDetails({ product }: ProductDetailProps) {
   const ribbon = product.ribbon;
   const isInStock = product?.stock?.quantity && product?.stock?.quantity > 0;
 
-  //   const availableQuantity = product.stock?.quantity;
-  //   const availableQuantityExceeded = !!availableQuantity && quantity > availableQuantity;
-  //   const inStock = checkInStock(product, selectedOptions); 3:57:57
-
   const handleScroll = useCallback((emblaApi:EmblaCarouselType) => {
     setCurrentIndex(emblaApi.selectedScrollSnap())
     api?.off("scroll",handleScroll)
@@ -105,12 +97,10 @@ export default function ProductDetails({ product }: ProductDetailProps) {
   const shareMenuRef = useRef<HTMLDivElement>(null);
   const shareButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Add this function to handle share button click
   const handleShareClick = () => {
     setShowShareMenu(!showShareMenu);
   };
   
-  // Add this effect to handle outside clicks
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -139,11 +129,8 @@ export default function ProductDetails({ product }: ProductDetailProps) {
       (choice) => choice.description === selectedOptions.Color,
     );
     // @ts-ignore
-    // setCurrentImage(selectedOption?.media?.mainMedia?.image || mainImage);
     
-    // If a color is selected with a specific image, update the carousel
     if (selectedOption?.media?.mainMedia?.image) {
-      // Find the index of the image in the imagesList
       const imageIndex = imagesList?.findIndex(
         // @ts-ignore
         (img) => img?.image?.url === selectedOption?.media?.mainMedia?.image?.url
@@ -154,9 +141,8 @@ export default function ProductDetails({ product }: ProductDetailProps) {
     }
   }, [selectedOptions]);
 
-  // Add a new useEffect to set the initial image when component mounts
+  
   useEffect(() => {
-    // Set initial image based on the default selected option or main image
     if (product.productOptions?.length) {
       const colorOption = product.productOptions.find(option => option.name === "Color");
       if (colorOption && selectedOptions.Color) {
@@ -164,11 +150,9 @@ export default function ProductDetails({ product }: ProductDetailProps) {
           choice => choice.description === selectedOptions.Color
         );
         // @ts-ignore
-        // setCurrentImage(initialOption?.media?.mainMedia?.image || mainImage);
         
-        // If a color is selected with a specific image, update the carousel
         if (initialOption?.media?.mainMedia?.image && api) {
-          // Find the index of the image in the imagesList
+          
           const imageIndex = imagesList?.findIndex(
             // @ts-ignore
             (img) => img?.image?.url === initialOption?.media?.mainMedia?.image?.url
@@ -179,12 +163,12 @@ export default function ProductDetails({ product }: ProductDetailProps) {
         }
       } 
     } 
-  }, [api]); // Include api in dependencies so this runs after carousel is initialized
+  }, [api]);
 
   return (
     <div className="container mx-auto px-0 pt-0 md:px-40 md:pt-20">
       <div className="flex flex-col gap-6 md:flex-row md:gap-12">
-        {/* Mobile layout - Image section */}
+        
         <div className="w-full space-y-4 md:w-[40%]">
           <div className="relative aspect-square max-h-fit max-w-full overflow-hidden rounded-none md:max-w-fit">
             <Carousel
@@ -241,14 +225,14 @@ export default function ProductDetails({ product }: ProductDetailProps) {
             {product.name}
           </h1>
 
-          {/* Ribbon - moved up for mobile */}
+          
           {ribbon && (
             <span className="inline-block rounded-none bg-red-600 px-2 py-1 text-center text-sm font-medium text-white">
               {ribbon?.trim()}
             </span>
           )}
 
-          {/* Features list - moved up for mobile */}
+          
           {featuresList && (
             <div className="flex flex-wrap gap-3 md:gap-4">
               {featuresList?.split(",").map((feature, i) => (
@@ -267,7 +251,7 @@ export default function ProductDetails({ product }: ProductDetailProps) {
             </div>
           )}
 
-          {/* Description - moved up for mobile */}
+          
           <div>
             <div
               className={`${isExpanded ? "" : "line-clamp-3"}`}
@@ -285,12 +269,6 @@ export default function ProductDetails({ product }: ProductDetailProps) {
               </button>
             )}
           </div>
-          {/* <div
-            className="space-y-3 md:space-y-4 text-sm md:text-base text-gray-600"
-            dangerouslySetInnerHTML={{
-              __html: product.description || "",
-            }}
-          /> */}
 
           <div className="h-[1px] w-full bg-gray-200" />
 
