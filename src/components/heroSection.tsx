@@ -12,7 +12,7 @@ export async function HeroSection() {
         <div className="relative order-1 h-fit md:order-2 md:h-[500px] lg:h-fit overflow-hidden">
           <Image
             src={banner}
-            alt="Radiate Fragrances Display"
+            alt="Radiate's bestselling scented soy candles Purple Haze, Chocolate Fudge, Symphony, cactus and swirl pillar candles for gifting, home decor, self-care , aromatherapy"
             className="object-cover object-right"
             priority={true}
             sizes="(max-width: 768px) 100vw, 50vw"

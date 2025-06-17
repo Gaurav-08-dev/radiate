@@ -5,6 +5,21 @@ import ProductGridUnit from "@/components/ProductGridUnit";
 import { ProductSort, queryProducts } from "@/wix-api/products";
 import { notFound } from "next/navigation";
 import PaginationBar from "@/components/PaginationBar";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Buy Best Scented Candles & Gifts | Radiate Shop",
+  description:'Shop all handmade soy wax scented candles—jars, pillars and romantic gift sets. Soot-free, long-lasting, perfect for self-care and gifting',
+
+  openGraph: {
+    title: "Buy Best Scented Candles & Gifts | Radiate Shop",
+    description: 'Shop all handmade soy wax scented candles—jars, pillars and romantic gift sets. Soot-free, long-lasting, perfect for self-care and gifting',
+  },
+  twitter: {
+    title: "Buy Best Scented Candles & Gifts | Radiate Shop",
+    description: 'Shop all handmade soy wax scented candles—jars, pillars and romantic gift sets. Soot-free, long-lasting, perfect for self-care and gifting',
+  },
+};
 
 interface PageProps {
   searchParams: {

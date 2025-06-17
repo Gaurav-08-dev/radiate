@@ -4,6 +4,24 @@ import AboutUsImage from "@/assets/right.jpg";
 import safe from "@/assets/sustainably-sourced.png";
 import madeInIndia from "@/assets/made-in-india.png";
 import { ReviewSection } from "@/components/ReviewSection";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Radiate Candles | Our Story & Mission",
+  description:
+    "Discover Radiate—India's women-led brand for handmade scented candles rooted in self-care, Indian fragrances & toxin-free quality",
+
+  openGraph: {
+    title: "About Radiate Candles | Our Story & Mission",
+    description:
+      "Discover Radiate—India's women-led brand for handmade scented candles rooted in self-care, Indian fragrances & toxin-free quality",
+  },
+  twitter: {
+    title: "About Radiate Candles | Our Story & Mission",
+    description:
+      "Discover Radiate—India's women-led brand for handmade scented candles rooted in self-care, Indian fragrances & toxin-free quality",
+  },
+};
 
 export default function AboutUs() {
   return (
@@ -15,44 +33,44 @@ export default function AboutUs() {
           </div>
 
           {/* Main Heading */}
-            <h1 className="px-4 mb-4 text-center font-serif text-3xl italic md:text-4xl">
+          <h1 className="mb-4 px-4 text-center font-serif text-3xl italic md:text-4xl">
             Crafted with love, rooted in India
           </h1>
 
           {/* Subheading */}
-            <p className="px-4 mb-8 max-w-2xl text-center text-gray-700">
+          <p className="mb-8 max-w-2xl px-4 text-center text-gray-700">
             A homegrown, women-led brand creating handcrafted products inspired
             by Indian traditions and self-care rituals
           </p>
 
           {/* Image Section */}
-          <div className="px-4 mb-10 w-full max-w-2xl flex justify-center">
+          <div className="mb-10 flex w-full max-w-2xl justify-center px-4">
             <Image
               src={AboutUsImage}
               alt="Candle making process"
               width={400}
               height={300}
-              className="w-[400px] h-[300px] object-cover"
+              className="h-[300px] w-[400px] object-cover"
             />
           </div>
 
           {/* Experience Section */}
-          <h2 className="px-4 mb-4 text-center font-serif text-2xl italic">
+          <h2 className="mb-4 px-4 text-center font-serif text-2xl italic">
             More than just products, we create experiences
           </h2>
-          <p className="px-4 mb-10 max-w-2xl text-center text-gray-700">
+          <p className="mb-10 max-w-2xl px-4 text-center text-gray-700">
             Every fragrance, every product is designed to bring warmth, love,
             and meaning into your everyday moments.
           </p>
 
           {/* Values Section */}
-          
-          <div className="py-2 px-0 text-xs mb-10 flex w-full justify-center gap-4 bg-[#500769] text-white md:flex-row flex-col items-center md:items-start overflow-hidden relative">
+
+          <div className="relative mb-10 flex w-full flex-col items-center justify-center gap-4 overflow-hidden bg-[#500769] px-0 py-2 text-xs text-white md:flex-row md:items-start">
             {/* Mobile carousel animation wrapper */}
-            <div className="flex md:hidden w-full overflow-hidden">
-              <div className="animate-carousel flex gap-4 items-center">
+            <div className="flex w-full overflow-hidden md:hidden">
+              <div className="flex animate-carousel items-center gap-4">
                 {/* First set of items */}
-                <div className="flex items-center gap-2 min-w-max px-4">
+                <div className="flex min-w-max items-center gap-2 px-4">
                   <div className="text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +83,7 @@ export default function AboutUs() {
                   </div>
                   <span className="font-medium">Handcrafted with care</span>
                 </div>
-                <div className="flex items-center gap-2 min-w-max px-4">
+                <div className="flex min-w-max items-center gap-2 px-4">
                   <div className="text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -82,21 +100,27 @@ export default function AboutUs() {
                   </div>
                   <span className="font-medium">Sustainably sourced</span>
                 </div>
-                <div className="flex items-center gap-2 min-w-max px-4">
-                  <div className="text-white font-bold">
+                <div className="flex min-w-max items-center gap-2 px-4">
+                  <div className="font-bold text-white">
                     <Image src={safe} alt="Safe" className="h-6 w-6" />
                   </div>
                   <span className="font-medium">Safe & toxin-free</span>
                 </div>
-                <div className="flex items-center gap-2 min-w-max px-4">
+                <div className="flex min-w-max items-center gap-2 px-4">
                   <div className="text-white">
-                    <Image src={madeInIndia} alt="Made for India" className="h-6 w-6" />
+                    <Image
+                      src={madeInIndia}
+                      alt="Made for India"
+                      className="h-6 w-6"
+                    />
                   </div>
-                  <span className="font-medium">Made for Indian preferences</span>
+                  <span className="font-medium">
+                    Made for Indian preferences
+                  </span>
                 </div>
-                
+
                 {/* Duplicate items for seamless looping - exact copies of the above */}
-                <div className="flex items-center gap-2 min-w-max px-4">
+                <div className="flex min-w-max items-center gap-2 px-4">
                   <div className="text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +133,7 @@ export default function AboutUs() {
                   </div>
                   <span className="font-medium">Handcrafted with care</span>
                 </div>
-                <div className="flex items-center gap-2 min-w-max px-4">
+                <div className="flex min-w-max items-center gap-2 px-4">
                   <div className="text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -126,21 +150,27 @@ export default function AboutUs() {
                   </div>
                   <span className="font-medium">Sustainably sourced</span>
                 </div>
-                <div className="flex items-center gap-2 min-w-max px-4">
-                  <div className="text-white font-bold">
+                <div className="flex min-w-max items-center gap-2 px-4">
+                  <div className="font-bold text-white">
                     <Image src={safe} alt="Safe" className="h-6 w-6" />
                   </div>
                   <span className="font-medium">Safe & toxin-free</span>
                 </div>
-                <div className="flex items-center gap-2 min-w-max px-4">
+                <div className="flex min-w-max items-center gap-2 px-4">
                   <div className="text-white">
-                    <Image src={madeInIndia} alt="Made for India" className="h-6 w-6" />
+                    <Image
+                      src={madeInIndia}
+                      alt="Made for India"
+                      className="h-6 w-6"
+                    />
                   </div>
-                  <span className="font-medium">Made for Indian preferences</span>
+                  <span className="font-medium">
+                    Made for Indian preferences
+                  </span>
                 </div>
               </div>
             </div>
-            
+
             {/* Desktop static display */}
             <div className="hidden md:flex md:gap-4">
               <div className="flex items-center gap-2">
@@ -174,14 +204,18 @@ export default function AboutUs() {
                 <span className="font-medium">Sustainably sourced</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="text-white font-bold">
+                <div className="font-bold text-white">
                   <Image src={safe} alt="Safe" className="h-6 w-6" />
                 </div>
                 <span className="font-medium">Safe & toxin-free</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="text-white">
-                  <Image src={madeInIndia} alt="Made for India" className="h-6 w-6" />
+                  <Image
+                    src={madeInIndia}
+                    alt="Made for India"
+                    className="h-6 w-6"
+                  />
                 </div>
                 <span className="font-medium">Made for Indian preferences</span>
               </div>
@@ -189,46 +223,51 @@ export default function AboutUs() {
           </div>
 
           {/* Built for India Section */}
-          <h2 className="px-4 mb-4 text-center font-serif text-2xl italic">
+          <h2 className="mb-4 px-4 text-center font-serif text-2xl italic">
             Built for India, by India
           </h2>
-          <p className="px-4 mb-10 max-w-2xl text-center text-gray-700">
+          <p className="mb-10 max-w-2xl px-4 text-center text-gray-700">
             Unlike mass-produced imports, our products are designed keeping in
             mind Indian culture, traditions, and preferences.
           </p>
 
           {/* Certifications Grid */}
-          <div className="px-4 grid w-full max-w-2xl grid-cols-2 gap-6 md:grid-cols-2">
+          <div className="grid w-full max-w-2xl grid-cols-2 gap-6 px-4 md:grid-cols-2">
             <div className="rounded-md bg-[#f8f8f8] p-4 shadow-md">
-              <h3 className="text-center text-xs mb-2 font-medium text-purple-800">
+              <h3 className="mb-2 text-center text-xs font-medium text-purple-800">
                 Registered Trademark & GST Certified
               </h3>
-              <p className="text-gray-600 text-center text-xs">Authenticity you can trust</p>
+              <p className="text-center text-xs text-gray-600">
+                Authenticity you can trust
+              </p>
             </div>
             <div className="rounded-md bg-[#f8f8f8] p-4 shadow-md">
-              <h3 className="text-center text-xs mb-2 font-medium text-purple-800">
+              <h3 className="mb-2 text-center text-xs font-medium text-purple-800">
                 Ancient Indian Fragrance Knowledge
               </h3>
-              <p className="text-gray-600 text-center text-xs">
+              <p className="text-center text-xs text-gray-600">
                 Blends that enhance mood & well-being
               </p>
             </div>
             <div className="rounded-md bg-[#f8f8f8] p-4 shadow-md">
-              <h3 className="text-center text-xs mb-2 font-medium text-purple-800">
+              <h3 className="mb-2 text-center text-xs font-medium text-purple-800">
                 In-House Production
               </h3>
-              <p className="text-gray-600 text-center text-xs">Quality control at every step</p>
+              <p className="text-center text-xs text-gray-600">
+                Quality control at every step
+              </p>
             </div>
             <div className="rounded-md bg-[#f8f8f8] p-4 shadow-md">
-              <h3 className="text-center text-xs mb-2 font-medium text-purple-800">
+              <h3 className="mb-2 text-center text-xs font-medium text-purple-800">
                 Community-Driven
               </h3>
-              <p className="text-gray-600 text-center text-xs">Following sustainable practices</p>
+              <p className="text-center text-xs text-gray-600">
+                Following sustainable practices
+              </p>
             </div>
           </div>
 
           <div className="mb-6 mt-12 px-4">
-            
             <div className="flex justify-center space-x-8">
               {/* Instagram */}
               <a
@@ -255,7 +294,7 @@ export default function AboutUs() {
                 href="https://www.youtube.com/@letsradiate-in"
                 target="_blank"
                 rel="noopener noreferrer"
-                  className="text-[#500769] transition-colors"
+                className="text-[#500769] transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -289,9 +328,7 @@ export default function AboutUs() {
             </div>
           </div>
 
-          <ReviewSection 
-            headersText="Join those who love Radiate"
-          />
+          <ReviewSection headersText="Join those who love Radiate" />
         </div>
       </div>
     </main>

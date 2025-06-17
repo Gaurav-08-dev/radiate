@@ -1,6 +1,24 @@
 import { getCheckoutPolicies } from "@/wix-api/checkout";
 import { getWixServerClient } from "@/lib/wix-client.server";
 import { Suspense } from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms & Conditions | Radiate",
+  description:
+    "Review the terms and conditions for using Radiate’s website and services",
+
+  openGraph: {
+    title: "Terms & Conditions | Radiate",
+    description:
+      "Review the terms and conditions for using Radiate’s website and services",
+  },
+  twitter: {
+    title: "Terms & Conditions | Radiate",
+    description:
+      "Review the terms and conditions for using Radiate’s website and services",
+  },
+};
 export default async function TermsAndConditions() {
   const checkoutPolicies = await getCheckoutPolicies(getWixServerClient());
   const checkoutSettings = checkoutPolicies?.checkoutSettings;
