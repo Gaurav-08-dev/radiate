@@ -15,6 +15,14 @@ export const metadata: Metadata = {
     title: "About Radiate Candles | Our Story & Mission",
     description:
       "Discover Radiate—India's women-led brand for handmade scented candles rooted in self-care, Indian fragrances & toxin-free quality",
+    images: [
+      {
+        url: `${AboutUsImage.src}`,
+        width: 1200,
+        height: 630,
+        alt: "About Radiate Candles | Our Story & Mission",
+      },
+    ],
   },
   twitter: {
     title: "About Radiate Candles | Our Story & Mission",

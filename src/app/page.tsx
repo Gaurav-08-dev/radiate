@@ -7,6 +7,30 @@ import { AboutSection } from "@/components/AboutSection";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ShopByCategory } from "@/components/ShopByCategory";
 import { ReviewSection } from "@/components/ReviewSection";
+import { Metadata } from "next";
+import banner from "@/assets/banner.jpg";
+
+export const metadata: Metadata = {
+  title: "Buy Best Scented Candles & Gifts | Radiate Shop",
+  description:'Shop all handmade soy wax scented candles—jars, pillars and romantic gift sets. Soot-free, long-lasting, perfect for self-care and gifting',
+
+  openGraph: {
+    title: "Buy Best Scented Candles & Gifts | Radiate Shop",
+    description: 'Shop all handmade soy wax scented candles—jars, pillars and romantic gift sets. Soot-free, long-lasting, perfect for self-care and gifting',
+    images: [
+      {
+        url: `${banner?.src}`,
+        width: 1200,
+        height: 630,
+        alt: "Buy Best Scented Candles & Gifts | Radiate Shop",
+      },
+    ],
+  },
+  twitter: {
+    title: "Buy Best Scented Candles & Gifts | Radiate Shop",
+    description: 'Shop all handmade soy wax scented candles—jars, pillars and romantic gift sets. Soot-free, long-lasting, perfect for self-care and gifting',
+  },
+};
 
 export default function Home() {
   return (
