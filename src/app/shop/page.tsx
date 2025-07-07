@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import PaginationBar from "@/components/PaginationBar";
 import { Metadata } from "next";
 import banner from "@/assets/banner.jpg";
+
 export const metadata: Metadata = {
   title: "Buy Best Scented Candles & Gifts | Radiate Shop",
   description:'Shop all handmade soy wax scented candles—jars, pillars and romantic gift sets. Soot-free, long-lasting, perfect for self-care and gifting',
